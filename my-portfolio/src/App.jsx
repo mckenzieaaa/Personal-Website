@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import ThreeScene from './components/ThreeScene'
+import projectsData from './data/projects.json'
 import './App.css'
 
 function App() {
+  const [projects, setProjects] = useState([])
+
+  useEffect(() => {
+    // Load projects data
+    setProjects(projectsData.filter(project => project.featured))
+  }, [])
+
   return (
     <div style={{ fontFamily: 'Arial, sans-serif', color: 'white' }}>
       {/* Header with personal info */}
@@ -134,25 +142,142 @@ function App() {
           <h2 style={{ fontSize: '2.5rem', marginBottom: '60px', letterSpacing: '2px', textAlign: 'center' }}>Featured Work</h2>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
             gap: '40px'
           }}>
-            {[1, 2, 3].map((i) => (
-              <div key={i} style={{
+            {projects.map((project) => (
+              <div key={project.id} style={{
                 background: 'rgba(255,255,255,0.05)',
                 padding: '30px',
-                borderRadius: '10px',
+                borderRadius: '15px',
                 border: '1px solid rgba(255,255,255,0.1)',
-                transition: 'transform 0.3s ease',
-                cursor: 'pointer'
+                transition: 'all 0.3s ease',
+                cursor: 'pointer',
+                backdropFilter: 'blur(10px)'
+              }} 
+              onMouseEnter={(e) => {
+                e.target.style.transform = 'translateY(-10px)'
+                e.target.style.boxShadow = '0 20px 40px rgba(136,170,255,0.2)'
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.transform = 'translateY(0)'
+                e.target.style.boxShadow = 'none'
               }}>
-                <h3 style={{ fontSize: '1.5rem', marginBottom: '15px' }}>Project {i}</h3>
-                <p style={{ opacity: 0.7, lineHeight: '1.6' }}>
-                  A creative treasure discovered through exploration and innovation. 
-                  This project showcases the intersection of technology and artistry.
+                
+                {/* Project Image Placeholder */}
+                <div style={{
+                  width: '100%',
+                  height: '200px',
+                  background: 'linear-gradient(135deg, #88aaff, #0066cc)',
+                  borderRadius: '10px',
+                  marginBottom: '20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '1rem',
+                  opacity: 0.7
+                }}>
+                  Project Image
+                </div>
+
+                <h3 style={{ fontSize: '1.5rem', marginBottom: '15px', color: '#88aaff' }}>
+                  {project.title}
+                </h3>
+                
+                <p style={{ opacity: 0.7, lineHeight: '1.6', marginBottom: '20px' }}>
+                  {project.description}
                 </p>
+
+                {/* Technologies */}
+                <div style={{ marginBottom: '20px' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                    {project.technologies.map((tech, index) => (
+                      <span key={index} style={{
+                        background: 'rgba(136,170,255,0.2)',
+                        padding: '4px 12px',
+                        borderRadius: '20px',
+                        fontSize: '0.8rem',
+                        border: '1px solid rgba(136,170,255,0.3)'
+                      }}>
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Project Links */}
+                <div style={{ display: 'flex', gap: '15px' }}>
+                  <a href={project.pdfUrl} target="_blank" rel="noopener noreferrer" style={{
+                    color: '#88aaff',
+                    textDecoration: 'none',
+                    fontSize: '0.9rem',
+                    padding: '8px 16px',
+                    border: '1px solid #88aaff',
+                    borderRadius: '20px',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.background = '#88aaff'
+                    e.target.style.color = '#000'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.background = 'transparent'
+                    e.target.style.color = '#88aaff'
+                  }}>
+                    View PDF
+                  </a>
+                  
+                  {project.liveUrl !== "#" && (
+                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" style={{
+                      color: '#88aaff',
+                      textDecoration: 'none',
+                      fontSize: '0.9rem',
+                      padding: '8px 16px',
+                      border: '1px solid rgba(136,170,255,0.5)',
+                      borderRadius: '20px',
+                      transition: 'all 0.3s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.borderColor = '#88aaff'
+                      e.target.style.background = 'rgba(136,170,255,0.1)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.borderColor = 'rgba(136,170,255,0.5)'
+                      e.target.style.background = 'transparent'
+                    }}>
+                      Live Demo
+                    </a>
+                  )}
+                </div>
               </div>
             ))}
+          </div>
+
+          {/* View All Projects Button */}
+          <div style={{ textAlign: 'center', marginTop: '60px' }}>
+            <button style={{
+              background: 'transparent',
+              border: '2px solid #88aaff',
+              color: '#88aaff',
+              padding: '12px 30px',
+              borderRadius: '30px',
+              fontSize: '1rem',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              letterSpacing: '1px'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.background = '#88aaff'
+              e.target.style.color = '#000'
+              e.target.style.transform = 'scale(1.05)'
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.background = 'transparent'
+              e.target.style.color = '#88aaff'
+              e.target.style.transform = 'scale(1)'
+            }}>
+              View All Projects
+            </button>
           </div>
         </div>
       </section>

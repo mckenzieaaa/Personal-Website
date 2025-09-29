@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "title": "Virtual Soul",
+    "description": "An immersive digital exploration of consciousness and identity in virtual spaces. This project investigates the boundaries between digital and physical existence through interactive media.",
+    "image": "/Personal-Website/images/project1.jpg",
+    "pdfUrl": "/Personal-Website/images/1-Virtual Soul.pdf",
+    "technologies": ["Interactive Media", "Virtual Reality", "Digital Art", "Conceptual Design"],
+    "liveUrl": "#",
+    "githubUrl": "#",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "title": "Nether Portal",
+    "description": "A gateway between dimensions - exploring liminal spaces and transitional experiences. This project creates bridges between different states of being and perception.",
+    "image": "/Personal-Website/images/project2.jpg",
+    "pdfUrl": "/Personal-Website/images/2-Nether Portal.pdf",
+    "technologies": ["Dimensional Design", "Interactive Installation", "Spatial Computing", "Experience Design"],
+    "liveUrl": "#",
+    "githubUrl": "#",
+    "featured": true
+  },
+  {
+    "id": 3,
+    "title": "Prayer of Wind and Bloom",
+    "description": "A poetic meditation on nature's cycles and renewal. This work celebrates the intersection of technology and organic growth, finding harmony in digital and natural systems.",
+    "image": "/Personal-Website/images/project3.jpg",
+    "pdfUrl": "/Personal-Website/images/3-Prayer of Wind and Bloom.pdf",
+    "technologies": ["Generative Art", "Nature Simulation", "Poetic Computing", "Bio-inspired Design"],
+    "liveUrl": "#",
+    "githubUrl": "#",
+    "featured": true
+  },
+  {
+    "id": 4,
+    "title": "Unnatural Chronologies",
+    "description": "An exploration of time, memory, and non-linear narratives. This project challenges conventional temporal structures and creates new ways of experiencing past, present, and future.",
+    "image": "/Personal-Website/images/project4.jpg",
+    "pdfUrl": "/Personal-Website/images/4-Unnatural Chronologies.pdf",
+    "technologies": ["Temporal Design", "Narrative Systems", "Memory Interfaces", "Experimental Media"],
+    "liveUrl": "#",
+    "githubUrl": "#",
+    "featured": true
+  }
+]

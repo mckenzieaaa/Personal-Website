@@ -21,17 +21,85 @@ export default function ThreeScene() {
     renderer.setClearColor(0x000000, 0) // Transparent background
     mount.appendChild(renderer.domElement)
 
-    // Create a rotating cube
-    const geometry = new THREE.BoxGeometry(1, 1, 1)
-    const material = new THREE.MeshStandardMaterial({
-      color: 0x00aaff,
-      metalness: 0.6,
+    // Create OYXR 3D Logo (Simplified)
+    const logoGroup = new THREE.Group()
+    scene.add(logoGroup)
+
+    // Create simple OYXR letters using basic geometries
+    const letterMaterial = new THREE.MeshStandardMaterial({
+      color: 0x88aaff,
+      metalness: 0.7,
       roughness: 0.2,
       transparent: true,
-      opacity: 0.8
+      opacity: 0.8,
+      emissive: 0x002244,
+      emissiveIntensity: 0.1
     })
-    const cube = new THREE.Mesh(geometry, material)
-    scene.add(cube)
+
+    // O - Ring
+    const oGeometry = new THREE.RingGeometry(0.2, 0.35, 16)
+    const oMesh = new THREE.Mesh(oGeometry, letterMaterial)
+    oMesh.position.x = -1.2
+    logoGroup.add(oMesh)
+
+    // Y - Simple Y shape using boxes
+    const yGeometry1 = new THREE.BoxGeometry(0.1, 0.4, 0.1)
+    const yMesh1 = new THREE.Mesh(yGeometry1, letterMaterial)
+    yMesh1.position.set(-0.4, 0.2, 0)
+    yMesh1.rotation.z = Math.PI / 4
+    logoGroup.add(yMesh1)
+
+    const yMesh2 = new THREE.Mesh(yGeometry1, letterMaterial)
+    yMesh2.position.set(-0.4, 0.2, 0)
+    yMesh2.rotation.z = -Math.PI / 4
+    logoGroup.add(yMesh2)
+
+    const yMesh3 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.3, 0.1), letterMaterial)
+    yMesh3.position.set(-0.4, -0.15, 0)
+    logoGroup.add(yMesh3)
+
+    // X - Two intersecting boxes
+    const xGeometry = new THREE.BoxGeometry(0.5, 0.1, 0.1)
+    const xMesh1 = new THREE.Mesh(xGeometry, letterMaterial)
+    xMesh1.position.x = 0.4
+    xMesh1.rotation.z = Math.PI / 4
+    logoGroup.add(xMesh1)
+
+    const xMesh2 = new THREE.Mesh(xGeometry, letterMaterial)
+    xMesh2.position.x = 0.4
+    xMesh2.rotation.z = -Math.PI / 4
+    logoGroup.add(xMesh2)
+
+    // R - Half cylinder + box
+    const rGeometry1 = new THREE.CylinderGeometry(0.25, 0.25, 0.7, 8, 1, false, 0, Math.PI)
+    const rMesh1 = new THREE.Mesh(rGeometry1, letterMaterial)
+    rMesh1.position.x = 1.2
+    rMesh1.rotation.z = Math.PI / 2
+    logoGroup.add(rMesh1)
+
+    const rGeometry2 = new THREE.BoxGeometry(0.1, 0.7, 0.1)
+    const rMesh2 = new THREE.Mesh(rGeometry2, letterMaterial)
+    rMesh2.position.set(1.0, 0, 0)
+    logoGroup.add(rMesh2)
+
+    // Add subtle glow
+    const glowGeometry = new THREE.SphereGeometry(2.5, 32, 32)
+    const glowMaterial = new THREE.MeshBasicMaterial({
+      color: 0x88aaff,
+      transparent: true,
+      opacity: 0.05,
+      side: THREE.BackSide
+    })
+    const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial)
+    logoGroup.add(glowMesh)
+
+    // Keep simple cube as backup reference
+    const cubeGeometry = new THREE.BoxGeometry(0.1, 0.1, 0.1)
+    const cubeMaterial = new THREE.MeshStandardMaterial({
+      transparent: true,
+      opacity: 0
+    })
+    const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
 
     // Lighting
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
@@ -155,9 +223,10 @@ export default function ThreeScene() {
       
       trailGeometry.attributes.position.needsUpdate = true
       
-      // Rotate the cube
-      cube.rotation.x += 0.005
-      cube.rotation.y += 0.008
+      // Rotate the logo group
+      logoGroup.rotation.x += 0.003
+      logoGroup.rotation.y += 0.005
+      logoGroup.rotation.z += 0.002
 
       // Animate background particles
       const bgPositions = particlesGeometry.attributes.position.array
@@ -175,13 +244,19 @@ export default function ThreeScene() {
       animationId = requestAnimationFrame(animate)
     }
 
-    // GSAP intro animation for the cube
-    gsap.from(cube.scale, { 
-      duration: 1.5, 
+    // GSAP intro animation for the logo
+    gsap.from(logoGroup.scale, { 
+      duration: 2, 
       x: 0.1, 
       y: 0.1, 
       z: 0.1, 
       ease: 'power3.out' 
+    })
+
+    gsap.from(logoGroup.rotation, {
+      duration: 3,
+      x: Math.PI * 2,
+      ease: 'power2.out'
     })
 
     animate()
