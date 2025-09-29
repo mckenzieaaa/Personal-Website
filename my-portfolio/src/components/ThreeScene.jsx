@@ -4,163 +4,97 @@ import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js'
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js'
 import { gsap } from 'gsap'
 
-export default function ThreeScene() {
+function ThreeScene() {
   const mountRef = useRef(null)
 
   useEffect(() => {
-    const mount = mountRef.current
-    const width = mount.clientWidth
-    const height = mount.clientHeight
+    if (!mountRef.current) return
 
-    // Scene, camera, renderer setup
+    const mount = mountRef.current
+    let width = mount.clientWidth
+    let height = mount.clientHeight
+
+    // Scene setup
     const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000)
+    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000)
     camera.position.z = 5
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
     renderer.setSize(width, height)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    renderer.setClearColor(0x000000, 0) // Transparent background
+    renderer.setClearColor(0x000000, 0)
     mount.appendChild(renderer.domElement)
 
-    // Load OBJ model with MTL materials (optimized for large files)
+    // Load 3D Model
     const logoGroup = new THREE.Group()
     scene.add(logoGroup)
     
-    console.log('Starting to load model files...')
-    
-    // Get the correct base path for production vs development
     const basePath = import.meta.env.PROD ? '/Personal-Website' : ''
     const mtlPath = `${basePath}/models/middle2.mtl`
     const objPath = `${basePath}/models/middle2.obj`
     
-    console.log('Using paths:', { mtlPath, objPath })
-    
-    // Test if files are accessible first
     fetch(mtlPath)
       .then(response => {
-        console.log('MTL file fetch response:', response.status, response.statusText)
-        if (!response.ok) {
-          throw new Error(`MTL file not found: ${response.status}`)
-        }
-        return response.text()
-      })
-      .then(mtlText => {
-        console.log('MTL file content loaded, size:', mtlText.length)
-        
-        // Test OBJ file accessibility
+        if (!response.ok) throw new Error(`MTL file not found: ${response.status}`)
         return fetch(objPath)
       })
       .then(response => {
-        console.log('OBJ file fetch response:', response.status, response.statusText)
-        if (!response.ok) {
-          throw new Error(`OBJ file not found: ${response.status}`)
-        }
-        console.log('OBJ file is accessible, proceeding with Three.js loaders...')
+        if (!response.ok) throw new Error(`OBJ file not found: ${response.status}`)
         
-        // If files are accessible, proceed with Three.js loaders
         const mtlLoader = new MTLLoader()
-        
-        // Set loading manager for better error handling
-        const loadingManager = new THREE.LoadingManager()
-        loadingManager.onLoad = () => console.log('All resources loaded')
-        loadingManager.onError = (url) => console.error('Error loading:', url)
-        
-        mtlLoader.manager = loadingManager
-        
         mtlLoader.load(
           mtlPath,
           (materials) => {
-            console.log('MTL loaded successfully with Three.js:', materials)
             materials.preload()
-            
             const objLoader = new OBJLoader()
-            objLoader.manager = loadingManager
             objLoader.setMaterials(materials)
-            
             objLoader.load(
               objPath,
               (obj) => {
-                console.log('OBJ loaded successfully:', obj)
-                
-                // Get bounding box
                 const box = new THREE.Box3().setFromObject(obj)
                 const size = box.getSize(new THREE.Vector3())
-                const center = box.getCenter(new THREE.Vector3())
-                
-                console.log('Model size:', size)
-                console.log('Model center:', center)
-                
-                // Calculate scale and center the model
                 const maxDimension = Math.max(size.x, size.y, size.z)
-                const targetSize = 2
-                const scale = targetSize / maxDimension
+                const scale = 2 / maxDimension
                 
                 obj.scale.setScalar(scale)
-                obj.position.copy(center.multiplyScalar(-scale)) // Center the model
+                obj.position.set(0, 0, 0)
                 
-                // Setup materials and shadows
                 obj.traverse((child) => {
                   if (child.isMesh) {
                     child.castShadow = true
                     child.receiveShadow = true
-                    if (child.material) {
-                      child.material.needsUpdate = true
-                    }
                   }
                 })
                 
                 logoGroup.add(obj)
-                console.log('Model successfully added to scene')
               },
-              (progress) => {
-                const percent = (progress.loaded / progress.total * 100)
-                console.log('OBJ loading progress:', percent + '%', 'Size:', (progress.loaded / 1024 / 1024).toFixed(1) + 'MB')
-                
-                // Add loading indicator for large files
-                if (progress.total > 10 * 1024 * 1024) { // > 10MB
-                  console.log('Large file detected, this may take a while...')
-                }
-              },
+              undefined,
               (error) => {
-                console.error('Three.js OBJ loading error:', error)
-                addFallbackCube('red', 'OBJ loading failed')
+                // Fallback cube
+                const fallbackGeometry = new THREE.BoxGeometry(1, 1, 1)
+                const fallbackMaterial = new THREE.MeshStandardMaterial({ color: 0x888888 })
+                const fallbackMesh = new THREE.Mesh(fallbackGeometry, fallbackMaterial)
+                logoGroup.add(fallbackMesh)
               }
             )
           },
-          (progress) => {
-            console.log('MTL loading progress:', (progress.loaded / progress.total * 100) + '%')
-          },
+          undefined,
           (error) => {
-            console.error('Three.js MTL loading error:', error)
-            addFallbackCube('orange', 'MTL loading failed')
+            // Fallback if MTL fails
+            const fallbackGeometry = new THREE.BoxGeometry(1, 1, 1)
+            const fallbackMaterial = new THREE.MeshStandardMaterial({ color: 0x888888 })
+            const fallbackMesh = new THREE.Mesh(fallbackGeometry, fallbackMaterial)
+            logoGroup.add(fallbackMesh)
           }
         )
       })
       .catch(error => {
-        console.error('File accessibility test failed:', error)
-        addFallbackCube('blue', 'Files not accessible')
+        // Final fallback
+        const fallbackGeometry = new THREE.BoxGeometry(1, 1, 1)
+        const fallbackMaterial = new THREE.MeshStandardMaterial({ color: 0x0066ff })
+        const fallbackMesh = new THREE.Mesh(fallbackGeometry, fallbackMaterial)
+        logoGroup.add(fallbackMesh)
       })
-    
-    // Helper function to add fallback cubes with different colors for different errors
-    function addFallbackCube(color, reason) {
-      console.log(`Adding ${color} fallback cube - ${reason}`)
-      const fallbackGeometry = new THREE.BoxGeometry(1, 1, 1)
-      const colorValue = color === 'red' ? 0xff0000 : 
-                        color === 'orange' ? 0xff8800 : 
-                        color === 'blue' ? 0x0000ff : 0x888888
-      const fallbackMaterial = new THREE.MeshStandardMaterial({ color: colorValue })
-      const fallbackMesh = new THREE.Mesh(fallbackGeometry, fallbackMaterial)
-      logoGroup.add(fallbackMesh)
-    }
-
-    // Keep simple cube as backup reference
-    const cubeGeometry = new THREE.BoxGeometry(0.1, 0.1, 0.1)
-    const cubeMaterial = new THREE.MeshStandardMaterial({
-      transparent: true,
-      opacity: 0
-    })
-    const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
 
     // Lighting
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
@@ -170,151 +104,182 @@ export default function ThreeScene() {
     const ambientLight = new THREE.AmbientLight(0x404040, 0.6)
     scene.add(ambientLight)
 
-    // Enhanced Interactive Particle System
-    const particleGroups = []
-    const maxParticleGroups = 10
-    let isMouseMoving = false
-    let mouseTimeout
+    // Background Particles (subtle floating effect)
+    const backgroundParticleCount = 150
+    const backgroundGeometry = new THREE.BufferGeometry()
+    const backgroundPositions = new Float32Array(backgroundParticleCount * 3)
+    const backgroundSizes = new Float32Array(backgroundParticleCount)
     
-    // Mouse trail positions
-    let mouseX = 0
-    let mouseY = 0
-    let mouseZ = 0
-
-    // Create particle explosion effect at mouse position
-    function createParticleExplosion(x, y, z) {
-      const particleCount = 30
-      const positions = new Float32Array(particleCount * 3)
-      const velocities = new Float32Array(particleCount * 3)
-      const colors = new Float32Array(particleCount * 3)
-      const opacities = new Float32Array(particleCount)
-      
-      for (let i = 0; i < particleCount; i++) {
-        // Random positions around mouse
-        positions[i * 3] = x + (Math.random() - 0.5) * 0.5
-        positions[i * 3 + 1] = y + (Math.random() - 0.5) * 0.5
-        positions[i * 3 + 2] = z + (Math.random() - 0.5) * 0.5
-        
-        // Random velocities for explosion effect
-        velocities[i * 3] = (Math.random() - 0.5) * 0.02
-        velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.02
-        velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.02
-        
-        // Random colors (blue to purple gradient)
-        const hue = Math.random() * 0.3 + 0.6 // Blue to purple range
-        const color = new THREE.Color().setHSL(hue, 0.8, 0.6)
-        colors[i * 3] = color.r
-        colors[i * 3 + 1] = color.g
-        colors[i * 3 + 2] = color.b
-        
-        opacities[i] = 1.0
-      }
-      
-      const geometry = new THREE.BufferGeometry()
-      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-      geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
-      geometry.setAttribute('opacity', new THREE.BufferAttribute(opacities, 1))
-      
-      const material = new THREE.ShaderMaterial({
-        uniforms: {
-          time: { value: 0 },
-          pointSize: { value: 25.0 } // Much larger particles
-        },
-        vertexShader: `
-          attribute float opacity;
-          attribute vec3 color;
-          varying float vOpacity;
-          varying vec3 vColor;
-          uniform float time;
-          uniform float pointSize;
-          
-          void main() {
-            vOpacity = opacity;
-            vColor = color;
-            
-            vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-            gl_Position = projectionMatrix * mvPosition;
-            
-            // Dynamic size based on distance and time
-            float distance = length(mvPosition.xyz);
-            gl_PointSize = pointSize * (300.0 / distance) * vOpacity;
-          }
-        `,
-        fragmentShader: `
-          varying float vOpacity;
-          varying vec3 vColor;
-          
-          void main() {
-            // Create circular particles
-            vec2 center = gl_PointCoord - vec2(0.5);
-            float distance = length(center);
-            
-            if (distance > 0.5) discard;
-            
-            // Soft edge with glow effect
-            float alpha = (1.0 - distance * 2.0) * vOpacity;
-            alpha = smoothstep(0.0, 1.0, alpha);
-            
-            // Add inner glow
-            float glow = exp(-distance * 8.0) * 0.5;
-            alpha += glow;
-            
-            gl_FragColor = vec4(vColor, alpha * 0.8);
-          }
-        `,
-        transparent: true,
-        blending: THREE.AdditiveBlending,
-        vertexColors: true
-      })
-      
-      const points = new THREE.Points(geometry, material)
-      scene.add(points)
-      
-      // Store particle group info
-      const particleGroup = {
-        points,
-        geometry,
-        material,
-        velocities,
-        life: 1.0,
-        maxLife: 1.0
-      }
-      
-      particleGroups.push(particleGroup)
-      
-      // Remove old particle groups if too many
-      if (particleGroups.length > maxParticleGroups) {
-        const oldGroup = particleGroups.shift()
-        scene.remove(oldGroup.points)
-        oldGroup.geometry.dispose()
-        oldGroup.material.dispose()
-      }
-    }
-
-    // Background ambient particles (subtle)
-    const ambientParticleCount = 200
-    const ambientPositions = new Float32Array(ambientParticleCount * 3)
-    
-    for (let i = 0; i < ambientParticleCount; i++) {
-      ambientPositions[i * 3] = (Math.random() - 0.5) * 30
-      ambientPositions[i * 3 + 1] = (Math.random() - 0.5) * 30
-      ambientPositions[i * 3 + 2] = (Math.random() - 0.5) * 30
+    for (let i = 0; i < backgroundParticleCount; i++) {
+      backgroundPositions[i * 3] = (Math.random() - 0.5) * 20
+      backgroundPositions[i * 3 + 1] = (Math.random() - 0.5) * 20
+      backgroundPositions[i * 3 + 2] = (Math.random() - 0.5) * 20
+      backgroundSizes[i] = Math.random() * 2 + 1
     }
     
-    const ambientGeometry = new THREE.BufferGeometry()
-    ambientGeometry.setAttribute('position', new THREE.BufferAttribute(ambientPositions, 3))
+    backgroundGeometry.setAttribute('position', new THREE.BufferAttribute(backgroundPositions, 3))
+    backgroundGeometry.setAttribute('size', new THREE.BufferAttribute(backgroundSizes, 1))
     
-    const ambientMaterial = new THREE.PointsMaterial({ 
-      size: 2, // Slightly larger ambient particles
-      transparent: true, 
-      opacity: 0.2,
-      color: 0x88aaff,
+    const backgroundMaterial = new THREE.ShaderMaterial({
+      uniforms: {
+        time: { value: 0 },
+        color: { value: new THREE.Color(0x4488ff) }
+      },
+      vertexShader: `
+        attribute float size;
+        uniform float time;
+        varying float vOpacity;
+        
+        void main() {
+          vOpacity = 0.3 + 0.2 * sin(time * 2.0 + position.x * 0.1);
+          vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+          gl_PointSize = size * (300.0 / -mvPosition.z);
+          gl_Position = projectionMatrix * mvPosition;
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 color;
+        varying float vOpacity;
+        
+        void main() {
+          float distance = length(gl_PointCoord - vec2(0.5));
+          if (distance > 0.5) discard;
+          
+          float alpha = 1.0 - distance * 2.0;
+          gl_FragColor = vec4(color, alpha * vOpacity * 0.4);
+        }
+      `,
+      transparent: true,
       blending: THREE.AdditiveBlending
     })
     
-    const ambientParticles = new THREE.Points(ambientGeometry, ambientMaterial)
-    scene.add(ambientParticles)
-
+    const backgroundParticleSystem = new THREE.Points(backgroundGeometry, backgroundMaterial)
+    scene.add(backgroundParticleSystem)
+    
+    // Mouse-triggered particles (explosive effect)
+    const maxMouseParticles = 300
+    const mouseGeometry = new THREE.BufferGeometry()
+    const mousePositions = new Float32Array(maxMouseParticles * 3)
+    const mouseVelocities = new Float32Array(maxMouseParticles * 3)
+    const mouseLifetimes = new Float32Array(maxMouseParticles)
+    const mouseSizes = new Float32Array(maxMouseParticles)
+    
+    for (let i = 0; i < maxMouseParticles; i++) {
+      mousePositions[i * 3] = 0
+      mousePositions[i * 3 + 1] = 0
+      mousePositions[i * 3 + 2] = 0
+      mouseVelocities[i * 3] = 0
+      mouseVelocities[i * 3 + 1] = 0
+      mouseVelocities[i * 3 + 2] = 0
+      mouseLifetimes[i] = 1.0 // Start as 'dead'
+      mouseSizes[i] = 0
+    }
+    
+    mouseGeometry.setAttribute('position', new THREE.BufferAttribute(mousePositions, 3))
+    mouseGeometry.setAttribute('lifetime', new THREE.BufferAttribute(mouseLifetimes, 1))
+    mouseGeometry.setAttribute('size', new THREE.BufferAttribute(mouseSizes, 1))
+    
+    const mouseMaterial = new THREE.ShaderMaterial({
+      uniforms: {
+        time: { value: 0 },
+        color: { value: new THREE.Color(0xff6644) }
+      },
+      vertexShader: `
+        attribute float lifetime;
+        attribute float size;
+        uniform float time;
+        varying float vLifetime;
+        varying float vOpacity;
+        
+        void main() {
+          vLifetime = lifetime;
+          vOpacity = 1.0 - lifetime;
+          
+          vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+          gl_PointSize = size * (400.0 / -mvPosition.z) * (1.0 - lifetime * 0.5);
+          gl_Position = projectionMatrix * mvPosition;
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 color;
+        varying float vLifetime;
+        varying float vOpacity;
+        
+        void main() {
+          float distance = length(gl_PointCoord - vec2(0.5));
+          if (distance > 0.5) discard;
+          
+          float alpha = (1.0 - distance * 2.0) * vOpacity;
+          vec3 finalColor = mix(color, vec3(1.0, 1.0, 0.0), vLifetime * 0.5);
+          gl_FragColor = vec4(finalColor, alpha);
+        }
+      `,
+      transparent: true,
+      blending: THREE.AdditiveBlending
+    })
+    
+    const mouseParticleSystem = new THREE.Points(mouseGeometry, mouseMaterial)
+    scene.add(mouseParticleSystem)
+    
+    // Mouse interaction variables
+    let mouseX = 0
+    let mouseY = 0
+    let targetMouseX = 0
+    let targetMouseY = 0
+    let particleIndex = 0
+    let lastMousePosition = { x: 0, y: 0 }
+    
+    // Particle emission function
+    function emitMouseParticles(x, y) {
+      const particlesToEmit = Math.floor(Math.random() * 8) + 5 // 5-12 particles
+      
+      for (let i = 0; i < particlesToEmit; i++) {
+        const index = (particleIndex + i) % maxMouseParticles
+        const baseIndex = index * 3
+        
+        // Position
+        mousePositions[baseIndex] = x * 5 + (Math.random() - 0.5) * 0.8
+        mousePositions[baseIndex + 1] = y * 5 + (Math.random() - 0.5) * 0.8
+        mousePositions[baseIndex + 2] = (Math.random() - 0.5) * 3
+        
+        // Velocity (explosive pattern)
+        const angle = Math.random() * Math.PI * 2
+        const speed = Math.random() * 0.3 + 0.1
+        mouseVelocities[baseIndex] = Math.cos(angle) * speed
+        mouseVelocities[baseIndex + 1] = Math.sin(angle) * speed + Math.random() * 0.1
+        mouseVelocities[baseIndex + 2] = (Math.random() - 0.5) * 0.2
+        
+        // Properties
+        mouseLifetimes[index] = 0
+        mouseSizes[index] = Math.random() * 20 + 15
+      }
+      
+      particleIndex = (particleIndex + particlesToEmit) % maxMouseParticles
+      
+      mouseGeometry.attributes.position.needsUpdate = true
+      mouseGeometry.attributes.lifetime.needsUpdate = true
+      mouseGeometry.attributes.size.needsUpdate = true
+    }
+    
+    // Mouse event handler
+    function handleMouseMove(event) {
+      const rect = mount.getBoundingClientRect()
+      targetMouseX = ((event.clientX - rect.left) / width) * 2 - 1
+      targetMouseY = -((event.clientY - rect.top) / height) * 2 + 1
+      
+      const distance = Math.sqrt(
+        (targetMouseX - lastMousePosition.x) ** 2 + 
+        (targetMouseY - lastMousePosition.y) ** 2
+      )
+      
+      if (distance > 0.03) {
+        emitMouseParticles(targetMouseX, targetMouseY)
+        lastMousePosition = { x: targetMouseX, y: targetMouseY }
+      }
+    }
+    
+    mount.addEventListener('mousemove', handleMouseMove)
+    
     // Animation loop
     const clock = new THREE.Clock()
     let animationId
@@ -322,187 +287,103 @@ export default function ThreeScene() {
     function animate() {
       const elapsedTime = clock.getElapsedTime()
       
-      // Update particle groups
-      for (let i = particleGroups.length - 1; i >= 0; i--) {
-        const group = particleGroups[i]
-        group.life -= 0.016 // Decrease life (assuming 60fps)
+      // Update shader uniforms
+      backgroundMaterial.uniforms.time.value = elapsedTime
+      mouseMaterial.uniforms.time.value = elapsedTime
+      
+      // Smooth mouse movement
+      mouseX += (targetMouseX - mouseX) * 0.1
+      mouseY += (targetMouseY - mouseY) * 0.1
+      
+      // Update background particles
+      const bgPositions = backgroundGeometry.attributes.position.array
+      for (let i = 0; i < backgroundParticleCount; i++) {
+        const index = i * 3
+        bgPositions[index + 1] += Math.sin(elapsedTime * 0.5 + i * 0.1) * 0.002
+        bgPositions[index] += Math.cos(elapsedTime * 0.3 + i * 0.05) * 0.001
+      }
+      backgroundGeometry.attributes.position.needsUpdate = true
+      
+      // Update mouse particles
+      for (let i = 0; i < maxMouseParticles; i++) {
+        const baseIndex = i * 3
         
-        if (group.life <= 0) {
-          // Remove expired particle group
-          scene.remove(group.points)
-          group.geometry.dispose()
-          group.material.dispose()
-          particleGroups.splice(i, 1)
-          continue
-        }
-        
-        // Update particle positions and properties
-        const positions = group.geometry.attributes.position.array
-        const opacities = group.geometry.attributes.opacity.array
-        
-        for (let j = 0; j < positions.length / 3; j++) {
-          // Apply velocity
-          positions[j * 3] += group.velocities[j * 3]
-          positions[j * 3 + 1] += group.velocities[j * 3 + 1]
-          positions[j * 3 + 2] += group.velocities[j * 3 + 2]
+        if (mouseLifetimes[i] < 1.0) {
+          // Physics simulation
+          mousePositions[baseIndex] += mouseVelocities[baseIndex]
+          mousePositions[baseIndex + 1] += mouseVelocities[baseIndex + 1]
+          mousePositions[baseIndex + 2] += mouseVelocities[baseIndex + 2]
           
-          // Add some physics (gravity and drag)
-          group.velocities[j * 3] *= 0.98 // Drag
-          group.velocities[j * 3 + 1] *= 0.98
-          group.velocities[j * 3 + 2] *= 0.98
-          group.velocities[j * 3 + 1] -= 0.001 // Gravity
+          // Apply forces
+          mouseVelocities[baseIndex + 1] -= 0.008 // Gravity
+          mouseVelocities[baseIndex] *= 0.985 // Drag
+          mouseVelocities[baseIndex + 1] *= 0.985
+          mouseVelocities[baseIndex + 2] *= 0.985
           
-          // Update opacity based on life
-          opacities[j] = group.life / group.maxLife
+          // Age particle
+          mouseLifetimes[i] += 0.012
+        } else {
+          mouseSizes[i] = 0 // Hide dead particles
         }
-        
-        group.geometry.attributes.position.needsUpdate = true
-        group.geometry.attributes.opacity.needsUpdate = true
-        group.material.uniforms.time.value = elapsedTime
       }
       
-      // Rotate the logo group
+      mouseGeometry.attributes.position.needsUpdate = true
+      mouseGeometry.attributes.lifetime.needsUpdate = true
+      
+      // Rotate the model
       logoGroup.rotation.x += 0.003
       logoGroup.rotation.y += 0.005
       logoGroup.rotation.z += 0.002
 
-      // Animate ambient background particles
-      const ambientPositions = ambientGeometry.attributes.position.array
-      for (let i = 0; i < ambientParticleCount; i++) {
-        ambientPositions[i * 3 + 1] += Math.sin(elapsedTime + i * 0.1) * 0.001
-        ambientPositions[i * 3] += Math.cos(elapsedTime * 0.5 + i * 0.05) * 0.0005
-        
-        // Reset particles that drift too far
-        if (ambientPositions[i * 3 + 1] > 15) ambientPositions[i * 3 + 1] = -15
-        if (ambientPositions[i * 3] > 15) ambientPositions[i * 3] = -15
-      }
-      ambientGeometry.attributes.position.needsUpdate = true
+      // Camera parallax
+      camera.position.x += (mouseX * 2 - camera.position.x) * 0.02
+      camera.position.y += (-mouseY * 2 - camera.position.y) * 0.02
+      camera.lookAt(scene.position)
 
       renderer.render(scene, camera)
       animationId = requestAnimationFrame(animate)
     }
 
-    // GSAP intro animation for the logo
+    animate()
+
+    // Initial animations
     gsap.from(logoGroup.scale, { 
       duration: 2, 
-      x: 0.1, 
-      y: 0.1, 
-      z: 0.1, 
-      ease: 'power3.out' 
+      x: 0, 
+      y: 0, 
+      z: 0, 
+      ease: "elastic.out(1, 0.3)" 
     })
 
     gsap.from(logoGroup.rotation, {
       duration: 3,
-      x: Math.PI * 2,
-      ease: 'power2.out'
+      x: Math.PI,
+      y: Math.PI,
+      ease: "power2.out"
     })
 
-    animate()
-
-    // Enhanced mouse interaction with particle effects
-    function onPointerMove(event) {
-      const rect = mount.getBoundingClientRect()
-      const x = (event.clientX - rect.left) / rect.width - 0.5
-      const y = (event.clientY - rect.top) / rect.height - 0.5
-      
-      // Update mouse position for particle creation
-      mouseX = x * 8 // Scale for 3D space
-      mouseY = -y * 8 // Invert Y and scale
-      mouseZ = Math.sin(Date.now() * 0.001) * 2 // Oscillating Z
-      
-      // Create particle explosion at mouse position
-      createParticleExplosion(mouseX, mouseY, mouseZ)
-      
-      // Mark mouse as moving
-      isMouseMoving = true
-      clearTimeout(mouseTimeout)
-      mouseTimeout = setTimeout(() => {
-        isMouseMoving = false
-      }, 100)
-      
-      // Subtle camera movement
-      gsap.to(camera.position, { 
-        x: x * 1.5, 
-        y: -y * 1.5, 
-        duration: 1.5, 
-        ease: 'power2.out' 
-      })
-      camera.lookAt(scene.position)
-    }
-
-    // Add click interaction for more intense particle burst
-    function onPointerClick(event) {
-      const rect = mount.getBoundingClientRect()
-      const x = (event.clientX - rect.left) / rect.width - 0.5
-      const y = (event.clientY - rect.top) / rect.height - 0.5
-      
-      const clickX = x * 8
-      const clickY = -y * 8
-      const clickZ = 0
-      
-      // Create multiple particle explosions for click
-      for (let i = 0; i < 3; i++) {
-        setTimeout(() => {
-          createParticleExplosion(
-            clickX + (Math.random() - 0.5) * 2,
-            clickY + (Math.random() - 0.5) * 2,
-            clickZ + (Math.random() - 0.5) * 2
-          )
-        }, i * 100)
-      }
-    }
-
     // Resize handler
-    function onResize() {
-      const newWidth = mount.clientWidth
-      const newHeight = mount.clientHeight
-      renderer.setSize(newWidth, newHeight)
-      camera.aspect = newWidth / newHeight
+    function handleResize() {
+      width = mount.clientWidth
+      height = mount.clientHeight
+      camera.aspect = width / height
       camera.updateProjectionMatrix()
+      renderer.setSize(width, height)
     }
 
-    mount.addEventListener('pointermove', onPointerMove)
-    mount.addEventListener('click', onPointerClick)
-    window.addEventListener('resize', onResize)
+    window.addEventListener('resize', handleResize)
 
-    // Cleanup function
+    // Cleanup
     return () => {
-      cancelAnimationFrame(animationId)
-      mount.removeEventListener('pointermove', onPointerMove)
-      mount.removeEventListener('click', onPointerClick)
-      window.removeEventListener('resize', onResize)
-      
-      // Clean up particle groups
-      particleGroups.forEach(group => {
-        scene.remove(group.points)
-        group.geometry.dispose()
-        group.material.dispose()
-      })
-      
-      // Clean up other resources
-      if (ambientGeometry) ambientGeometry.dispose()
-      if (ambientMaterial) ambientMaterial.dispose()
-      
-      if (mount && renderer.domElement) {
-        mount.removeChild(renderer.domElement)
-      }
-      
+      if (animationId) cancelAnimationFrame(animationId)
+      if (mount && renderer.domElement) mount.removeChild(renderer.domElement)
+      mount.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('resize', handleResize)
       renderer.dispose()
     }
   }, [])
 
-  return (
-    <div 
-      ref={mountRef} 
-      style={{ 
-        width: '100%', 
-        height: '100vh', 
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        zIndex: 0,
-        overflow: 'hidden'
-      }} 
-    />
-  )
+  return <div ref={mountRef} style={{ width: '100%', height: '100%' }} />
 }
+
+export default ThreeScene
