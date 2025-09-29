@@ -1,3 +1,5 @@
+mtllib test_cube.mtl
+usemtl test_material
 v -1.0 -1.0 -1.0
 v  1.0 -1.0 -1.0
 v  1.0  1.0 -1.0
