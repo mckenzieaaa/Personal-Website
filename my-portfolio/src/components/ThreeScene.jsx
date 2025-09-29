@@ -170,88 +170,150 @@ export default function ThreeScene() {
     const ambientLight = new THREE.AmbientLight(0x404040, 0.6)
     scene.add(ambientLight)
 
-    // Interactive trailing particles system
-    const trailParticles = []
-    const maxTrailLength = 50
+    // Enhanced Interactive Particle System
+    const particleGroups = []
+    const maxParticleGroups = 10
+    let isMouseMoving = false
+    let mouseTimeout
+    
+    // Mouse trail positions
     let mouseX = 0
     let mouseY = 0
-    let targetMouseX = 0
-    let targetMouseY = 0
+    let mouseZ = 0
 
-    // Create particle geometry for trails
-    const trailGeometry = new THREE.BufferGeometry()
-    const trailPositions = new Float32Array(maxTrailLength * 3)
-    const trailOpacities = new Float32Array(maxTrailLength)
-    
-    for (let i = 0; i < maxTrailLength; i++) {
-      trailPositions[i * 3] = 0
-      trailPositions[i * 3 + 1] = 0
-      trailPositions[i * 3 + 2] = 0
-      trailOpacities[i] = (maxTrailLength - i) / maxTrailLength
-    }
-    
-    trailGeometry.setAttribute('position', new THREE.BufferAttribute(trailPositions, 3))
-    trailGeometry.setAttribute('opacity', new THREE.BufferAttribute(trailOpacities, 1))
-
-    // Custom shader material for trailing effect
-    const trailMaterial = new THREE.ShaderMaterial({
-      uniforms: {
-        time: { value: 0 },
-        color: { value: new THREE.Color(0x88aaff) }
-      },
-      vertexShader: `
-        attribute float opacity;
-        varying float vOpacity;
-        uniform float time;
+    // Create particle explosion effect at mouse position
+    function createParticleExplosion(x, y, z) {
+      const particleCount = 30
+      const positions = new Float32Array(particleCount * 3)
+      const velocities = new Float32Array(particleCount * 3)
+      const colors = new Float32Array(particleCount * 3)
+      const opacities = new Float32Array(particleCount)
+      
+      for (let i = 0; i < particleCount; i++) {
+        // Random positions around mouse
+        positions[i * 3] = x + (Math.random() - 0.5) * 0.5
+        positions[i * 3 + 1] = y + (Math.random() - 0.5) * 0.5
+        positions[i * 3 + 2] = z + (Math.random() - 0.5) * 0.5
         
-        void main() {
-          vOpacity = opacity * (0.5 + 0.5 * sin(time * 2.0));
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-          gl_PointSize = 8.0 * vOpacity;
-        }
-      `,
-      fragmentShader: `
-        uniform vec3 color;
-        varying float vOpacity;
+        // Random velocities for explosion effect
+        velocities[i * 3] = (Math.random() - 0.5) * 0.02
+        velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.02
+        velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.02
         
-        void main() {
-          float distance = length(gl_PointCoord - vec2(0.5));
-          if (distance > 0.5) discard;
+        // Random colors (blue to purple gradient)
+        const hue = Math.random() * 0.3 + 0.6 // Blue to purple range
+        const color = new THREE.Color().setHSL(hue, 0.8, 0.6)
+        colors[i * 3] = color.r
+        colors[i * 3 + 1] = color.g
+        colors[i * 3 + 2] = color.b
+        
+        opacities[i] = 1.0
+      }
+      
+      const geometry = new THREE.BufferGeometry()
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+      geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
+      geometry.setAttribute('opacity', new THREE.BufferAttribute(opacities, 1))
+      
+      const material = new THREE.ShaderMaterial({
+        uniforms: {
+          time: { value: 0 },
+          pointSize: { value: 25.0 } // Much larger particles
+        },
+        vertexShader: `
+          attribute float opacity;
+          attribute vec3 color;
+          varying float vOpacity;
+          varying vec3 vColor;
+          uniform float time;
+          uniform float pointSize;
           
-          float alpha = (1.0 - distance * 2.0) * vOpacity * 0.6;
-          gl_FragColor = vec4(color, alpha);
-        }
-      `,
-      transparent: true,
-      blending: THREE.AdditiveBlending
-    })
+          void main() {
+            vOpacity = opacity;
+            vColor = color;
+            
+            vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+            gl_Position = projectionMatrix * mvPosition;
+            
+            // Dynamic size based on distance and time
+            float distance = length(mvPosition.xyz);
+            gl_PointSize = pointSize * (300.0 / distance) * vOpacity;
+          }
+        `,
+        fragmentShader: `
+          varying float vOpacity;
+          varying vec3 vColor;
+          
+          void main() {
+            // Create circular particles
+            vec2 center = gl_PointCoord - vec2(0.5);
+            float distance = length(center);
+            
+            if (distance > 0.5) discard;
+            
+            // Soft edge with glow effect
+            float alpha = (1.0 - distance * 2.0) * vOpacity;
+            alpha = smoothstep(0.0, 1.0, alpha);
+            
+            // Add inner glow
+            float glow = exp(-distance * 8.0) * 0.5;
+            alpha += glow;
+            
+            gl_FragColor = vec4(vColor, alpha * 0.8);
+          }
+        `,
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        vertexColors: true
+      })
+      
+      const points = new THREE.Points(geometry, material)
+      scene.add(points)
+      
+      // Store particle group info
+      const particleGroup = {
+        points,
+        geometry,
+        material,
+        velocities,
+        life: 1.0,
+        maxLife: 1.0
+      }
+      
+      particleGroups.push(particleGroup)
+      
+      // Remove old particle groups if too many
+      if (particleGroups.length > maxParticleGroups) {
+        const oldGroup = particleGroups.shift()
+        scene.remove(oldGroup.points)
+        oldGroup.geometry.dispose()
+        oldGroup.material.dispose()
+      }
+    }
 
-    const trailPoints = new THREE.Points(trailGeometry, trailMaterial)
-    scene.add(trailPoints)
-
-    // Background particles
-    const particleCount = 800
-    const positions = new Float32Array(particleCount * 3)
+    // Background ambient particles (subtle)
+    const ambientParticleCount = 200
+    const ambientPositions = new Float32Array(ambientParticleCount * 3)
     
-    for (let i = 0; i < particleCount; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 20
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 20
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 20
+    for (let i = 0; i < ambientParticleCount; i++) {
+      ambientPositions[i * 3] = (Math.random() - 0.5) * 30
+      ambientPositions[i * 3 + 1] = (Math.random() - 0.5) * 30
+      ambientPositions[i * 3 + 2] = (Math.random() - 0.5) * 30
     }
     
-    const particlesGeometry = new THREE.BufferGeometry()
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+    const ambientGeometry = new THREE.BufferGeometry()
+    ambientGeometry.setAttribute('position', new THREE.BufferAttribute(ambientPositions, 3))
     
-    const particlesMaterial = new THREE.PointsMaterial({ 
-      size: 0.04, 
+    const ambientMaterial = new THREE.PointsMaterial({ 
+      size: 2, // Slightly larger ambient particles
       transparent: true, 
-      opacity: 0.4,
+      opacity: 0.2,
       color: 0x88aaff,
       blending: THREE.AdditiveBlending
     })
     
-    const particles = new THREE.Points(particlesGeometry, particlesMaterial)
-    scene.add(particles)
+    const ambientParticles = new THREE.Points(ambientGeometry, ambientMaterial)
+    scene.add(ambientParticles)
 
     // Animation loop
     const clock = new THREE.Clock()
@@ -260,46 +322,61 @@ export default function ThreeScene() {
     function animate() {
       const elapsedTime = clock.getElapsedTime()
       
-      // Update shader time
-      trailMaterial.uniforms.time.value = elapsedTime
-      
-      // Smooth mouse movement
-      mouseX += (targetMouseX - mouseX) * 0.1
-      mouseY += (targetMouseY - mouseY) * 0.1
-      
-      // Update trail particles
-      const trailPos = trailGeometry.attributes.position.array
-      
-      // Shift existing trail positions
-      for (let i = maxTrailLength - 1; i > 0; i--) {
-        trailPos[i * 3] = trailPos[(i - 1) * 3]
-        trailPos[i * 3 + 1] = trailPos[(i - 1) * 3 + 1]
-        trailPos[i * 3 + 2] = trailPos[(i - 1) * 3 + 2]
+      // Update particle groups
+      for (let i = particleGroups.length - 1; i >= 0; i--) {
+        const group = particleGroups[i]
+        group.life -= 0.016 // Decrease life (assuming 60fps)
+        
+        if (group.life <= 0) {
+          // Remove expired particle group
+          scene.remove(group.points)
+          group.geometry.dispose()
+          group.material.dispose()
+          particleGroups.splice(i, 1)
+          continue
+        }
+        
+        // Update particle positions and properties
+        const positions = group.geometry.attributes.position.array
+        const opacities = group.geometry.attributes.opacity.array
+        
+        for (let j = 0; j < positions.length / 3; j++) {
+          // Apply velocity
+          positions[j * 3] += group.velocities[j * 3]
+          positions[j * 3 + 1] += group.velocities[j * 3 + 1]
+          positions[j * 3 + 2] += group.velocities[j * 3 + 2]
+          
+          // Add some physics (gravity and drag)
+          group.velocities[j * 3] *= 0.98 // Drag
+          group.velocities[j * 3 + 1] *= 0.98
+          group.velocities[j * 3 + 2] *= 0.98
+          group.velocities[j * 3 + 1] -= 0.001 // Gravity
+          
+          // Update opacity based on life
+          opacities[j] = group.life / group.maxLife
+        }
+        
+        group.geometry.attributes.position.needsUpdate = true
+        group.geometry.attributes.opacity.needsUpdate = true
+        group.material.uniforms.time.value = elapsedTime
       }
-      
-      // Add new trail position
-      trailPos[0] = mouseX * 5
-      trailPos[1] = -mouseY * 5
-      trailPos[2] = Math.sin(elapsedTime * 2) * 0.5
-      
-      trailGeometry.attributes.position.needsUpdate = true
       
       // Rotate the logo group
       logoGroup.rotation.x += 0.003
       logoGroup.rotation.y += 0.005
       logoGroup.rotation.z += 0.002
 
-      // Animate background particles
-      const bgPositions = particlesGeometry.attributes.position.array
-      for (let i = 0; i < particleCount; i++) {
-        bgPositions[i * 3 + 1] += Math.sin(elapsedTime + i * 0.1) * 0.001
-        bgPositions[i * 3] += Math.cos(elapsedTime * 0.5 + i * 0.05) * 0.0005
+      // Animate ambient background particles
+      const ambientPositions = ambientGeometry.attributes.position.array
+      for (let i = 0; i < ambientParticleCount; i++) {
+        ambientPositions[i * 3 + 1] += Math.sin(elapsedTime + i * 0.1) * 0.001
+        ambientPositions[i * 3] += Math.cos(elapsedTime * 0.5 + i * 0.05) * 0.0005
         
         // Reset particles that drift too far
-        if (bgPositions[i * 3 + 1] > 10) bgPositions[i * 3 + 1] = -10
-        if (bgPositions[i * 3] > 10) bgPositions[i * 3] = -10
+        if (ambientPositions[i * 3 + 1] > 15) ambientPositions[i * 3 + 1] = -15
+        if (ambientPositions[i * 3] > 15) ambientPositions[i * 3] = -15
       }
-      particlesGeometry.attributes.position.needsUpdate = true
+      ambientGeometry.attributes.position.needsUpdate = true
 
       renderer.render(scene, camera)
       animationId = requestAnimationFrame(animate)
@@ -322,20 +399,57 @@ export default function ThreeScene() {
 
     animate()
 
-    // Enhanced mouse interaction
+    // Enhanced mouse interaction with particle effects
     function onPointerMove(event) {
       const rect = mount.getBoundingClientRect()
-      targetMouseX = (event.clientX - rect.left) / rect.width - 0.5
-      targetMouseY = (event.clientY - rect.top) / rect.height - 0.5
+      const x = (event.clientX - rect.left) / rect.width - 0.5
+      const y = (event.clientY - rect.top) / rect.height - 0.5
+      
+      // Update mouse position for particle creation
+      mouseX = x * 8 // Scale for 3D space
+      mouseY = -y * 8 // Invert Y and scale
+      mouseZ = Math.sin(Date.now() * 0.001) * 2 // Oscillating Z
+      
+      // Create particle explosion at mouse position
+      createParticleExplosion(mouseX, mouseY, mouseZ)
+      
+      // Mark mouse as moving
+      isMouseMoving = true
+      clearTimeout(mouseTimeout)
+      mouseTimeout = setTimeout(() => {
+        isMouseMoving = false
+      }, 100)
       
       // Subtle camera movement
       gsap.to(camera.position, { 
-        x: targetMouseX * 1, 
-        y: -targetMouseY * 1, 
-        duration: 1, 
+        x: x * 1.5, 
+        y: -y * 1.5, 
+        duration: 1.5, 
         ease: 'power2.out' 
       })
       camera.lookAt(scene.position)
+    }
+
+    // Add click interaction for more intense particle burst
+    function onPointerClick(event) {
+      const rect = mount.getBoundingClientRect()
+      const x = (event.clientX - rect.left) / rect.width - 0.5
+      const y = (event.clientY - rect.top) / rect.height - 0.5
+      
+      const clickX = x * 8
+      const clickY = -y * 8
+      const clickZ = 0
+      
+      // Create multiple particle explosions for click
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+          createParticleExplosion(
+            clickX + (Math.random() - 0.5) * 2,
+            clickY + (Math.random() - 0.5) * 2,
+            clickZ + (Math.random() - 0.5) * 2
+          )
+        }, i * 100)
+      }
     }
 
     // Resize handler
@@ -348,24 +462,31 @@ export default function ThreeScene() {
     }
 
     mount.addEventListener('pointermove', onPointerMove)
+    mount.addEventListener('click', onPointerClick)
     window.addEventListener('resize', onResize)
 
     // Cleanup function
     return () => {
       cancelAnimationFrame(animationId)
       mount.removeEventListener('pointermove', onPointerMove)
+      mount.removeEventListener('click', onPointerClick)
       window.removeEventListener('resize', onResize)
+      
+      // Clean up particle groups
+      particleGroups.forEach(group => {
+        scene.remove(group.points)
+        group.geometry.dispose()
+        group.material.dispose()
+      })
+      
+      // Clean up other resources
+      if (ambientGeometry) ambientGeometry.dispose()
+      if (ambientMaterial) ambientMaterial.dispose()
       
       if (mount && renderer.domElement) {
         mount.removeChild(renderer.domElement)
       }
       
-      geometry.dispose()
-      material.dispose()
-      particlesGeometry.dispose()
-      particlesMaterial.dispose()
-      trailGeometry.dispose()
-      trailMaterial.dispose()
       renderer.dispose()
     }
   }, [])
