@@ -164,20 +164,33 @@ function App() {
                 e.target.style.boxShadow = 'none'
               }}>
                 
-                {/* Project Image Placeholder */}
+                {/* PDF Viewer */}
                 <div style={{
                   width: '100%',
-                  height: '200px',
-                  background: 'linear-gradient(135deg, #88aaff, #0066cc)',
+                  height: '400px',
+                  background: '#f8f9fa',
                   borderRadius: '10px',
                   marginBottom: '20px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1rem',
-                  opacity: 0.7
+                  border: '2px solid rgba(136,170,255,0.3)',
+                  overflow: 'hidden'
                 }}>
-                  Project Image
+                  <iframe
+                    src={project.pdfUrl}
+                    width="100%"
+                    height="100%"
+                    title={project.title}
+                    style={{
+                      border: 'none',
+                      borderRadius: '8px'
+                    }}
+                  >
+                    <p style={{ padding: '20px', textAlign: 'center' }}>
+                      Your browser doesn't support PDFs. 
+                      <a href={project.pdfUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#88aaff' }}>
+                        Download the PDF
+                      </a>
+                    </p>
+                  </iframe>
                 </div>
 
                 <h3 style={{ fontSize: '1.5rem', marginBottom: '15px', color: '#88aaff' }}>
@@ -205,8 +218,8 @@ function App() {
                   </div>
                 </div>
 
-                {/* Project Links */}
-                <div style={{ display: 'flex', gap: '15px' }}>
+                {/* Project Actions */}
+                <div style={{ display: 'flex', gap: '15px', justifyContent: 'center' }}>
                   <a href={project.pdfUrl} target="_blank" rel="noopener noreferrer" style={{
                     color: '#88aaff',
                     textDecoration: 'none',
@@ -224,7 +237,7 @@ function App() {
                     e.target.style.background = 'transparent'
                     e.target.style.color = '#88aaff'
                   }}>
-                    View PDF
+                    Open Fullscreen
                   </a>
                   
                   {project.liveUrl !== "#" && (

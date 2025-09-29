@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import * as THREE from 'three'
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js'
 import { gsap } from 'gsap'
 
 export default function ThreeScene() {
@@ -21,55 +22,40 @@ export default function ThreeScene() {
     renderer.setClearColor(0x000000, 0) // Transparent background
     mount.appendChild(renderer.domElement)
 
-    // Create OYXR logo - black background with white sans-serif text
+    // Load FBX model and place in center
     const logoGroup = new THREE.Group()
     scene.add(logoGroup)
-
-    // Black background panel
-    const bgGeometry = new THREE.PlaneGeometry(3, 1, 1, 1)
-    const bgMaterial = new THREE.MeshBasicMaterial({
-      color: 0x000000,
-      transparent: true,
-      opacity: 0.9
-    })
-    const bgMesh = new THREE.Mesh(bgGeometry, bgMaterial)
-    logoGroup.add(bgMesh)
-
-    // Create text texture using canvas
-    const canvas = document.createElement('canvas')
-    const context = canvas.getContext('2d')
-    canvas.width = 512
-    canvas.height = 128
     
-    // Clear canvas
-    context.fillStyle = 'transparent'
-    context.fillRect(0, 0, canvas.width, canvas.height)
-    
-    // Set font properties - sans-serif
-    context.font = 'bold 80px Arial, Helvetica, sans-serif'
-    context.fillStyle = 'white'
-    context.textAlign = 'center'
-    context.textBaseline = 'middle'
-    
-    // Draw OYXR text
-    context.fillText('OYXR', canvas.width / 2, canvas.height / 2)
-    
-    // Create texture from canvas
-    const textTexture = new THREE.CanvasTexture(canvas)
-    textTexture.needsUpdate = true
-    
-    // Create text material
-    const textMaterial = new THREE.MeshBasicMaterial({
-      map: textTexture,
-      transparent: true,
-      opacity: 1.0
-    })
-    
-    // Create text plane slightly in front of background
-    const textGeometry = new THREE.PlaneGeometry(3, 1, 1, 1)
-    const textMesh = new THREE.Mesh(textGeometry, textMaterial)
-    textMesh.position.z = 0.001
-    logoGroup.add(textMesh)
+    const fbxLoader = new FBXLoader()
+    fbxLoader.load(
+      '/models/middle.fbx',
+      (fbx) => {
+        // Scale and position the model
+        fbx.scale.setScalar(0.01) // Adjust scale as needed
+        fbx.position.set(0, 0, 0) // Center position
+        
+        // Add lighting for the model
+        fbx.traverse((child) => {
+          if (child.isMesh) {
+            child.castShadow = true
+            child.receiveShadow = true
+          }
+        })
+        
+        logoGroup.add(fbx)
+      },
+      (progress) => {
+        console.log('Loading progress:', (progress.loaded / progress.total * 100) + '%')
+      },
+      (error) => {
+        console.error('Error loading FBX model:', error)
+        // Fallback: create simple cube if model fails to load
+        const fallbackGeometry = new THREE.BoxGeometry(1, 1, 1)
+        const fallbackMaterial = new THREE.MeshStandardMaterial({ color: 0x88aaff })
+        const fallbackMesh = new THREE.Mesh(fallbackGeometry, fallbackMaterial)
+        logoGroup.add(fallbackMesh)
+      }
+    )
 
     // Keep simple cube as backup reference
     const cubeGeometry = new THREE.BoxGeometry(0.1, 0.1, 0.1)
