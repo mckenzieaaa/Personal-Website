@@ -32,6 +32,7 @@ export default function ThreeScene() {
     mtlLoader.load(
       '/models/middle2.mtl',
       (materials) => {
+        console.log('MTL loaded successfully:', materials)
         materials.preload()
         
         // Then load the OBJ file with the materials
@@ -40,13 +41,29 @@ export default function ThreeScene() {
         objLoader.load(
           '/models/middle2.obj',
           (obj) => {
-            // Scale and position the model
-            obj.scale.setScalar(0.01) // Adjust scale as needed
+            console.log('OBJ loaded successfully:', obj)
+            
+            // Get bounding box to understand model size
+            const box = new THREE.Box3().setFromObject(obj)
+            const size = box.getSize(new THREE.Vector3())
+            console.log('Model size:', size)
+            console.log('Model bounding box:', box)
+            
+            // Calculate appropriate scale
+            const maxDimension = Math.max(size.x, size.y, size.z)
+            const targetSize = 2 // Target size we want
+            const scale = targetSize / maxDimension
+            
+            console.log('Calculated scale:', scale)
+            
+            // Apply calculated scale
+            obj.scale.setScalar(scale)
             obj.position.set(0, 0, 0) // Center position
             
             // Setup shadows and lighting
             obj.traverse((child) => {
               if (child.isMesh) {
+                console.log('Setting up mesh:', child.name, child.material)
                 child.castShadow = true
                 child.receiveShadow = true
                 
@@ -65,6 +82,7 @@ export default function ThreeScene() {
             })
             
             logoGroup.add(obj)
+            console.log('Model added to scene successfully')
           },
           (progress) => {
             console.log('OBJ loading progress:', (progress.loaded / progress.total * 100) + '%')
@@ -73,9 +91,10 @@ export default function ThreeScene() {
             console.error('Error loading OBJ model:', error)
             // Fallback: create simple cube if model fails to load
             const fallbackGeometry = new THREE.BoxGeometry(1, 1, 1)
-            const fallbackMaterial = new THREE.MeshStandardMaterial({ color: 0x88aaff })
+            const fallbackMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 }) // Red cube to indicate error
             const fallbackMesh = new THREE.Mesh(fallbackGeometry, fallbackMaterial)
             logoGroup.add(fallbackMesh)
+            console.log('Added red fallback cube due to OBJ loading error')
           }
         )
       },
@@ -89,7 +108,15 @@ export default function ThreeScene() {
         objLoader.load(
           '/models/middle2.obj',
           (obj) => {
-            obj.scale.setScalar(0.01)
+            console.log('OBJ loaded without materials:', obj)
+            
+            // Get bounding box for sizing
+            const box = new THREE.Box3().setFromObject(obj)
+            const size = box.getSize(new THREE.Vector3())
+            const maxDimension = Math.max(size.x, size.y, size.z)
+            const scale = 2 / maxDimension
+            
+            obj.scale.setScalar(scale)
             obj.position.set(0, 0, 0)
             
             // Apply default material since MTL failed
@@ -106,6 +133,17 @@ export default function ThreeScene() {
             })
             
             logoGroup.add(obj)
+            console.log('Model added without MTL materials')
+          },
+          undefined,
+          (objError) => {
+            console.error('Error loading OBJ without materials:', objError)
+            // Final fallback - blue cube
+            const fallbackGeometry = new THREE.BoxGeometry(1, 1, 1)
+            const fallbackMaterial = new THREE.MeshStandardMaterial({ color: 0x0000ff }) // Blue cube for final fallback
+            const fallbackMesh = new THREE.Mesh(fallbackGeometry, fallbackMaterial)
+            logoGroup.add(fallbackMesh)
+            console.log('Added blue fallback cube - all loading failed')
           }
         )
       }
