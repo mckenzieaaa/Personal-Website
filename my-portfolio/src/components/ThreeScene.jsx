@@ -21,77 +21,55 @@ export default function ThreeScene() {
     renderer.setClearColor(0x000000, 0) // Transparent background
     mount.appendChild(renderer.domElement)
 
-    // Create OYXR 3D Logo (Simplified)
+    // Create OYXR logo - black background with white sans-serif text
     const logoGroup = new THREE.Group()
     scene.add(logoGroup)
 
-    // Create simple OYXR letters using basic geometries
-    const letterMaterial = new THREE.MeshStandardMaterial({
-      color: 0x88aaff,
-      metalness: 0.7,
-      roughness: 0.2,
+    // Black background panel
+    const bgGeometry = new THREE.PlaneGeometry(3, 1, 1, 1)
+    const bgMaterial = new THREE.MeshBasicMaterial({
+      color: 0x000000,
       transparent: true,
-      opacity: 0.8,
-      emissive: 0x002244,
-      emissiveIntensity: 0.1
+      opacity: 0.9
     })
+    const bgMesh = new THREE.Mesh(bgGeometry, bgMaterial)
+    logoGroup.add(bgMesh)
 
-    // O - Ring
-    const oGeometry = new THREE.RingGeometry(0.2, 0.35, 16)
-    const oMesh = new THREE.Mesh(oGeometry, letterMaterial)
-    oMesh.position.x = -1.2
-    logoGroup.add(oMesh)
-
-    // Y - Simple Y shape using boxes
-    const yGeometry1 = new THREE.BoxGeometry(0.1, 0.4, 0.1)
-    const yMesh1 = new THREE.Mesh(yGeometry1, letterMaterial)
-    yMesh1.position.set(-0.4, 0.2, 0)
-    yMesh1.rotation.z = Math.PI / 4
-    logoGroup.add(yMesh1)
-
-    const yMesh2 = new THREE.Mesh(yGeometry1, letterMaterial)
-    yMesh2.position.set(-0.4, 0.2, 0)
-    yMesh2.rotation.z = -Math.PI / 4
-    logoGroup.add(yMesh2)
-
-    const yMesh3 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.3, 0.1), letterMaterial)
-    yMesh3.position.set(-0.4, -0.15, 0)
-    logoGroup.add(yMesh3)
-
-    // X - Two intersecting boxes
-    const xGeometry = new THREE.BoxGeometry(0.5, 0.1, 0.1)
-    const xMesh1 = new THREE.Mesh(xGeometry, letterMaterial)
-    xMesh1.position.x = 0.4
-    xMesh1.rotation.z = Math.PI / 4
-    logoGroup.add(xMesh1)
-
-    const xMesh2 = new THREE.Mesh(xGeometry, letterMaterial)
-    xMesh2.position.x = 0.4
-    xMesh2.rotation.z = -Math.PI / 4
-    logoGroup.add(xMesh2)
-
-    // R - Half cylinder + box
-    const rGeometry1 = new THREE.CylinderGeometry(0.25, 0.25, 0.7, 8, 1, false, 0, Math.PI)
-    const rMesh1 = new THREE.Mesh(rGeometry1, letterMaterial)
-    rMesh1.position.x = 1.2
-    rMesh1.rotation.z = Math.PI / 2
-    logoGroup.add(rMesh1)
-
-    const rGeometry2 = new THREE.BoxGeometry(0.1, 0.7, 0.1)
-    const rMesh2 = new THREE.Mesh(rGeometry2, letterMaterial)
-    rMesh2.position.set(1.0, 0, 0)
-    logoGroup.add(rMesh2)
-
-    // Add subtle glow
-    const glowGeometry = new THREE.SphereGeometry(2.5, 32, 32)
-    const glowMaterial = new THREE.MeshBasicMaterial({
-      color: 0x88aaff,
+    // Create text texture using canvas
+    const canvas = document.createElement('canvas')
+    const context = canvas.getContext('2d')
+    canvas.width = 512
+    canvas.height = 128
+    
+    // Clear canvas
+    context.fillStyle = 'transparent'
+    context.fillRect(0, 0, canvas.width, canvas.height)
+    
+    // Set font properties - sans-serif
+    context.font = 'bold 80px Arial, Helvetica, sans-serif'
+    context.fillStyle = 'white'
+    context.textAlign = 'center'
+    context.textBaseline = 'middle'
+    
+    // Draw OYXR text
+    context.fillText('OYXR', canvas.width / 2, canvas.height / 2)
+    
+    // Create texture from canvas
+    const textTexture = new THREE.CanvasTexture(canvas)
+    textTexture.needsUpdate = true
+    
+    // Create text material
+    const textMaterial = new THREE.MeshBasicMaterial({
+      map: textTexture,
       transparent: true,
-      opacity: 0.05,
-      side: THREE.BackSide
+      opacity: 1.0
     })
-    const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial)
-    logoGroup.add(glowMesh)
+    
+    // Create text plane slightly in front of background
+    const textGeometry = new THREE.PlaneGeometry(3, 1, 1, 1)
+    const textMesh = new THREE.Mesh(textGeometry, textMaterial)
+    textMesh.position.z = 0.001
+    logoGroup.add(textMesh)
 
     // Keep simple cube as backup reference
     const cubeGeometry = new THREE.BoxGeometry(0.1, 0.1, 0.1)
