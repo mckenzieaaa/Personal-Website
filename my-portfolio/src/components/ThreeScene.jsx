@@ -29,8 +29,15 @@ export default function ThreeScene() {
     
     console.log('Starting to load model files...')
     
+    // Get the correct base path for production vs development
+    const basePath = import.meta.env.PROD ? '/Personal-Website' : ''
+    const mtlPath = `${basePath}/models/test_cube.mtl`
+    const objPath = `${basePath}/models/test_cube.obj`
+    
+    console.log('Using paths:', { mtlPath, objPath })
+    
     // Test if files are accessible first
-    fetch('/models/test_cube.mtl')
+    fetch(mtlPath)
       .then(response => {
         console.log('MTL file fetch response:', response.status, response.statusText)
         if (!response.ok) {
@@ -42,7 +49,7 @@ export default function ThreeScene() {
         console.log('MTL file content loaded, size:', mtlText.length)
         
         // Test OBJ file accessibility
-        return fetch('/models/test_cube.obj')
+        return fetch(objPath)
       })
       .then(response => {
         console.log('OBJ file fetch response:', response.status, response.statusText)
@@ -62,7 +69,7 @@ export default function ThreeScene() {
         mtlLoader.manager = loadingManager
         
         mtlLoader.load(
-          '/models/test_cube.mtl',
+          mtlPath,
           (materials) => {
             console.log('MTL loaded successfully with Three.js:', materials)
             materials.preload()
@@ -72,7 +79,7 @@ export default function ThreeScene() {
             objLoader.setMaterials(materials)
             
             objLoader.load(
-              '/models/test_cube.obj',
+              objPath,
               (obj) => {
                 console.log('OBJ loaded successfully:', obj)
                 
