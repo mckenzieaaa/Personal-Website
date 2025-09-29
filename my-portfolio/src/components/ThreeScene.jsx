@@ -27,6 +27,8 @@ export default function ThreeScene() {
       color: 0x00aaff,
       metalness: 0.6,
       roughness: 0.2,
+      transparent: true,
+      opacity: 0.8
     })
     const cube = new THREE.Mesh(geometry, material)
     scene.add(cube)
@@ -39,8 +41,67 @@ export default function ThreeScene() {
     const ambientLight = new THREE.AmbientLight(0x404040, 0.6)
     scene.add(ambientLight)
 
-    // Particle system
-    const particleCount = 1500
+    // Interactive trailing particles system
+    const trailParticles = []
+    const maxTrailLength = 50
+    let mouseX = 0
+    let mouseY = 0
+    let targetMouseX = 0
+    let targetMouseY = 0
+
+    // Create particle geometry for trails
+    const trailGeometry = new THREE.BufferGeometry()
+    const trailPositions = new Float32Array(maxTrailLength * 3)
+    const trailOpacities = new Float32Array(maxTrailLength)
+    
+    for (let i = 0; i < maxTrailLength; i++) {
+      trailPositions[i * 3] = 0
+      trailPositions[i * 3 + 1] = 0
+      trailPositions[i * 3 + 2] = 0
+      trailOpacities[i] = (maxTrailLength - i) / maxTrailLength
+    }
+    
+    trailGeometry.setAttribute('position', new THREE.BufferAttribute(trailPositions, 3))
+    trailGeometry.setAttribute('opacity', new THREE.BufferAttribute(trailOpacities, 1))
+
+    // Custom shader material for trailing effect
+    const trailMaterial = new THREE.ShaderMaterial({
+      uniforms: {
+        time: { value: 0 },
+        color: { value: new THREE.Color(0x88aaff) }
+      },
+      vertexShader: `
+        attribute float opacity;
+        varying float vOpacity;
+        uniform float time;
+        
+        void main() {
+          vOpacity = opacity * (0.5 + 0.5 * sin(time * 2.0));
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          gl_PointSize = 8.0 * vOpacity;
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 color;
+        varying float vOpacity;
+        
+        void main() {
+          float distance = length(gl_PointCoord - vec2(0.5));
+          if (distance > 0.5) discard;
+          
+          float alpha = (1.0 - distance * 2.0) * vOpacity * 0.6;
+          gl_FragColor = vec4(color, alpha);
+        }
+      `,
+      transparent: true,
+      blending: THREE.AdditiveBlending
+    })
+
+    const trailPoints = new THREE.Points(trailGeometry, trailMaterial)
+    scene.add(trailPoints)
+
+    // Background particles
+    const particleCount = 800
     const positions = new Float32Array(particleCount * 3)
     
     for (let i = 0; i < particleCount; i++) {
@@ -53,10 +114,11 @@ export default function ThreeScene() {
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
     
     const particlesMaterial = new THREE.PointsMaterial({ 
-      size: 0.06, 
+      size: 0.04, 
       transparent: true, 
-      opacity: 0.85,
-      color: 0x88aaff
+      opacity: 0.4,
+      color: 0x88aaff,
+      blending: THREE.AdditiveBlending
     })
     
     const particles = new THREE.Points(particlesGeometry, particlesMaterial)
@@ -69,17 +131,43 @@ export default function ThreeScene() {
     function animate() {
       const elapsedTime = clock.getElapsedTime()
       
+      // Update shader time
+      trailMaterial.uniforms.time.value = elapsedTime
+      
+      // Smooth mouse movement
+      mouseX += (targetMouseX - mouseX) * 0.1
+      mouseY += (targetMouseY - mouseY) * 0.1
+      
+      // Update trail particles
+      const trailPos = trailGeometry.attributes.position.array
+      
+      // Shift existing trail positions
+      for (let i = maxTrailLength - 1; i > 0; i--) {
+        trailPos[i * 3] = trailPos[(i - 1) * 3]
+        trailPos[i * 3 + 1] = trailPos[(i - 1) * 3 + 1]
+        trailPos[i * 3 + 2] = trailPos[(i - 1) * 3 + 2]
+      }
+      
+      // Add new trail position
+      trailPos[0] = mouseX * 5
+      trailPos[1] = -mouseY * 5
+      trailPos[2] = Math.sin(elapsedTime * 2) * 0.5
+      
+      trailGeometry.attributes.position.needsUpdate = true
+      
       // Rotate the cube
-      cube.rotation.x += 0.01
-      cube.rotation.y += 0.012
+      cube.rotation.x += 0.005
+      cube.rotation.y += 0.008
 
-      // Animate particles
-      const positions = particlesGeometry.attributes.position.array
+      // Animate background particles
+      const bgPositions = particlesGeometry.attributes.position.array
       for (let i = 0; i < particleCount; i++) {
-        positions[i * 3 + 1] += Math.sin(elapsedTime + i * 0.1) * 0.002
+        bgPositions[i * 3 + 1] += Math.sin(elapsedTime + i * 0.1) * 0.001
+        bgPositions[i * 3] += Math.cos(elapsedTime * 0.5 + i * 0.05) * 0.0005
         
-        // Keep particles within bounds
-        if (positions[i * 3 + 1] > 10) positions[i * 3 + 1] = -10
+        // Reset particles that drift too far
+        if (bgPositions[i * 3 + 1] > 10) bgPositions[i * 3 + 1] = -10
+        if (bgPositions[i * 3] > 10) bgPositions[i * 3] = -10
       }
       particlesGeometry.attributes.position.needsUpdate = true
 
@@ -89,26 +177,27 @@ export default function ThreeScene() {
 
     // GSAP intro animation for the cube
     gsap.from(cube.scale, { 
-      duration: 1.2, 
-      x: 0.2, 
-      y: 0.2, 
-      z: 0.2, 
+      duration: 1.5, 
+      x: 0.1, 
+      y: 0.1, 
+      z: 0.1, 
       ease: 'power3.out' 
     })
 
     animate()
 
-    // Mouse parallax effect
+    // Enhanced mouse interaction
     function onPointerMove(event) {
       const rect = mount.getBoundingClientRect()
-      const x = (event.clientX - rect.left) / rect.width - 0.5
-      const y = (event.clientY - rect.top) / rect.height - 0.5
+      targetMouseX = (event.clientX - rect.left) / rect.width - 0.5
+      targetMouseY = (event.clientY - rect.top) / rect.height - 0.5
       
+      // Subtle camera movement
       gsap.to(camera.position, { 
-        x: x * 2, 
-        y: -y * 2, 
-        duration: 0.6, 
-        ease: 'power1.out' 
+        x: targetMouseX * 1, 
+        y: -targetMouseY * 1, 
+        duration: 1, 
+        ease: 'power2.out' 
       })
       camera.lookAt(scene.position)
     }
@@ -139,6 +228,8 @@ export default function ThreeScene() {
       material.dispose()
       particlesGeometry.dispose()
       particlesMaterial.dispose()
+      trailGeometry.dispose()
+      trailMaterial.dispose()
       renderer.dispose()
     }
   }, [])
@@ -149,7 +240,10 @@ export default function ThreeScene() {
       style={{ 
         width: '100%', 
         height: '100vh', 
-        position: 'relative',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        zIndex: 0,
         overflow: 'hidden'
       }} 
     />
