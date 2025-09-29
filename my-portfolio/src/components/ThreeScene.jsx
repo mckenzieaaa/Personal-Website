@@ -23,131 +23,124 @@ export default function ThreeScene() {
     renderer.setClearColor(0x000000, 0) // Transparent background
     mount.appendChild(renderer.domElement)
 
-    // Load OBJ model with MTL materials
+    // Load OBJ model with MTL materials (optimized for large files)
     const logoGroup = new THREE.Group()
     scene.add(logoGroup)
     
-    // First load the MTL (materials) file
-    const mtlLoader = new MTLLoader()
-    mtlLoader.load(
-      '/models/middle2.mtl',
-      (materials) => {
-        console.log('MTL loaded successfully:', materials)
-        materials.preload()
+    console.log('Starting to load model files...')
+    
+    // Test if files are accessible first
+    fetch('/models/test_cube.mtl')
+      .then(response => {
+        console.log('MTL file fetch response:', response.status, response.statusText)
+        if (!response.ok) {
+          throw new Error(`MTL file not found: ${response.status}`)
+        }
+        return response.text()
+      })
+      .then(mtlText => {
+        console.log('MTL file content loaded, size:', mtlText.length)
         
-        // Then load the OBJ file with the materials
-        const objLoader = new OBJLoader()
-        objLoader.setMaterials(materials)
-        objLoader.load(
-          '/models/middle2.obj',
-          (obj) => {
-            console.log('OBJ loaded successfully:', obj)
+        // Test OBJ file accessibility
+        return fetch('/models/test_cube.obj')
+      })
+      .then(response => {
+        console.log('OBJ file fetch response:', response.status, response.statusText)
+        if (!response.ok) {
+          throw new Error(`OBJ file not found: ${response.status}`)
+        }
+        console.log('OBJ file is accessible, proceeding with Three.js loaders...')
+        
+        // If files are accessible, proceed with Three.js loaders
+        const mtlLoader = new MTLLoader()
+        
+        // Set loading manager for better error handling
+        const loadingManager = new THREE.LoadingManager()
+        loadingManager.onLoad = () => console.log('All resources loaded')
+        loadingManager.onError = (url) => console.error('Error loading:', url)
+        
+        mtlLoader.manager = loadingManager
+        
+        mtlLoader.load(
+          '/models/test_cube.mtl',
+          (materials) => {
+            console.log('MTL loaded successfully with Three.js:', materials)
+            materials.preload()
             
-            // Get bounding box to understand model size
-            const box = new THREE.Box3().setFromObject(obj)
-            const size = box.getSize(new THREE.Vector3())
-            console.log('Model size:', size)
-            console.log('Model bounding box:', box)
+            const objLoader = new OBJLoader()
+            objLoader.manager = loadingManager
+            objLoader.setMaterials(materials)
             
-            // Calculate appropriate scale
-            const maxDimension = Math.max(size.x, size.y, size.z)
-            const targetSize = 2 // Target size we want
-            const scale = targetSize / maxDimension
-            
-            console.log('Calculated scale:', scale)
-            
-            // Apply calculated scale
-            obj.scale.setScalar(scale)
-            obj.position.set(0, 0, 0) // Center position
-            
-            // Setup shadows and lighting
-            obj.traverse((child) => {
-              if (child.isMesh) {
-                console.log('Setting up mesh:', child.name, child.material)
-                child.castShadow = true
-                child.receiveShadow = true
+            objLoader.load(
+              '/models/test_cube.obj',
+              (obj) => {
+                console.log('OBJ loaded successfully:', obj)
                 
-                // Ensure materials are properly configured
-                if (child.material) {
-                  child.material.needsUpdate = true
-                  
-                  // If it's an array of materials
-                  if (Array.isArray(child.material)) {
-                    child.material.forEach(material => {
-                      material.needsUpdate = true
-                    })
+                // Get bounding box
+                const box = new THREE.Box3().setFromObject(obj)
+                const size = box.getSize(new THREE.Vector3())
+                const center = box.getCenter(new THREE.Vector3())
+                
+                console.log('Model size:', size)
+                console.log('Model center:', center)
+                
+                // Calculate scale and center the model
+                const maxDimension = Math.max(size.x, size.y, size.z)
+                const targetSize = 2
+                const scale = targetSize / maxDimension
+                
+                obj.scale.setScalar(scale)
+                obj.position.copy(center.multiplyScalar(-scale)) // Center the model
+                
+                // Setup materials and shadows
+                obj.traverse((child) => {
+                  if (child.isMesh) {
+                    child.castShadow = true
+                    child.receiveShadow = true
+                    if (child.material) {
+                      child.material.needsUpdate = true
+                    }
                   }
-                }
+                })
+                
+                logoGroup.add(obj)
+                console.log('Model successfully added to scene')
+              },
+              (progress) => {
+                const percent = (progress.loaded / progress.total * 100)
+                console.log('OBJ loading progress:', percent + '%')
+              },
+              (error) => {
+                console.error('Three.js OBJ loading error:', error)
+                addFallbackCube('red', 'OBJ loading failed')
               }
-            })
-            
-            logoGroup.add(obj)
-            console.log('Model added to scene successfully')
+            )
           },
           (progress) => {
-            console.log('OBJ loading progress:', (progress.loaded / progress.total * 100) + '%')
+            console.log('MTL loading progress:', (progress.loaded / progress.total * 100) + '%')
           },
           (error) => {
-            console.error('Error loading OBJ model:', error)
-            // Fallback: create simple cube if model fails to load
-            const fallbackGeometry = new THREE.BoxGeometry(1, 1, 1)
-            const fallbackMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 }) // Red cube to indicate error
-            const fallbackMesh = new THREE.Mesh(fallbackGeometry, fallbackMaterial)
-            logoGroup.add(fallbackMesh)
-            console.log('Added red fallback cube due to OBJ loading error')
+            console.error('Three.js MTL loading error:', error)
+            addFallbackCube('orange', 'MTL loading failed')
           }
         )
-      },
-      (progress) => {
-        console.log('MTL loading progress:', (progress.loaded / progress.total * 100) + '%')
-      },
-      (error) => {
-        console.error('Error loading MTL materials:', error)
-        // Try to load OBJ without materials as fallback
-        const objLoader = new OBJLoader()
-        objLoader.load(
-          '/models/middle2.obj',
-          (obj) => {
-            console.log('OBJ loaded without materials:', obj)
-            
-            // Get bounding box for sizing
-            const box = new THREE.Box3().setFromObject(obj)
-            const size = box.getSize(new THREE.Vector3())
-            const maxDimension = Math.max(size.x, size.y, size.z)
-            const scale = 2 / maxDimension
-            
-            obj.scale.setScalar(scale)
-            obj.position.set(0, 0, 0)
-            
-            // Apply default material since MTL failed
-            obj.traverse((child) => {
-              if (child.isMesh) {
-                child.material = new THREE.MeshStandardMaterial({ 
-                  color: 0x888888,
-                  roughness: 0.5,
-                  metalness: 0.3
-                })
-                child.castShadow = true
-                child.receiveShadow = true
-              }
-            })
-            
-            logoGroup.add(obj)
-            console.log('Model added without MTL materials')
-          },
-          undefined,
-          (objError) => {
-            console.error('Error loading OBJ without materials:', objError)
-            // Final fallback - blue cube
-            const fallbackGeometry = new THREE.BoxGeometry(1, 1, 1)
-            const fallbackMaterial = new THREE.MeshStandardMaterial({ color: 0x0000ff }) // Blue cube for final fallback
-            const fallbackMesh = new THREE.Mesh(fallbackGeometry, fallbackMaterial)
-            logoGroup.add(fallbackMesh)
-            console.log('Added blue fallback cube - all loading failed')
-          }
-        )
-      }
-    )
+      })
+      .catch(error => {
+        console.error('File accessibility test failed:', error)
+        addFallbackCube('blue', 'Files not accessible')
+      })
+    
+    // Helper function to add fallback cubes with different colors for different errors
+    function addFallbackCube(color, reason) {
+      console.log(`Adding ${color} fallback cube - ${reason}`)
+      const fallbackGeometry = new THREE.BoxGeometry(1, 1, 1)
+      const colorValue = color === 'red' ? 0xff0000 : 
+                        color === 'orange' ? 0xff8800 : 
+                        color === 'blue' ? 0x0000ff : 0x888888
+      const fallbackMaterial = new THREE.MeshStandardMaterial({ color: colorValue })
+      const fallbackMesh = new THREE.Mesh(fallbackGeometry, fallbackMaterial)
+      logoGroup.add(fallbackMesh)
+    }
 
     // Keep simple cube as backup reference
     const cubeGeometry = new THREE.BoxGeometry(0.1, 0.1, 0.1)
