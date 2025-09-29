@@ -1,0 +1,32 @@
+/* Full-screen layout for 3D experience */
+#root {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Smooth transitions for interactive elements */
+a {
+  transition: opacity 0.3s ease;
+}
+
+a:hover {
+  opacity: 1 !important;
+}
+
+/* Custom cursor for interactive areas */
+canvas {
+  cursor: crosshair;
+}
+
+/* Hide scrollbars but keep functionality */
+body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
