@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import * as THREE from 'three'
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js'
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js'
+import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js'
 import { gsap } from 'gsap'
 
 export default function ThreeScene() {
@@ -22,38 +23,91 @@ export default function ThreeScene() {
     renderer.setClearColor(0x000000, 0) // Transparent background
     mount.appendChild(renderer.domElement)
 
-    // Load FBX model and place in center
+    // Load OBJ model with MTL materials
     const logoGroup = new THREE.Group()
     scene.add(logoGroup)
     
-    const fbxLoader = new FBXLoader()
-    fbxLoader.load(
-      '/models/middle.fbx',
-      (fbx) => {
-        // Scale and position the model
-        fbx.scale.setScalar(0.01) // Adjust scale as needed
-        fbx.position.set(0, 0, 0) // Center position
+    // First load the MTL (materials) file
+    const mtlLoader = new MTLLoader()
+    mtlLoader.load(
+      '/models/middle2.mtl',
+      (materials) => {
+        materials.preload()
         
-        // Add lighting for the model
-        fbx.traverse((child) => {
-          if (child.isMesh) {
-            child.castShadow = true
-            child.receiveShadow = true
+        // Then load the OBJ file with the materials
+        const objLoader = new OBJLoader()
+        objLoader.setMaterials(materials)
+        objLoader.load(
+          '/models/middle2.obj',
+          (obj) => {
+            // Scale and position the model
+            obj.scale.setScalar(0.01) // Adjust scale as needed
+            obj.position.set(0, 0, 0) // Center position
+            
+            // Setup shadows and lighting
+            obj.traverse((child) => {
+              if (child.isMesh) {
+                child.castShadow = true
+                child.receiveShadow = true
+                
+                // Ensure materials are properly configured
+                if (child.material) {
+                  child.material.needsUpdate = true
+                  
+                  // If it's an array of materials
+                  if (Array.isArray(child.material)) {
+                    child.material.forEach(material => {
+                      material.needsUpdate = true
+                    })
+                  }
+                }
+              }
+            })
+            
+            logoGroup.add(obj)
+          },
+          (progress) => {
+            console.log('OBJ loading progress:', (progress.loaded / progress.total * 100) + '%')
+          },
+          (error) => {
+            console.error('Error loading OBJ model:', error)
+            // Fallback: create simple cube if model fails to load
+            const fallbackGeometry = new THREE.BoxGeometry(1, 1, 1)
+            const fallbackMaterial = new THREE.MeshStandardMaterial({ color: 0x88aaff })
+            const fallbackMesh = new THREE.Mesh(fallbackGeometry, fallbackMaterial)
+            logoGroup.add(fallbackMesh)
           }
-        })
-        
-        logoGroup.add(fbx)
+        )
       },
       (progress) => {
-        console.log('Loading progress:', (progress.loaded / progress.total * 100) + '%')
+        console.log('MTL loading progress:', (progress.loaded / progress.total * 100) + '%')
       },
       (error) => {
-        console.error('Error loading FBX model:', error)
-        // Fallback: create simple cube if model fails to load
-        const fallbackGeometry = new THREE.BoxGeometry(1, 1, 1)
-        const fallbackMaterial = new THREE.MeshStandardMaterial({ color: 0x88aaff })
-        const fallbackMesh = new THREE.Mesh(fallbackGeometry, fallbackMaterial)
-        logoGroup.add(fallbackMesh)
+        console.error('Error loading MTL materials:', error)
+        // Try to load OBJ without materials as fallback
+        const objLoader = new OBJLoader()
+        objLoader.load(
+          '/models/middle2.obj',
+          (obj) => {
+            obj.scale.setScalar(0.01)
+            obj.position.set(0, 0, 0)
+            
+            // Apply default material since MTL failed
+            obj.traverse((child) => {
+              if (child.isMesh) {
+                child.material = new THREE.MeshStandardMaterial({ 
+                  color: 0x888888,
+                  roughness: 0.5,
+                  metalness: 0.3
+                })
+                child.castShadow = true
+                child.receiveShadow = true
+              }
+            })
+            
+            logoGroup.add(obj)
+          }
+        )
       }
     )
 
