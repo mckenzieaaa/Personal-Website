@@ -31,8 +31,8 @@ export default function ThreeScene() {
     
     // Get the correct base path for production vs development
     const basePath = import.meta.env.PROD ? '/Personal-Website' : ''
-    const mtlPath = `${basePath}/models/test_cube.mtl`
-    const objPath = `${basePath}/models/test_cube.obj`
+    const mtlPath = `${basePath}/models/middle2.mtl`
+    const objPath = `${basePath}/models/middle2.obj`
     
     console.log('Using paths:', { mtlPath, objPath })
     
@@ -115,7 +115,12 @@ export default function ThreeScene() {
               },
               (progress) => {
                 const percent = (progress.loaded / progress.total * 100)
-                console.log('OBJ loading progress:', percent + '%')
+                console.log('OBJ loading progress:', percent + '%', 'Size:', (progress.loaded / 1024 / 1024).toFixed(1) + 'MB')
+                
+                // Add loading indicator for large files
+                if (progress.total > 10 * 1024 * 1024) { // > 10MB
+                  console.log('Large file detected, this may take a while...')
+                }
               },
               (error) => {
                 console.error('Three.js OBJ loading error:', error)
