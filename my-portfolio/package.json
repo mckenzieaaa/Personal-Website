@@ -8,8 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "rm -rf dist && vite build",
-    "deploy": "gh-pages -d dist -b gh-pages"
+    "build:docs": "vite build"
   },
   "dependencies": {
     "gsap": "^3.13.0",

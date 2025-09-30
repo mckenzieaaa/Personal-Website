@@ -7,4 +7,8 @@ export default defineConfig({
   // GitHub Pages 路径： https://mckenzieaaa.github.io/Personal-Website/
   // 需要设置 base 为仓库名，确保构建后的静态资源路径正确
   base: '/Personal-Website/',
+  build: {
+    outDir: 'docs',
+    emptyOutDir: false,
+  },
 })
