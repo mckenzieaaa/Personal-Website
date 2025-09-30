@@ -79,6 +79,7 @@ function FluidParticleSystem({ width = 1200, height = 400 }) {
   useEffect(() => {
     const canvas = canvasRef.current;
     function handleMouseMove(e) {
+      if (!canvas) return;
       const rect = canvas.getBoundingClientRect();
       const mx = e.clientX - rect.left;
       const my = e.clientY - rect.top;
@@ -91,8 +92,9 @@ function FluidParticleSystem({ width = 1200, height = 400 }) {
         }
       }
     }
-    canvas.addEventListener('mousemove', handleMouseMove);
-    return () => canvas.removeEventListener('mousemove', handleMouseMove);
+    // 监听 window，这样就算父级 pointer-events: none 也能捕获到移动
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   return (
