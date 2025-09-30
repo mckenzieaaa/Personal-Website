@@ -10,6 +10,7 @@ function randomBetween(a, b) {
 
 function FluidParticleSystem({ width = 1200, height = 400 }) {
   const canvasRef = useRef(null);
+  const particlesRef = useRef([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -25,6 +26,9 @@ function FluidParticleSystem({ width = 1200, height = 400 }) {
         color: COLORS[Math.floor(Math.random() * COLORS.length)]
       });
     }
+    // 让其他 effect 可访问粒子数组
+    particlesRef.current = particles;
+    canvas.particles = particles;
     let animationId;
     function draw() {
       ctx.clearRect(0, 0, width, height);
@@ -79,7 +83,7 @@ function FluidParticleSystem({ width = 1200, height = 400 }) {
       const mx = e.clientX - rect.left;
       const my = e.clientY - rect.top;
       // 鼠标附近粒子加速靠近
-      for (let p of canvas.particles || []) {
+      for (let p of particlesRef.current || []) {
         let dist = Math.hypot(p.x - mx, p.y - my);
         if (dist < 100) {
           p.vx += (mx - p.x) * 0.0005;
