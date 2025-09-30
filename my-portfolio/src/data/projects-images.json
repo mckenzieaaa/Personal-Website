@@ -5,16 +5,16 @@
 		"category": "Digital Painting",
 		"year": "2024",
 		"featured": true,
-		"image": "public/images/1-Virtual Soul/image001.jpg",
+		"image": "images/1-Virtual Soul/image001.jpg",
 		"description": "A series exploring the ethereal essence of identity in digital realms.",
 		"images": [
-			"public/images/1-Virtual Soul/image001.jpg",
-			"public/images/1-Virtual Soul/image002.jpg",
-			"public/images/1-Virtual Soul/image003.jpg",
-			"public/images/1-Virtual Soul/image004.jpg",
-			"public/images/1-Virtual Soul/image005.jpg",
-			"public/images/1-Virtual Soul/image006.jpg",
-			"public/images/1-Virtual Soul/image007.jpg"
+			"images/1-Virtual Soul/image001.jpg",
+			"images/1-Virtual Soul/image002.jpg",
+			"images/1-Virtual Soul/image003.jpg",
+			"images/1-Virtual Soul/image004.jpg",
+			"images/1-Virtual Soul/image005.jpg",
+			"images/1-Virtual Soul/image006.jpg",
+			"images/1-Virtual Soul/image007.jpg"
 		]
 	},
 	{
@@ -23,15 +23,15 @@
 		"category": "Generative Art",
 		"year": "2023",
 		"featured": true,
-		"image": "public/images/2-Nether Portal/image008.jpg",
+		"image": "images/2-Nether Portal/image008.jpg",
 		"description": "Hypnotic tunnels and geometry bending through imaginary space.",
 		"images": [
-			"public/images/2-Nether Portal/image008.jpg",
-			"public/images/2-Nether Portal/image009.jpg",
-			"public/images/2-Nether Portal/image010.jpg",
-			"public/images/2-Nether Portal/image011.jpg",
-			"public/images/2-Nether Portal/image013.jpg",
-			"public/images/2-Nether Portal/image014.jpg"
+			"images/2-Nether Portal/image008.jpg",
+			"images/2-Nether Portal/image009.jpg",
+			"images/2-Nether Portal/image010.jpg",
+			"images/2-Nether Portal/image011.jpg",
+			"images/2-Nether Portal/image013.jpg",
+			"images/2-Nether Portal/image014.jpg"
 		]
 	},
 	{
@@ -40,14 +40,14 @@
 		"category": "Photography",
 		"year": "2022",
 		"featured": true,
-		"image": "public/images/3-Prayer of Wind and Bloom/image015.jpg",
+		"image": "images/3-Prayer of Wind and Bloom/image015.jpg",
 		"description": "Meditations on movement and stillness in nature.",
 		"images": [
-			"public/images/3-Prayer of Wind and Bloom/image015.jpg",
-			"public/images/3-Prayer of Wind and Bloom/image016.jpg",
-			"public/images/3-Prayer of Wind and Bloom/image017.jpg",
-			"public/images/3-Prayer of Wind and Bloom/image018.jpg",
-			"public/images/3-Prayer of Wind and Bloom/image019.jpg"
+			"images/3-Prayer of Wind and Bloom/image015.jpg",
+			"images/3-Prayer of Wind and Bloom/image016.jpg",
+			"images/3-Prayer of Wind and Bloom/image017.jpg",
+			"images/3-Prayer of Wind and Bloom/image018.jpg",
+			"images/3-Prayer of Wind and Bloom/image019.jpg"
 		]
 	},
 	{
@@ -56,16 +56,16 @@
 		"category": "Concept Art",
 		"year": "2021",
 		"featured": true,
-		"image": "public/images/4-Unnatural Chronologies/image020.jpg",
+		"image": "images/4-Unnatural Chronologies/image020.jpg",
 		"description": "Temporal anomalies illustrated through layered composition.",
 		"images": [
-			"public/images/4-Unnatural Chronologies/image020.jpg",
-			"public/images/4-Unnatural Chronologies/image021.jpg",
-			"public/images/4-Unnatural Chronologies/image022.jpg",
-			"public/images/4-Unnatural Chronologies/image023.jpg",
-			"public/images/4-Unnatural Chronologies/image024.jpg",
-			"public/images/4-Unnatural Chronologies/image025.jpg",
-			"public/images/4-Unnatural Chronologies/image026.jpg"
+			"images/4-Unnatural Chronologies/image020.jpg",
+			"images/4-Unnatural Chronologies/image021.jpg",
+			"images/4-Unnatural Chronologies/image022.jpg",
+			"images/4-Unnatural Chronologies/image023.jpg",
+			"images/4-Unnatural Chronologies/image024.jpg",
+			"images/4-Unnatural Chronologies/image025.jpg",
+			"images/4-Unnatural Chronologies/image026.jpg"
 		]
 	}
 ]
