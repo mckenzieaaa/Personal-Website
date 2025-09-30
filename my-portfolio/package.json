@@ -3,14 +3,13 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://mckenzieaaa.github.io/Personal-Website",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "vite build",
-    "deploy": "gh-pages -d dist"
+    "predeploy": "rm -rf dist && vite build",
+    "deploy": "gh-pages -d dist -b gh-pages"
   },
   "dependencies": {
     "gsap": "^3.13.0",

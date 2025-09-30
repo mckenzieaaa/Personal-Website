@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css';
 import React from 'react';
+import FluidParticleSystem from './components/FluidParticleSystem';
 
 function App() {
   // 作品区数据
@@ -260,7 +261,7 @@ function App() {
                   marginBottom: '12px',
                 }}>
                   {project.images.map(img => (
-                    <img key={img} src={`/images/${project.title}/${img}`} alt={img} style={{
+                    <img key={img} src={`${import.meta.env.BASE_URL}images/${project.title}/${img}`} alt={img} style={{
                       width: '80px',
                       height: '80px',
                       objectFit: 'cover',
