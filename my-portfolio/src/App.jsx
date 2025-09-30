@@ -170,7 +170,120 @@ function App() {
         }} />
       </section>
 
-      {/* ...后续作品区和内容区... */}
+      {/* 作品区：悬浮卡片+粒子动效背景 */}
+      <section id="work" style={{
+        minHeight: '100vh',
+        padding: '120px 0',
+        position: 'relative',
+        zIndex: 2,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+        {/* 粒子动效背景 */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}>
+          {/* FluidParticleSystem 组件 */}
+          <FluidParticleSystem width={1200} height={400} />
+        </div>
+        <div style={{
+          position: 'relative',
+          zIndex: 2,
+          width: '100%',
+          maxWidth: '1200px',
+        }}>
+          <h2 style={{
+            fontSize: '3.5rem',
+            fontWeight: 100,
+            letterSpacing: '4px',
+            marginBottom: '60px',
+            textTransform: 'uppercase',
+            textAlign: 'center',
+          }}>
+            Featured Work
+          </h2>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+            gap: '48px',
+            marginBottom: '40px',
+          }}>
+            {projects.map((project, idx) => (
+              <div key={project.title} style={{
+                background: 'rgba(255,255,255,0.03)',
+                borderRadius: '18px',
+                boxShadow: '0 8px 32px rgba(136,170,255,0.08)',
+                border: '1px solid rgba(136,170,255,0.08)',
+                padding: '32px',
+                transition: 'all 0.5s cubic-bezier(.4,0,.2,1)',
+                cursor: 'pointer',
+                position: 'relative',
+                overflow: 'hidden',
+                minHeight: '340px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.transform = 'translateY(-10px) scale(1.03)';
+                  e.currentTarget.style.boxShadow = '0 24px 48px rgba(136,170,255,0.18)';
+                  e.currentTarget.style.borderColor = '#88aaff';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  e.currentTarget.style.boxShadow = '0 8px 32px rgba(136,170,255,0.08)';
+                  e.currentTarget.style.borderColor = 'rgba(136,170,255,0.08)';
+                }}
+              >
+                <div style={{
+                  fontSize: '1.2rem',
+                  color: '#88aaff',
+                  fontWeight: 400,
+                  marginBottom: '18px',
+                  letterSpacing: '2px',
+                  textAlign: 'center',
+                }}>{project.title}</div>
+                <div style={{
+                  display: 'flex',
+                  gap: '12px',
+                  flexWrap: 'wrap',
+                  justifyContent: 'center',
+                  marginBottom: '12px',
+                }}>
+                  {project.images.map(img => (
+                    <img key={img} src={`/images/${project.title}/${img}`} alt={img} style={{
+                      width: '80px',
+                      height: '80px',
+                      objectFit: 'cover',
+                      borderRadius: '12px',
+                      boxShadow: '0 2px 8px #88aaff22',
+                      transition: 'transform 0.3s',
+                    }}
+                      onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.12)'}
+                      onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                    />
+                  ))}
+                </div>
+                <div style={{
+                  fontSize: '0.95rem',
+                  color: '#fff',
+                  opacity: 0.7,
+                  textAlign: 'center',
+                }}>共 {project.images.length} 张作品</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
