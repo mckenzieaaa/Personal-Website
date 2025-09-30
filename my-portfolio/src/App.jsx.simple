@@ -1,0 +1,76 @@
+import React, { useState, useEffect } from 'react'
+import ThreeScene from './components/ThreeScene'
+import ParticleImageCanvas from './components/ParticleImageCanvas'
+import projectsData from './data/projects.json'
+import projectsImageData from './data/projects-images.json'
+import './App.css'
+
+function App() {
+  const [projects, setProjects] = useState([])
+  const [imageProjects, setImageProjects] = useState([])
+
+  useEffect(() => {
+    // Load projects data
+    setProjects(projectsData.filter(project => project.featured))
+    setImageProjects(projectsImageData.filter(project => project.featured))
+  }, [])
+
+  return (
+    <div style={{ fontFamily: 'Arial, sans-serif', color: 'white' }}>
+      {/* Header with personal info */}
+      <header style={{ 
+        position: 'fixed', 
+        zIndex: 10, 
+        top: 40, 
+        left: 40,
+        fontSize: '18px'
+      }}>
+        <h1 style={{ 
+          margin: 0, 
+          fontSize: '2.5rem', 
+          fontWeight: '300',
+          letterSpacing: '2px'
+        }}>
+          Your Name
+        </h1>
+        <p style={{ 
+          margin: '10px 0', 
+          fontSize: '1.2rem',
+          opacity: 0.8,
+          letterSpacing: '1px'
+        }}>
+          Creative Developer & Designer
+        </p>
+        <p style={{ 
+          margin: 0, 
+          fontSize: '1rem',
+          opacity: 0.6,
+          maxWidth: '400px',
+          lineHeight: '1.5'
+        }}>
+          Testing particle image canvas
+        </p>
+      </header>
+
+      {/* Background 3D Scene */}
+      <ThreeScene />
+
+      {/* Simple test for ParticleImageCanvas */}
+      <div style={{
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        zIndex: 2
+      }}>
+        <ParticleImageCanvas
+          imageSrc="https://picsum.photos/400/600?random=1"
+          width={400}
+          height={500}
+        />
+      </div>
+    </div>
+  )
+}
+
+export default App

@@ -1,30 +1,42 @@
-/* Full-screen layout for 3D experience */
 #root {
-  width: 100vw;
-  margin: 0;
-  padding: 0;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-/* Smooth transitions for interactive elements */
-a {
-  transition: opacity 0.3s ease;
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-a:hover {
-  opacity: 1 !important;
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
 }
 
-/* Custom cursor for interactive areas */
-canvas {
-  cursor: crosshair;
+.card {
+  padding: 2em;
 }
 
-/* Project cards hover effect */
-div[style*="cursor: pointer"]:hover {
-  transform: translateY(-5px) !important;
+.read-the-docs {
+  color: #888;
 }

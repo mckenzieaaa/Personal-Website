@@ -1,39 +1,31 @@
-# Repository Privacy Setup Guide
+# Steps to Protect Repository Privacy
 
-## 🔒 Quick Setup: Make Repository Private
+## Option 1: Make Repository Private (Recommended)
 
-### Step 1: Make This Repository Private
-1. Go to: https://github.com/mckenzieaaa/Personal-Website
-2. Click **Settings** tab
-3. Scroll to **Danger Zone** section  
-4. Click **Change repository visibility**
-5. Select **Make private**
-6. Confirm the change
+1. Go to GitHub.com → Your Repository
+2. Click 'Settings' tab  
+3. Scroll down to 'Danger Zone'
+4. Click 'Change repository visibility'
+5. Select 'Make private'
+6. GitHub Pages will still work from private repo!
 
-### Step 2: Verify GitHub Pages Still Works
-- Your website will remain public: https://mckenzieaaa.github.io/Personal-Website/
-- GitHub Pages works from private repositories
-- Only the source code becomes private
+## Option 2: Create Clean Public Repository
 
-## 📋 Alternative: Clean Public Repository
+1. Create new repo: 'mckenzieaaa/portfolio-public'
+2. Only add README_PUBLIC.md (rename to README.md)
+3. Update GitHub Pages source to new repo
+4. Make this repo private
 
-If you prefer a separate public repo:
+## Current Status
+- ✅ Website is live and working
+- ✅ Clean README prepared
+- ⚠️ Repository is currently public
+- 🔒 Ready to make private
 
-1. Create new repository: `portfolio-showcase`
-2. Add only `README_PUBLIC.md` (rename to `README.md`)
-3. Include website link and basic description
-4. Make this current repo private
-
-## ✅ Current Status
-- Website is live and functional
-- Clean README prepared (`README_PUBLIC.md`)
-- Source code can be made private anytime
-- GitHub Pages deployment will continue working
-
-## 🚀 Recommended Action
-**Make the repository private** - it's the simplest solution that:
-- Protects your source code
-- Keeps the website public and accessible
-- Maintains all current functionality
-- No additional setup required
+## GitHub Pages Settings
+After making private:
+- Repository Settings → Pages
+- Source: Deploy from a branch  
+- Branch: gh-pages (auto-generated)
+- Website will remain accessible publicly
 
