@@ -1,292 +1,64 @@
-import { useState } from 'react'
-import './App.css';
-import React from 'react';
-import FluidParticleSystem from './components/FluidParticleSystem';
+import React from 'react'
+import './App.css'
 
 function App() {
-  // 作品区数据
+  const base = import.meta.env.BASE_URL || '/'
   const projects = [
-    {
-      title: '1-Virtual Soul',
-      images: [
-        'image001.jpg','image002.jpg','image003.jpg','image004.jpg','image005.jpg','image006.jpg','image007.jpg'
-      ]
-    },
-    {
-      title: '2-Nether Portal',
-      images: [
-        'image008.jpg','image009.jpg','image010.jpg','image011.jpg','image013.jpg','image014.jpg'
-      ]
-    },
-    {
-      title: '3-Prayer of Wind and Bloom',
-      images: [
-        'image015.jpg','image016.jpg','image017.jpg','image018.jpg','image019.jpg'
-      ]
-    },
-    {
-      title: '4-Unnatural Chronologies',
-      images: [
-        'image020.jpg','image021.jpg','image022.jpg','image023.jpg','image024.jpg','image025.jpg','image026.jpg'
-      ]
-    }
-  ];
+    { title: '1-Virtual Soul', images: ['image001.jpg','image002.jpg','image003.jpg','image004.jpg','image005.jpg','image006.jpg','image007.jpg'] },
+    { title: '2-Nether Portal', images: ['image008.jpg','image009.jpg','image010.jpg','image011.jpg','image013.jpg','image014.jpg'] },
+    { title: '3-Prayer of Wind and Bloom', images: ['image015.jpg','image016.jpg','image017.jpg','image018.jpg','image019.jpg'] },
+    { title: '4-Unnatural Chronologies', images: ['image020.jpg','image021.jpg','image022.jpg','image023.jpg','image024.jpg','image025.jpg','image026.jpg'] },
+  ]
 
-  // 极简风格首页和导航
-  const navItems = [
+  const nav = [
     { label: 'HOME', href: '#home' },
     { label: 'WORK', href: '#work' },
     { label: 'ABOUT', href: '#about' },
-    { label: 'CONTACT', href: '#contact' }
-  ];
+    { label: 'CONTACT', href: '#contact' },
+  ]
+
+  const imgUrl = (folder, file) => `${base}images/${encodeURIComponent(folder)}/${encodeURIComponent(file)}`
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      width: '100vw',
-      background: 'radial-gradient(ellipse at center, #0a0a0a 0%, #181818 100%)',
-      position: 'relative',
-      overflow: 'hidden',
-      fontFamily: 'Inter, Helvetica Neue, Arial, sans-serif',
-      color: '#fff'
-    }}>
-      {/* 动态渐变背景粒子层，可后续集成Three.js/Canvas */}
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 0,
-        pointerEvents: 'none',
-        background: 'linear-gradient(120deg, #181818 60%, #222 100%)',
-        opacity: 0.7
-      }} />
-
-      {/* 极简导航栏 */}
-      <nav style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        zIndex: 10,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '80px',
-        background: 'rgba(0,0,0,0.15)',
-        backdropFilter: 'blur(16px)',
-        borderBottom: '1px solid rgba(255,255,255,0.04)'
-      }}>
-        <div style={{
-          display: 'flex',
-          gap: '60px',
-          alignItems: 'center',
-          fontSize: '1.1rem',
-          letterSpacing: '2px',
-          fontWeight: 300
-        }}>
-          {navItems.map(item => (
-            <a
-              key={item.label}
-              href={item.href}
-              style={{
-                color: '#fff',
-                textDecoration: 'none',
-                fontSize: '1.1rem',
-                letterSpacing: '2px',
-                position: 'relative',
-                padding: '0 8px',
-                transition: 'color 0.3s cubic-bezier(.4,0,.2,1), transform 0.3s cubic-bezier(.4,0,.2,1)',
-                fontWeight: 300
-              }}
-              onMouseEnter={e => {
-                e.target.style.color = '#88aaff';
-                e.target.style.transform = 'scale(1.08)';
-              }}
-              onMouseLeave={e => {
-                e.target.style.color = '#fff';
-                e.target.style.transform = 'scale(1)';
-              }}
-            >
-              {item.label}
-            </a>
-          ))}
-        </div>
+    <div style={{ minHeight: '100vh', color: '#fff', background: 'radial-gradient(ellipse at center, #0a0a0a 0%, #181818 100%)', fontFamily: 'Helvetica Neue, Arial, sans-serif' }}>
+      <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, height: 70, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 40, background: 'rgba(0,0,0,0.15)', borderBottom: '1px solid rgba(255,255,255,0.06)', backdropFilter: 'blur(12px)', zIndex: 10 }}>
+        {nav.map(i => (
+          <a key={i.label} href={i.href} style={{ color: '#fff', textDecoration: 'none', letterSpacing: 2 }}>{i.label}</a>
+        ))}
       </nav>
 
-      {/* OYXR字母居中，极简风格 */}
-      <section id="home" style={{
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 2,
-        position: 'relative'
-      }}>
-        <div style={{
-          fontSize: '7vw',
-          fontWeight: 900,
-          letterSpacing: '0.2em',
-          color: '#fff',
-          textShadow: '0 0 60px #88aaff44',
-          marginBottom: '2vw',
-          background: 'linear-gradient(90deg, #88aaff 30%, #fff 70%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          textAlign: 'center',
-          userSelect: 'none',
-          lineHeight: 1.1
-        }}>
-          OYXR
-        </div>
-        <div style={{
-          fontSize: '1.5vw',
-          fontWeight: 300,
-          color: '#88aaff',
-          letterSpacing: '0.1em',
-          marginBottom: '2vw',
-          opacity: 0.8,
-          textAlign: 'center'
-        }}>
-          An Easter egg hunter, raiding Earth-Online for treasures
-        </div>
-        <div style={{
-          fontSize: '1vw',
-          fontWeight: 300,
-          color: '#fff',
-          opacity: 0.7,
-          textAlign: 'center',
-          marginBottom: '2vw'
-        }}>
-          McKenzie.ouyang@gmail.com
-        </div>
-        <div style={{
-          width: '60vw',
-          height: '2px',
-          background: 'linear-gradient(90deg, transparent, #88aaff, transparent)',
-          margin: '2vw auto',
-          opacity: 0.5
-        }} />
+      <section id="home" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', paddingTop: 70 }}>
+        <h1 style={{ fontSize: '64px', margin: 0, letterSpacing: 8, background: 'linear-gradient(90deg, #88aaff, #ffffff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>OYXR</h1>
+        <p style={{ marginTop: 16, opacity: 0.8 }}>Digital Art, Interactive Experiences, Visual Stories</p>
       </section>
 
-      {/* 作品区：悬浮卡片+粒子动效背景 */}
-      <section id="work" style={{
-        minHeight: '100vh',
-        padding: '120px 0',
-        position: 'relative',
-        zIndex: 2,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-        {/* 粒子动效背景 */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          zIndex: 0,
-          pointerEvents: 'none',
-        }}>
-          {/* FluidParticleSystem 组件 */}
-          <FluidParticleSystem width={1200} height={400} />
-        </div>
-        <div style={{
-          position: 'relative',
-          zIndex: 2,
-          width: '100%',
-          maxWidth: '1200px',
-        }}>
-          <h2 style={{
-            fontSize: '3.5rem',
-            fontWeight: 100,
-            letterSpacing: '4px',
-            marginBottom: '60px',
-            textTransform: 'uppercase',
-            textAlign: 'center',
-          }}>
-            Featured Work
-          </h2>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-            gap: '48px',
-            marginBottom: '40px',
-          }}>
-            {projects.map((project, idx) => (
-              <div key={project.title} style={{
-                background: 'rgba(255,255,255,0.03)',
-                borderRadius: '18px',
-                boxShadow: '0 8px 32px rgba(136,170,255,0.08)',
-                border: '1px solid rgba(136,170,255,0.08)',
-                padding: '32px',
-                transition: 'all 0.5s cubic-bezier(.4,0,.2,1)',
-                cursor: 'pointer',
-                position: 'relative',
-                overflow: 'hidden',
-                minHeight: '340px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.transform = 'translateY(-10px) scale(1.03)';
-                  e.currentTarget.style.boxShadow = '0 24px 48px rgba(136,170,255,0.18)';
-                  e.currentTarget.style.borderColor = '#88aaff';
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                  e.currentTarget.style.boxShadow = '0 8px 32px rgba(136,170,255,0.08)';
-                  e.currentTarget.style.borderColor = 'rgba(136,170,255,0.08)';
-                }}
-              >
-                <div style={{
-                  fontSize: '1.2rem',
-                  color: '#88aaff',
-                  fontWeight: 400,
-                  marginBottom: '18px',
-                  letterSpacing: '2px',
-                  textAlign: 'center',
-                }}>{project.title}</div>
-                <div style={{
-                  display: 'flex',
-                  gap: '12px',
-                  flexWrap: 'wrap',
-                  justifyContent: 'center',
-                  marginBottom: '12px',
-                }}>
-                  {project.images.map(img => (
-                    <img key={img} src={`${import.meta.env.BASE_URL}images/${project.title}/${img}`} alt={img} style={{
-                      width: '80px',
-                      height: '80px',
-                      objectFit: 'cover',
-                      borderRadius: '12px',
-                      boxShadow: '0 2px 8px #88aaff22',
-                      transition: 'transform 0.3s',
-                    }}
-                      onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.12)'}
-                      onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                    />
-                  ))}
-                </div>
-                <div style={{
-                  fontSize: '0.95rem',
-                  color: '#fff',
-                  opacity: 0.7,
-                  textAlign: 'center',
-                }}>共 {project.images.length} 张作品</div>
+      <section id="work" style={{ padding: '80px 24px', maxWidth: 1200, margin: '0 auto' }}>
+        <h2 style={{ textAlign: 'center', fontWeight: 300, letterSpacing: 2, marginBottom: 40 }}>Featured Work</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24 }}>
+          {projects.map(p => (
+            <div key={p.title} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 12, padding: 16 }}>
+              <div style={{ fontWeight: 500, color: '#88aaff', marginBottom: 12 }}>{p.title}</div>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                {p.images.map(img => (
+                  <img key={img} src={imgUrl(p.title, img)} alt={img} style={{ width: 76, height: 76, objectFit: 'cover', borderRadius: 8, background: '#111', border: '1px solid rgba(255,255,255,0.08)' }} />
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
+      </section>
+
+      <section id="about" style={{ padding: '60px 24px', maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
+        <h2 style={{ fontWeight: 300, letterSpacing: 2, marginBottom: 12 }}>About</h2>
+        <p style={{ opacity: 0.8 }}>I am a digital artist and creative technologist exploring the intersection of technology, emotion, and human experience.</p>
+      </section>
+
+      <section id="contact" style={{ padding: '60px 24px', maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
+        <h2 style={{ fontWeight: 300, letterSpacing: 2, marginBottom: 12 }}>Get In Touch</h2>
+        <a href="mailto:contact@oyxr.com" style={{ color: '#88aaff', textDecoration: 'none' }}>contact@oyxr.com</a>
       </section>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
