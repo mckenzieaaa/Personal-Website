@@ -34,38 +34,44 @@ function App() {
 
   return (
     <div style={{ 
-      fontFamily: "'Helvetica Neue', Arial, sans-serif", 
+      fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif", 
       color: 'white',
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #0a0a0f 0%, #1a1925 50%, #0f0f19 100%)'
+      background: '#000000'
     }}>
-      {/* 导航栏 */}
+      {/* 重新设计的导航栏 */}
       <nav style={{
         position: 'fixed',
         top: 0,
         left: 0,
         right: 0,
         zIndex: 1000,
-        padding: '20px 40px',
-        background: 'rgba(0,0,0,0.8)',
-        backdropFilter: 'blur(10px)'
+        padding: '20px 5vw',
+        background: 'rgba(0,0,0,0.95)',
+        backdropFilter: 'blur(20px)',
+        borderBottom: '1px solid rgba(255,255,255,0.08)'
       }}>
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          maxWidth: '1200px',
-          margin: '0 auto'
+          width: '100%'
         }}>
           <div style={{ 
-            fontSize: '1.5rem', 
-            fontWeight: 'bold',
-            color: '#88aaff'
+            fontSize: '1.2rem', 
+            fontWeight: '500',
+            color: 'white',
+            letterSpacing: '0.1em',
+            fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
           }}>
             XINRAN OUYANG
           </div>
           
-          <div style={{ display: 'flex', gap: '30px' }}>
+          <div style={{ 
+            display: 'flex', 
+            gap: '60px',
+            alignItems: 'center'
+          }}>
             {['Home', 'Work', 'About', 'Contact'].map((item) => (
               <button
                 key={item}
@@ -73,13 +79,42 @@ function App() {
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: currentSection === item.toLowerCase() ? '#88aaff' : 'rgba(255,255,255,0.7)',
-                  fontSize: '1rem',
+                  color: currentSection === item.toLowerCase() ? 'white' : 'rgba(255,255,255,0.6)',
+                  fontSize: '0.95rem',
                   cursor: 'pointer',
-                  transition: 'color 0.3s ease'
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  letterSpacing: '0.02em',
+                  padding: '8px 0',
+                  position: 'relative',
+                  fontWeight: '300',
+                  fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif",
+                  textTransform: 'uppercase'
+                }}
+                onMouseEnter={(e) => {
+                  if (currentSection !== item.toLowerCase()) {
+                    e.target.style.color = 'rgba(255,255,255,0.9)'
+                    e.target.style.transform = 'translateY(-1px)'
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (currentSection !== item.toLowerCase()) {
+                    e.target.style.color = 'rgba(255,255,255,0.6)'
+                    e.target.style.transform = 'translateY(0)'
+                  }
                 }}
               >
                 {item}
+                {currentSection === item.toLowerCase() && (
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '-2px',
+                    left: 0,
+                    right: 0,
+                    height: '1px',
+                    background: 'linear-gradient(90deg, transparent, white, transparent)',
+                    opacity: 0.8
+                  }}></div>
+                )}
               </button>
             ))}
           </div>
@@ -87,170 +122,275 @@ function App() {
       </nav>
 
       {/* 主要内容 */}
-      <main style={{ paddingTop: '80px' }}>
+      <main style={{ paddingTop: '100px' }}>
         
-        {/* 英雄区域 */}
+        {/* 重新设计的英雄区域 */}
         <section id="home" style={{
           height: '100vh',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          textAlign: 'center'
+          textAlign: 'center',
+          padding: '0 5vw',
+          width: '100%',
+          position: 'relative',
+          background: 'linear-gradient(135deg, #000000 0%, #111111 50%, #000000 100%)'
         }}>
-          <h1 style={{
-            fontSize: '4rem',
-            fontWeight: '100',
-            letterSpacing: '4px',
-            marginBottom: '20px',
-            background: 'linear-gradient(45deg, #88aaff, #ffffff)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent'
+          <div style={{
+            maxWidth: '800px',
+            margin: '0 auto'
           }}>
-            CREATIVE VISUAL ARTIST
-          </h1>
-          <p style={{
-            fontSize: '1.2rem',
-            opacity: 0.8,
-            maxWidth: '600px',
-            lineHeight: '1.6',
-            marginBottom: '40px'
-          }}>
-            Digital art that explores the intersection of technology, emotion, and human experience
-          </p>
-          <button
-            onClick={() => scrollToSection('work')}
-            style={{
-              background: 'linear-gradient(45deg, #88aaff, #6699ff)',
-              border: 'none',
+            <div style={{
+              fontSize: 'clamp(0.9rem, 2vw, 1.1rem)',
+              color: 'rgba(255,255,255,0.7)',
+              letterSpacing: '0.15em',
+              marginBottom: '30px',
+              textTransform: 'uppercase',
+              fontWeight: '300',
+              fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
+            }}>
+              Digital Artist & Creative Technologist
+            </div>
+            
+            <h1 style={{
+              fontSize: 'clamp(2.5rem, 8vw, 6rem)',
+              fontWeight: '300',
+              letterSpacing: '-0.02em',
+              lineHeight: '1.1',
               color: 'white',
-              padding: '15px 30px',
-              borderRadius: '25px',
-              fontSize: '1rem',
-              cursor: 'pointer',
-              transition: 'transform 0.3s ease'
-            }}
-            onMouseEnter={(e) => e.target.style.transform = 'translateY(-2px)'}
-            onMouseLeave={(e) => e.target.style.transform = 'translateY(0)'}
-          >
-            Explore Work
-          </button>
+              margin: '0 0 40px 0',
+              fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
+            }}>
+              Xinran Ouyang
+            </h1>
+            
+            <p style={{
+              fontSize: 'clamp(1.1rem, 2.5vw, 1.4rem)',
+              lineHeight: '1.6',
+              color: 'rgba(255,255,255,0.8)',
+              fontWeight: '300',
+              maxWidth: '600px',
+              margin: '0 auto 50px auto',
+              fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
+            }}>
+              Exploring the intersection of technology, creativity, and human experience 
+              through immersive digital art and interactive installations.
+            </p>
+            <div style={{
+              display: 'flex',
+              gap: '20px',
+              justifyContent: 'center',
+              flexWrap: 'wrap'
+            }}>
+              <button
+                onClick={() => scrollToSection('work')}
+                style={{
+                  background: 'linear-gradient(135deg, #ffffff, #f0f0f0)',
+                  border: 'none',
+                  color: '#000000',
+                  padding: '16px 32px',
+                  fontSize: '0.95rem',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  letterSpacing: '0.05em',
+                  textTransform: 'uppercase',
+                  borderRadius: '2px',
+                  fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.transform = 'translateY(-2px)'
+                  e.target.style.boxShadow = '0 10px 25px rgba(255,255,255,0.2)'
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.transform = 'translateY(0)'
+                  e.target.style.boxShadow = 'none'
+                }}
+              >
+                View Work
+              </button>
+              
+              <button
+                onClick={() => scrollToSection('about')}
+                style={{
+                  background: 'transparent',
+                  border: '1px solid rgba(255,255,255,0.4)',
+                  color: 'white',
+                  padding: '15px 31px',
+                  fontSize: '0.95rem',
+                  fontWeight: '400',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  letterSpacing: '0.05em',
+                  textTransform: 'uppercase',
+                  borderRadius: '2px',
+                  fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.background = 'rgba(255,255,255,0.1)'
+                  e.target.style.borderColor = 'rgba(255,255,255,0.6)'
+                  e.target.style.transform = 'translateY(-2px)'
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.background = 'transparent'
+                  e.target.style.borderColor = 'rgba(255,255,255,0.4)'
+                  e.target.style.transform = 'translateY(0)'
+                }}
+              >
+                About
+              </button>
+            </div>
+          </div>
+          
+          {/* 简化的装饰元素 */}
+          <div style={{
+            position: 'absolute',
+            bottom: '40px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            fontSize: '0.85rem',
+            color: 'rgba(255,255,255,0.5)',
+            letterSpacing: '0.1em',
+            fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+            animation: 'fadeInUp 1s ease-out 0.5s both'
+          }}>
+            Scroll to explore
+          </div>
         </section>
 
-        {/* 作品区域 */}
+        {/* 重新设计的作品区域 */}
         <section id="work" style={{
           minHeight: '100vh',
-          padding: '80px 40px',
-          maxWidth: '1200px',
-          margin: '0 auto'
+          padding: '100px 5vw',
+          width: '100%',
+          background: 'linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #000000 100%)'
         }}>
-          <h2 style={{
-            fontSize: '2.5rem',
-            fontWeight: '100',
+          <div style={{
             textAlign: 'center',
-            marginBottom: '60px',
-            letterSpacing: '2px'
+            marginBottom: '80px'
           }}>
-            Featured Work
-          </h2>
+            <div style={{
+              fontSize: '0.95rem',
+              color: 'rgba(255,255,255,0.6)',
+              letterSpacing: '0.15em',
+              marginBottom: '20px',
+              textTransform: 'uppercase',
+              fontWeight: '300',
+              fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
+            }}>
+              Selected Projects
+            </div>
+            
+            <h2 style={{
+              fontSize: 'clamp(2.5rem, 6vw, 4rem)',
+              fontWeight: '300',
+              margin: 0,
+              letterSpacing: '-0.02em',
+              color: 'white',
+              fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
+            }}>
+              Featured Work
+            </h2>
+          </div>
           
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-            gap: '40px'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+            gap: '40px',
+            maxWidth: '1200px',
+            margin: '0 auto'
           }}>
             {projects.map((project) => (
               <div 
                 key={project.id}
                 style={{
-                  background: 'rgba(255,255,255,0.05)',
-                  padding: '30px',
-                  borderRadius: '15px',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                  cursor: 'pointer'
+                  background: 'rgba(255,255,255,0.02)',
+                  padding: '40px',
+                  borderRadius: '8px',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  cursor: 'pointer',
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  position: 'relative',
+                  overflow: 'hidden'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-10px)'
-                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(136,170,255,0.2)'
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.05)'
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)'
+                  e.currentTarget.style.transform = 'translateY(-8px)'
+                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.3)'
                 }}
                 onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.02)'
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'
                   e.currentTarget.style.transform = 'translateY(0)'
                   e.currentTarget.style.boxShadow = 'none'
                 }}
               >
                 <div style={{
-                  width: '100%',
-                  height: '250px',
-                  marginBottom: '20px',
-                  borderRadius: '10px',
-                  overflow: 'hidden',
-                  background: 'rgba(136,170,255,0.1)'
+                  textAlign: 'center'
                 }}>
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover'
-                    }}
-                    onError={(e) => {
-                      e.target.style.display = 'none'
-                      e.target.nextSibling.style.display = 'flex'
-                    }}
-                  />
                   <div style={{
-                    display: 'none',
                     width: '100%',
-                    height: '100%',
+                    height: '200px',
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))',
+                    borderRadius: '4px',
+                    marginBottom: '30px',
+                    display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: '#88aaff',
-                    fontSize: '1.2rem'
+                    color: 'rgba(255,255,255,0.6)',
+                    fontSize: '1rem',
+                    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
                   }}>
                     {project.title}
                   </div>
+                  
+                  <div style={{
+                    fontSize: '0.8rem',
+                    color: 'rgba(255,255,255,0.5)',
+                    letterSpacing: '0.1em',
+                    marginBottom: '15px',
+                    textTransform: 'uppercase',
+                    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
+                  }}>
+                    {project.category} • {project.year}
+                  </div>
+                  
+                  <h3 style={{
+                    fontSize: '1.4rem',
+                    fontWeight: '400',
+                    margin: '0 0 20px 0',
+                    color: 'white',
+                    letterSpacing: '-0.01em',
+                    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
+                  }}>
+                    {project.title}
+                  </h3>
+                  
+                  <p style={{
+                    fontSize: '0.95rem',
+                    lineHeight: '1.6',
+                    color: 'rgba(255,255,255,0.7)',
+                    margin: '0',
+                    fontWeight: '300',
+                    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
+                  }}>
+                    {project.description}
+                  </p>
                 </div>
                 
-                <h3 style={{
-                  fontSize: '1.4rem',
-                  marginBottom: '10px',
-                  color: '#88aaff'
-                }}>
-                  {project.title}
-                </h3>
-                
-                <p style={{
-                  fontSize: '1rem',
-                  lineHeight: '1.5',
-                  marginBottom: '15px',
-                  opacity: 0.8
-                }}>
-                  {project.description}
-                </p>
-                
+                {/* 简化的视觉指示器 */}
                 <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                }}>
-                  <span style={{
-                    fontSize: '0.9rem',
-                    color: '#88aaff',
-                    background: 'rgba(136,170,255,0.1)',
-                    padding: '5px 10px',
-                    borderRadius: '15px'
-                  }}>
-                    {project.category}
-                  </span>
-                  <span style={{
-                    fontSize: '0.9rem',
-                    opacity: 0.6
-                  }}>
-                    {project.year}
-                  </span>
-                </div>
+                  position: 'absolute',
+                  top: '20px',
+                  right: '20px',
+                  width: '8px',
+                  height: '8px',
+                  background: 'rgba(255,255,255,0.3)',
+                  borderRadius: '50%',
+                  transition: 'all 0.3s ease'
+                }}></div>
               </div>
             ))}
           </div>
@@ -262,23 +402,25 @@ function App() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '80px 40px'
+          padding: '80px 50px',
+          width: '100%',
+          borderTop: '1px solid rgba(255,255,255,0.06)'
         }}>
           <div style={{
-            maxWidth: '600px',
+            maxWidth: '800px',
             textAlign: 'center'
           }}>
             <h2 style={{
-              fontSize: '2.5rem',
+              fontSize: 'clamp(2rem, 5vw, 3rem)',
               fontWeight: '100',
-              marginBottom: '30px',
-              letterSpacing: '2px'
+              marginBottom: 'clamp(20px, 4vw, 40px)',
+              letterSpacing: 'clamp(1px, 0.3vw, 3px)'
             }}>
               About
             </h2>
             <p style={{
-              fontSize: '1.2rem',
-              lineHeight: '1.7',
+              fontSize: 'clamp(1rem, 2.5vw, 1.3rem)',
+              lineHeight: 'clamp(1.5, 3vw, 1.8)',
               opacity: 0.8
             }}>
               I am a digital artist and creative technologist working at the intersection 
@@ -294,25 +436,27 @@ function App() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '80px 40px'
+          padding: '80px 50px',
+          width: '100%',
+          borderTop: '1px solid rgba(255,255,255,0.06)'
         }}>
           <div style={{
-            maxWidth: '500px',
+            maxWidth: '600px',
             textAlign: 'center'
           }}>
             <h2 style={{
-              fontSize: '2.5rem',
+              fontSize: 'clamp(2rem, 5vw, 3rem)',
               fontWeight: '100',
-              marginBottom: '30px',
-              letterSpacing: '2px'
+              marginBottom: 'clamp(20px, 4vw, 40px)',
+              letterSpacing: 'clamp(1px, 0.3vw, 3px)'
             }}>
               Get In Touch
             </h2>
             <p style={{
-              fontSize: '1.1rem',
-              lineHeight: '1.6',
+              fontSize: 'clamp(1rem, 2.2vw, 1.2rem)',
+              lineHeight: 'clamp(1.5, 3vw, 1.7)',
               opacity: 0.8,
-              marginBottom: '40px'
+              marginBottom: 'clamp(30px, 5vw, 50px)'
             }}>
               Interested in collaborating on innovative digital experiences?
               Let's explore new possibilities together.
@@ -323,11 +467,12 @@ function App() {
                 background: 'linear-gradient(45deg, #88aaff, #6699ff)',
                 color: 'white',
                 textDecoration: 'none',
-                padding: '15px 30px',
-                borderRadius: '25px',
-                fontSize: '1rem',
+                padding: 'clamp(12px, 2vw, 18px) clamp(25px, 4vw, 40px)',
+                borderRadius: 'clamp(20px, 3vw, 30px)',
+                fontSize: 'clamp(0.9rem, 2vw, 1.1rem)',
                 transition: 'transform 0.3s ease',
-                display: 'inline-block'
+                display: 'inline-block',
+                letterSpacing: 'clamp(0.5px, 0.1vw, 1px)'
               }}
               onMouseEnter={(e) => e.target.style.transform = 'translateY(-2px)'}
               onMouseLeave={(e) => e.target.style.transform = 'translateY(0)'}
