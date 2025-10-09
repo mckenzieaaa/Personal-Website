@@ -19,7 +19,7 @@ function App() {
       category: 'Digital Art',
       year: '2024',
       description: 'A series exploring the ethereal essence of identity in digital realms.',
-      software: ['photoshop', 'blender', 'aftereffects'],
+      software: ['photoshop', 'aftereffects', 'cinema4d', '3dmax', 'unrealengine'],
       image: '/Personal-Website/images/1-Virtual%20Soul/image001.jpg',
       gallery: [
         '/Personal-Website/images/1-Virtual%20Soul/image001.jpg',
@@ -33,8 +33,8 @@ function App() {
       title: 'Nether Portal',
       category: 'Generative Art',
       year: '2023',
-      description: 'Hypnotic tunnels and geometry bending through imaginary space.',
-      software: ['cinema4d', 'octane', 'photoshop'],
+      description: 'Hypnotic tunnels and geometry bending through imaginary space. This project incorporates AI for code generation and image creation.',
+      software: ['touchdesigner', 'aftereffects', 'photoshop', 'arduino', 'ai'],
       image: '/Personal-Website/images/2-Nether%20Portal/image008.jpg',
       gallery: [
         '/Personal-Website/images/2-Nether%20Portal/image008.jpg',
@@ -48,8 +48,8 @@ function App() {
       title: 'Prayer of Wind and Bloom',
       category: 'Interactive Installation',
       year: '2023',
-      description: 'An immersive experience connecting nature and technology.',
-      software: ['touchdesigner', 'blender', 'arduino'],
+      description: 'An immersive experience connecting nature and technology. This project combines digital tools with traditional handcraft techniques.',
+      software: ['arduino', 'photoshop'],
       image: '/Personal-Website/images/3-Prayer%20of%20Wind%20and%20Bloom/image015.jpg',
       gallery: [
         '/Personal-Website/images/3-Prayer%20of%20Wind%20and%20Bloom/image015.jpg',
@@ -64,7 +64,7 @@ function App() {
       category: 'Video Art',
       year: '2022',
       description: 'A meditation on time and digital decay through glitch aesthetics.',
-      software: ['premiere', 'aftereffects', 'touchdesigner'],
+      software: ['touchdesigner', 'aftereffects', 'photoshop', 'artivive', 'blender'],
       image: '/Personal-Website/images/4-Unnatural%20Chronologies/image020.jpg',
       gallery: [
         '/Personal-Website/images/4-Unnatural%20Chronologies/image020.jpg',
@@ -85,7 +85,11 @@ function App() {
     { id: 'touchdesigner', name: 'TouchDesigner', icon: '⚡' },
     { id: 'premiere', name: 'Premiere', icon: '🎞️' },
     { id: 'octane', name: 'Octane', icon: '✨' },
-    { id: 'arduino', name: 'Arduino', icon: '🔧' }
+    { id: 'arduino', name: 'Arduino', icon: '🔧' },
+    { id: '3dmax', name: '3D Max', icon: '🏗️' },
+    { id: 'unrealengine', name: 'Unreal Engine', icon: '🎮' },
+    { id: 'ai', name: 'AI Tools', icon: '🤖' },
+    { id: 'artivive', name: 'Artivive', icon: '🔮' }
   ];
 
   // 筛选项目
