@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+// Portfolio website with Contact page update
 function App() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
