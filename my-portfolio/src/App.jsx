@@ -923,25 +923,31 @@ function App() {
             gap: '30px',
             height: '100%'
           }}>
-            {/* 个人照片 */}
+            {/* 头像和联系方式组合 */}
             <div style={{
-              width: '100%',
-              aspectRatio: '3/2',
-              maxHeight: '140px',
-              background: 'rgba(255,255,255,0.05)',
-              borderRadius: '16px',
-              border: '1px solid rgba(255,255,255,0.1)',
-              overflow: 'hidden',
-              position: 'relative',
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexDirection: 'column',
-              color: 'rgba(255,255,255,0.6)',
-              fontSize: '1rem',
-              fontFamily: "'Inter', sans-serif",
-              textAlign: 'center'
+              gap: '20px',
+              alignItems: 'flex-start'
             }}>
+              {/* 个人照片 */}
+              <div style={{
+                width: '180px',
+                aspectRatio: '3/2',
+                background: 'rgba(255,255,255,0.05)',
+                borderRadius: '16px',
+                border: '1px solid rgba(255,255,255,0.1)',
+                overflow: 'hidden',
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                color: 'rgba(255,255,255,0.6)',
+                fontSize: '1rem',
+                fontFamily: "'Inter', sans-serif",
+                textAlign: 'center',
+                flexShrink: 0
+              }}>
               <div style={{ fontSize: '1.1rem', marginBottom: '10px' }}>
                 📸 Personal Photo
               </div>
@@ -978,6 +984,63 @@ function App() {
                   e.target.style.display = 'none';
                 }}
               />
+            </div>
+            
+            {/* 联系方式 */}
+            <div style={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              gap: '12px'
+            }}>
+              <h3 style={{
+                fontSize: '1.1rem',
+                fontWeight: '500',
+                color: 'white',
+                margin: 0,
+                fontFamily: "'Inter', sans-serif"
+              }}>
+                Contact Information
+              </h3>
+              
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px',
+                fontSize: '0.9rem',
+                color: 'rgba(255,255,255,0.8)',
+                fontFamily: "'Inter', sans-serif"
+              }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}>
+                  <span style={{ fontSize: '1rem' }}>📱</span>
+                  <span>+86 15723351973</span>
+                </div>
+                
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}>
+                  <span style={{ fontSize: '1rem' }}>📞</span>
+                  <span>+852 84963034</span>
+                </div>
+                
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}>
+                  <span style={{ fontSize: '1rem' }}>✉️</span>
+                  <span>McKenzie.ouyang@gmail.com</span>
+                </div>
+              </div>
+            </div>
+            
             </div>
 
             {/* 额外信息卡片 */}
