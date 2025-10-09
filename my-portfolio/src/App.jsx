@@ -717,19 +717,21 @@ function App() {
               {/* 图片容器 */}
               <div style={{
                 width: '100%',
-                height: '220px',
+                height: '280px',
                 position: 'relative',
                 overflow: 'hidden',
-                backgroundColor: 'rgba(255,255,255,0.05)'
+                backgroundColor: 'rgba(0,0,0,0.8)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}>
                 <img
                   src={project.image}
                   alt={project.title}
                   style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    objectPosition: 'center',
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    objectFit: 'contain',
                     transition: 'transform 0.4s ease'
                   }}
                   onError={(e) => {
