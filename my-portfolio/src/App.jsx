@@ -834,9 +834,10 @@ function App() {
           width: '100%',
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
-          gap: '60px',
+          gap: '50px',
           alignItems: 'start',
-          height: '100%'
+          height: 'fit-content',
+          maxHeight: '100%'
         }}>
           {/* 左侧：个人信息 */}
           <div>
@@ -945,12 +946,12 @@ function App() {
 
 
 
-            {/* Sharyap风格交互式卡片 */}
+            {/* 简化的信息卡片 */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+              gridTemplateColumns: '1fr',
               gap: '20px',
-              marginBottom: '40px'
+              marginBottom: '30px'
             }}>
               {/* 教育背景卡片 */}
               <div 
@@ -960,8 +961,7 @@ function App() {
                   borderRadius: '12px',
                   padding: '20px',
                   cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  transform: expandedSection === 'education' ? 'scale(1.02)' : 'scale(1)'
+                  transition: 'all 0.3s ease'
                 }}
                 onClick={() => setExpandedSection(expandedSection === 'education' ? null : 'education')}
               >
@@ -997,82 +997,15 @@ function App() {
                     fontSize: '0.9rem',
                     color: 'rgba(255,255,255,0.8)',
                     lineHeight: '1.6',
-                    fontFamily: "'Inter', sans-serif",
-                    animation: 'fadeIn 0.3s ease'
+                    fontFamily: "'Inter', sans-serif"
                   }}>
-                    <div style={{ marginBottom: '12px' }}>
+                    <div style={{ marginBottom: '10px' }}>
                       <strong>Master's in Digital Arts</strong><br/>
-                      University of Arts<br/>
-                      <span style={{ color: 'rgba(255,255,255,0.6)' }}>2022-2024</span>
+                      University of Arts | 2022-2024
                     </div>
                     <div>
                       <strong>Bachelor's in Interactive Media</strong><br/>
-                      Design Institute<br/>
-                      <span style={{ color: 'rgba(255,255,255,0.6)' }}>2018-2022</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* 获奖经历卡片 */}
-              <div 
-                style={{
-                  background: expandedSection === 'awards' ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  borderRadius: '12px',
-                  padding: '20px',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  transform: expandedSection === 'awards' ? 'scale(1.02)' : 'scale(1)'
-                }}
-                onClick={() => setExpandedSection(expandedSection === 'awards' ? null : 'awards')}
-              >
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  marginBottom: expandedSection === 'awards' ? '16px' : '0'
-                }}>
-                  <span style={{ fontSize: '1.5rem' }}>🏆</span>
-                  <h3 style={{
-                    fontSize: '1.1rem',
-                    fontWeight: '500',
-                    color: 'white',
-                    margin: 0,
-                    fontFamily: "'Inter', sans-serif"
-                  }}>
-                    Awards
-                  </h3>
-                  <span style={{
-                    fontSize: '0.8rem',
-                    color: 'rgba(255,255,255,0.5)',
-                    marginLeft: 'auto',
-                    transform: expandedSection === 'awards' ? 'rotate(180deg)' : 'rotate(0deg)',
-                    transition: 'transform 0.3s ease'
-                  }}>
-                    ▼
-                  </span>
-                </div>
-                
-                {expandedSection === 'awards' && (
-                  <div style={{
-                    fontSize: '0.9rem',
-                    color: 'rgba(255,255,255,0.8)',
-                    lineHeight: '1.6',
-                    fontFamily: "'Inter', sans-serif",
-                    animation: 'fadeIn 0.3s ease'
-                  }}>
-                    <div style={{ marginBottom: '10px' }}>
-                      🥇 <strong>Digital Art Excellence Award</strong><br/>
-                      <span style={{ color: 'rgba(255,255,255,0.6)' }}>National Arts Competition 2024</span>
-                    </div>
-                    <div style={{ marginBottom: '10px' }}>
-                      🥈 <strong>Interactive Design Silver Medal</strong><br/>
-                      <span style={{ color: 'rgba(255,255,255,0.6)' }}>International Media Festival 2023</span>
-                    </div>
-                    <div>
-                      🎖️ <strong>Outstanding Student Achievement</strong><br/>
-                      <span style={{ color: 'rgba(255,255,255,0.6)' }}>University Dean's List 2022</span>
+                      Design Institute | 2018-2022
                     </div>
                   </div>
                 )}
@@ -1086,8 +1019,7 @@ function App() {
                   borderRadius: '12px',
                   padding: '20px',
                   cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  transform: expandedSection === 'interests' ? 'scale(1.02)' : 'scale(1)'
+                  transition: 'all 0.3s ease'
                 }}
                 onClick={() => setExpandedSection(expandedSection === 'interests' ? null : 'interests')}
               >
@@ -1123,24 +1055,12 @@ function App() {
                     fontSize: '0.9rem',
                     color: 'rgba(255,255,255,0.8)',
                     lineHeight: '1.6',
-                    fontFamily: "'Inter', sans-serif",
-                    animation: 'fadeIn 0.3s ease'
+                    fontFamily: "'Inter', sans-serif"
                   }}>
-                    <div style={{ marginBottom: '8px' }}>
-                      🎨 <strong>Digital Art & Animation</strong>
-                    </div>
-                    <div style={{ marginBottom: '8px' }}>
-                      🤖 <strong>AI & Machine Learning</strong>
-                    </div>
-                    <div style={{ marginBottom: '8px' }}>
-                      🎮 <strong>Interactive Experience Design</strong>
-                    </div>
-                    <div style={{ marginBottom: '8px' }}>
-                      📚 <strong>Philosophy & Technology</strong>
-                    </div>
-                    <div>
-                      🎵 <strong>Electronic Music Production</strong>
-                    </div>
+                    <div style={{ marginBottom: '6px' }}>🎨 Digital Art & Animation</div>
+                    <div style={{ marginBottom: '6px' }}>🤖 AI & Machine Learning</div>
+                    <div style={{ marginBottom: '6px' }}>🎮 Interactive Experience Design</div>
+                    <div>🎵 Electronic Music Production</div>
                   </div>
                 )}
               </div>
@@ -1183,7 +1103,7 @@ function App() {
               </div>
             </div>
 
-            {/* 联系信息 */}
+            {/* 简化联系信息 */}
             <div>
               <h3 style={{
                 fontSize: '1.2rem',
@@ -1192,21 +1112,21 @@ function App() {
                 color: 'white',
                 fontFamily: "'Inter', sans-serif"
               }}>
-                Let's Connect
+                Get in Touch
               </h3>
               <div style={{
                 display: 'flex',
-                gap: '20px',
+                gap: '15px',
                 flexWrap: 'wrap'
               }}>
                 <a
-                  href="mailto:your.email@example.com"
+                  href="mailto:McKenzie.ouyang@gmail.com"
                   style={{
                     color: 'rgba(255,255,255,0.8)',
                     textDecoration: 'none',
                     fontSize: '1rem',
                     fontFamily: "'Inter', sans-serif",
-                    padding: '12px 24px',
+                    padding: '10px 20px',
                     border: '1px solid rgba(255,255,255,0.3)',
                     borderRadius: '6px',
                     transition: 'all 0.3s ease'
@@ -1231,7 +1151,7 @@ function App() {
                     textDecoration: 'none',
                     fontSize: '1rem',
                     fontFamily: "'Inter', sans-serif",
-                    padding: '12px 24px',
+                    padding: '10px 20px',
                     border: '1px solid rgba(255,255,255,0.3)',
                     borderRadius: '6px',
                     transition: 'all 0.3s ease'
@@ -1246,31 +1166,6 @@ function App() {
                   }}
                 >
                   LinkedIn
-                </a>
-                <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    color: 'rgba(255,255,255,0.8)',
-                    textDecoration: 'none',
-                    fontSize: '1rem',
-                    fontFamily: "'Inter', sans-serif",
-                    padding: '12px 24px',
-                    border: '1px solid rgba(255,255,255,0.3)',
-                    borderRadius: '6px',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.background = 'rgba(255,255,255,0.1)';
-                    e.target.style.borderColor = 'rgba(255,255,255,0.5)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.background = 'transparent';
-                    e.target.style.borderColor = 'rgba(255,255,255,0.3)';
-                  }}
-                >
-                  Instagram
                 </a>
               </div>
             </div>
@@ -1454,6 +1349,342 @@ function App() {
               }}>
                 Open for creative collaborations and digital art projects
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Page */}
+      <section id="contact" style={{
+        height: '100vh',
+        width: '100vw',
+        padding: '80px 40px',
+        background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        scrollSnapAlign: 'start',
+        scrollSnapStop: 'always',
+        overflow: 'hidden auto'
+      }}>
+        <div style={{
+          maxWidth: '1200px',
+          width: '100%',
+          textAlign: 'center'
+        }}>
+          {/* 主标题 */}
+          <div style={{
+            marginBottom: '60px'
+          }}>
+            <h2 style={{
+              fontSize: 'clamp(3rem, 8vw, 6rem)',
+              fontWeight: '200',
+              margin: '0 0 20px 0',
+              letterSpacing: '-0.02em',
+              color: 'white',
+              fontFamily: "'Inter', sans-serif"
+            }}>
+              Let's Connect
+            </h2>
+            <p style={{
+              fontSize: '1.3rem',
+              color: 'rgba(255,255,255,0.7)',
+              maxWidth: '600px',
+              margin: '0 auto',
+              lineHeight: '1.6',
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: '300'
+            }}>
+              Ready to collaborate on digital art projects, creative installations, or explore new technologies together.
+            </p>
+          </div>
+
+          {/* 联系方式网格 */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '30px',
+            marginBottom: '60px'
+          }}>
+            {/* 邮箱 */}
+            <div style={{
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '20px',
+              padding: '40px 30px',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.background = 'rgba(255,255,255,0.06)';
+              e.target.style.borderColor = 'rgba(255,255,255,0.2)';
+              e.target.style.transform = 'translateY(-5px)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.background = 'rgba(255,255,255,0.03)';
+              e.target.style.borderColor = 'rgba(255,255,255,0.1)';
+              e.target.style.transform = 'translateY(0)';
+            }}
+            onClick={() => window.open('mailto:McKenzie.ouyang@gmail.com')}
+            >
+              <div style={{
+                fontSize: '3rem',
+                marginBottom: '20px'
+              }}>
+                📧
+              </div>
+              <h3 style={{
+                fontSize: '1.3rem',
+                fontWeight: '500',
+                color: 'white',
+                margin: '0 0 15px 0',
+                fontFamily: "'Inter', sans-serif"
+              }}>
+                Email
+              </h3>
+              <p style={{
+                fontSize: '1rem',
+                color: 'rgba(255,255,255,0.8)',
+                margin: '0',
+                fontFamily: "'Inter', sans-serif",
+                wordBreak: 'break-all'
+              }}>
+                McKenzie.ouyang@gmail.com
+              </p>
+            </div>
+
+            {/* 电话 - 中国 */}
+            <div style={{
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '20px',
+              padding: '40px 30px',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.background = 'rgba(255,255,255,0.06)';
+              e.target.style.borderColor = 'rgba(255,255,255,0.2)';
+              e.target.style.transform = 'translateY(-5px)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.background = 'rgba(255,255,255,0.03)';
+              e.target.style.borderColor = 'rgba(255,255,255,0.1)';
+              e.target.style.transform = 'translateY(0)';
+            }}
+            onClick={() => window.open('tel:+8615723351973')}
+            >
+              <div style={{
+                fontSize: '3rem',
+                marginBottom: '20px'
+              }}>
+                🇨🇳
+              </div>
+              <h3 style={{
+                fontSize: '1.3rem',
+                fontWeight: '500',
+                color: 'white',
+                margin: '0 0 15px 0',
+                fontFamily: "'Inter', sans-serif"
+              }}>
+                China
+              </h3>
+              <p style={{
+                fontSize: '1rem',
+                color: 'rgba(255,255,255,0.8)',
+                margin: '0',
+                fontFamily: "'Inter', sans-serif"
+              }}>
+                +86 15723351973
+              </p>
+            </div>
+
+            {/* 电话 - 香港 */}
+            <div style={{
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '20px',
+              padding: '40px 30px',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.background = 'rgba(255,255,255,0.06)';
+              e.target.style.borderColor = 'rgba(255,255,255,0.2)';
+              e.target.style.transform = 'translateY(-5px)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.background = 'rgba(255,255,255,0.03)';
+              e.target.style.borderColor = 'rgba(255,255,255,0.1)';
+              e.target.style.transform = 'translateY(0)';
+            }}
+            onClick={() => window.open('tel:+85284963034')}
+            >
+              <div style={{
+                fontSize: '3rem',
+                marginBottom: '20px'
+              }}>
+                🇭🇰
+              </div>
+              <h3 style={{
+                fontSize: '1.3rem',
+                fontWeight: '500',
+                color: 'white',
+                margin: '0 0 15px 0',
+                fontFamily: "'Inter', sans-serif"
+              }}>
+                Hong Kong
+              </h3>
+              <p style={{
+                fontSize: '1rem',
+                color: 'rgba(255,255,255,0.8)',
+                margin: '0',
+                fontFamily: "'Inter', sans-serif"
+              }}>
+                +852 84963034
+              </p>
+            </div>
+          </div>
+
+          {/* 社交媒体链接 */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '30px',
+            flexWrap: 'wrap'
+          }}>
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                color: 'rgba(255,255,255,0.8)',
+                textDecoration: 'none',
+                fontSize: '1.1rem',
+                fontFamily: "'Inter', sans-serif",
+                padding: '15px 25px',
+                border: '1px solid rgba(255,255,255,0.2)',
+                borderRadius: '12px',
+                transition: 'all 0.3s ease',
+                background: 'rgba(255,255,255,0.02)'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = 'rgba(255,255,255,0.1)';
+                e.target.style.borderColor = 'rgba(255,255,255,0.4)';
+                e.target.style.transform = 'translateY(-3px)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'rgba(255,255,255,0.02)';
+                e.target.style.borderColor = 'rgba(255,255,255,0.2)';
+                e.target.style.transform = 'translateY(0)';
+              }}
+            >
+              <span style={{ fontSize: '1.5rem' }}>💼</span>
+              LinkedIn
+            </a>
+            
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                color: 'rgba(255,255,255,0.8)',
+                textDecoration: 'none',
+                fontSize: '1.1rem',
+                fontFamily: "'Inter', sans-serif",
+                padding: '15px 25px',
+                border: '1px solid rgba(255,255,255,0.2)',
+                borderRadius: '12px',
+                transition: 'all 0.3s ease',
+                background: 'rgba(255,255,255,0.02)'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = 'rgba(255,255,255,0.1)';
+                e.target.style.borderColor = 'rgba(255,255,255,0.4)';
+                e.target.style.transform = 'translateY(-3px)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'rgba(255,255,255,0.02)';
+                e.target.style.borderColor = 'rgba(255,255,255,0.2)';
+                e.target.style.transform = 'translateY(0)';
+              }}
+            >
+              <span style={{ fontSize: '1.5rem' }}>📸</span>
+              Instagram
+            </a>
+
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                color: 'rgba(255,255,255,0.8)',
+                textDecoration: 'none',
+                fontSize: '1.1rem',
+                fontFamily: "'Inter', sans-serif",
+                padding: '15px 25px',
+                border: '1px solid rgba(255,255,255,0.2)',
+                borderRadius: '12px',
+                transition: 'all 0.3s ease',
+                background: 'rgba(255,255,255,0.02)'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = 'rgba(255,255,255,0.1)';
+                e.target.style.borderColor = 'rgba(255,255,255,0.4)';
+                e.target.style.transform = 'translateY(-3px)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'rgba(255,255,255,0.02)';
+                e.target.style.borderColor = 'rgba(255,255,255,0.2)';
+                e.target.style.transform = 'translateY(0)';
+              }}
+            >
+              <span style={{ fontSize: '1.5rem' }}>💻</span>
+              GitHub
+            </a>
+          </div>
+
+          {/* 底部状态 */}
+          <div style={{
+            marginTop: '60px',
+            padding: '25px',
+            background: 'rgba(255,255,255,0.02)',
+            border: '1px solid rgba(255,255,255,0.1)',
+            borderRadius: '15px',
+            maxWidth: '500px',
+            margin: '60px auto 0'
+          }}>
+            <div style={{
+              fontSize: '2rem',
+              marginBottom: '15px'
+            }}>
+              🚀
+            </div>
+            <div style={{
+              fontSize: '1.2rem',
+              fontWeight: '500',
+              color: 'white',
+              marginBottom: '10px',
+              fontFamily: "'Inter', sans-serif"
+            }}>
+              Currently Available
+            </div>
+            <div style={{
+              fontSize: '1rem',
+              color: 'rgba(255,255,255,0.7)',
+              lineHeight: '1.6',
+              fontFamily: "'Inter', sans-serif"
+            }}>
+              Open for creative collaborations, digital art projects, and innovative technology explorations.
             </div>
           </div>
         </div>
