@@ -926,7 +926,7 @@ function App() {
             {/* 个人照片 */}
             <div style={{
               width: '100%',
-              height: '150px',
+              height: '100px',
               background: 'rgba(255,255,255,0.05)',
               borderRadius: '16px',
               border: '1px solid rgba(255,255,255,0.1)',
@@ -962,7 +962,7 @@ function App() {
                 style={{
                   width: '100%',
                   height: '100%',
-                  objectFit: 'cover',
+                  objectFit: 'contain',
                   borderRadius: '16px',
                   position: 'absolute',
                   top: 0,
