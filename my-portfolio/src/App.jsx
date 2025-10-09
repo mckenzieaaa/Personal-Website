@@ -5,6 +5,7 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isRotating, setIsRotating] = useState(false);
   const [selectedTag, setSelectedTag] = useState('all');
+  const [expandedSection, setExpandedSection] = useState(null);
 
   // 项目数据，包含图片路径和软件标签
   const projects = [
@@ -770,21 +771,242 @@ function App() {
               fontSize: '1.2rem',
               lineHeight: '1.8',
               color: 'rgba(255,255,255,0.8)',
-              margin: '0 0 30px 0',
-              fontFamily: "'Inter', sans-serif"
-            }}>
-              I'm a digital artist and creative technologist passionate about exploring the intersection of art, technology, and human experience. My work spans interactive installations, immersive digital environments, and experimental media.
-            </p>
-            
-            <p style={{
-              fontSize: '1.1rem',
-              lineHeight: '1.7',
-              color: 'rgba(255,255,255,0.7)',
               margin: '0 0 40px 0',
               fontFamily: "'Inter', sans-serif"
             }}>
-              Through my practice, I investigate how digital tools can create new forms of storytelling and emotional connection, pushing the boundaries between virtual and physical spaces.
+              I'm a digital artist and creative technologist passionate about exploring the intersection of art, technology, and human experience.
             </p>
+
+            {/* 交互式信息卡片 */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+              gap: '16px',
+              marginBottom: '40px'
+            }}>
+              {/* 教育背景卡片 */}
+              <div 
+                style={{
+                  background: expandedSection === 'education' ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: '12px',
+                  padding: '20px',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  transform: expandedSection === 'education' ? 'scale(1.02)' : 'scale(1)'
+                }}
+                onClick={() => setExpandedSection(expandedSection === 'education' ? null : 'education')}
+                onMouseEnter={(e) => {
+                  if (expandedSection !== 'education') {
+                    e.target.style.background = 'rgba(255,255,255,0.06)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (expandedSection !== 'education') {
+                    e.target.style.background = 'rgba(255,255,255,0.04)';
+                  }
+                }}
+              >
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  marginBottom: expandedSection === 'education' ? '16px' : '0'
+                }}>
+                  <span style={{ fontSize: '1.5rem' }}>🎓</span>
+                  <h3 style={{
+                    fontSize: '1.1rem',
+                    fontWeight: '500',
+                    color: 'white',
+                    margin: 0,
+                    fontFamily: "'Inter', sans-serif"
+                  }}>
+                    Education
+                  </h3>
+                  <span style={{
+                    fontSize: '0.8rem',
+                    color: 'rgba(255,255,255,0.5)',
+                    marginLeft: 'auto',
+                    transform: expandedSection === 'education' ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.3s ease'
+                  }}>
+                    ▼
+                  </span>
+                </div>
+                
+                {expandedSection === 'education' && (
+                  <div style={{
+                    fontSize: '0.9rem',
+                    color: 'rgba(255,255,255,0.8)',
+                    lineHeight: '1.6',
+                    fontFamily: "'Inter', sans-serif",
+                    animation: 'fadeIn 0.3s ease'
+                  }}>
+                    <div style={{ marginBottom: '12px' }}>
+                      <strong>Master's in Digital Arts</strong><br/>
+                      University of Arts<br/>
+                      <span style={{ color: 'rgba(255,255,255,0.6)' }}>2022-2024</span>
+                    </div>
+                    <div>
+                      <strong>Bachelor's in Interactive Media</strong><br/>
+                      Design Institute<br/>
+                      <span style={{ color: 'rgba(255,255,255,0.6)' }}>2018-2022</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* 获奖经历卡片 */}
+              <div 
+                style={{
+                  background: expandedSection === 'awards' ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: '12px',
+                  padding: '20px',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  transform: expandedSection === 'awards' ? 'scale(1.02)' : 'scale(1)'
+                }}
+                onClick={() => setExpandedSection(expandedSection === 'awards' ? null : 'awards')}
+                onMouseEnter={(e) => {
+                  if (expandedSection !== 'awards') {
+                    e.target.style.background = 'rgba(255,255,255,0.06)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (expandedSection !== 'awards') {
+                    e.target.style.background = 'rgba(255,255,255,0.04)';
+                  }
+                }}
+              >
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  marginBottom: expandedSection === 'awards' ? '16px' : '0'
+                }}>
+                  <span style={{ fontSize: '1.5rem' }}>🏆</span>
+                  <h3 style={{
+                    fontSize: '1.1rem',
+                    fontWeight: '500',
+                    color: 'white',
+                    margin: 0,
+                    fontFamily: "'Inter', sans-serif"
+                  }}>
+                    Awards
+                  </h3>
+                  <span style={{
+                    fontSize: '0.8rem',
+                    color: 'rgba(255,255,255,0.5)',
+                    marginLeft: 'auto',
+                    transform: expandedSection === 'awards' ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.3s ease'
+                  }}>
+                    ▼
+                  </span>
+                </div>
+                
+                {expandedSection === 'awards' && (
+                  <div style={{
+                    fontSize: '0.9rem',
+                    color: 'rgba(255,255,255,0.8)',
+                    lineHeight: '1.6',
+                    fontFamily: "'Inter', sans-serif",
+                    animation: 'fadeIn 0.3s ease'
+                  }}>
+                    <div style={{ marginBottom: '10px' }}>
+                      🥇 <strong>Digital Art Excellence Award</strong><br/>
+                      <span style={{ color: 'rgba(255,255,255,0.6)' }}>National Arts Competition 2024</span>
+                    </div>
+                    <div style={{ marginBottom: '10px' }}>
+                      🥈 <strong>Interactive Design Silver Medal</strong><br/>
+                      <span style={{ color: 'rgba(255,255,255,0.6)' }}>International Media Festival 2023</span>
+                    </div>
+                    <div>
+                      🎖️ <strong>Outstanding Student Achievement</strong><br/>
+                      <span style={{ color: 'rgba(255,255,255,0.6)' }}>University Dean's List 2022</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* 兴趣爱好卡片 */}
+              <div 
+                style={{
+                  background: expandedSection === 'interests' ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: '12px',
+                  padding: '20px',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  transform: expandedSection === 'interests' ? 'scale(1.02)' : 'scale(1)'
+                }}
+                onClick={() => setExpandedSection(expandedSection === 'interests' ? null : 'interests')}
+                onMouseEnter={(e) => {
+                  if (expandedSection !== 'interests') {
+                    e.target.style.background = 'rgba(255,255,255,0.06)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (expandedSection !== 'interests') {
+                    e.target.style.background = 'rgba(255,255,255,0.04)';
+                  }
+                }}
+              >
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  marginBottom: expandedSection === 'interests' ? '16px' : '0'
+                }}>
+                  <span style={{ fontSize: '1.5rem' }}>💫</span>
+                  <h3 style={{
+                    fontSize: '1.1rem',
+                    fontWeight: '500',
+                    color: 'white',
+                    margin: 0,
+                    fontFamily: "'Inter', sans-serif"
+                  }}>
+                    Interests
+                  </h3>
+                  <span style={{
+                    fontSize: '0.8rem',
+                    color: 'rgba(255,255,255,0.5)',
+                    marginLeft: 'auto',
+                    transform: expandedSection === 'interests' ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.3s ease'
+                  }}>
+                    ▼
+                  </span>
+                </div>
+                
+                {expandedSection === 'interests' && (
+                  <div style={{
+                    fontSize: '0.9rem',
+                    color: 'rgba(255,255,255,0.8)',
+                    lineHeight: '1.6',
+                    fontFamily: "'Inter', sans-serif",
+                    animation: 'fadeIn 0.3s ease'
+                  }}>
+                    <div style={{ marginBottom: '8px' }}>
+                      🎨 <strong>Digital Art & Animation</strong>
+                    </div>
+                    <div style={{ marginBottom: '8px' }}>
+                      🤖 <strong>AI & Machine Learning</strong>
+                    </div>
+                    <div style={{ marginBottom: '8px' }}>
+                      🎮 <strong>Interactive Experience Design</strong>
+                    </div>
+                    <div style={{ marginBottom: '8px' }}>
+                      📚 <strong>Philosophy & Technology</strong>
+                    </div>
+                    <div>
+                      🎵 <strong>Electronic Music Production</strong>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
 
             {/* 技能标签 */}
             <div style={{
@@ -916,55 +1138,51 @@ function App() {
             </div>
           </div>
 
-          {/* 右侧：个人照片和额外信息 */}
+          {/* 右侧：简洁个人信息 */}
           <div style={{
             display: 'flex',
             flexDirection: 'column',
-            gap: '24px',
-            height: '100%'
+            gap: '20px',
+            height: '100%',
+            alignItems: 'center'
           }}>
-            {/* 个人照片 - 居中显示 */}
+            {/* 简洁头像展示 */}
             <div style={{
-              width: '160px',
-              height: '120px',
-              alignSelf: 'center',
+              width: '140px',
+              height: '140px',
+              borderRadius: '50%',
               background: 'rgba(255,255,255,0.05)',
-              borderRadius: '12px',
-              border: '1px solid rgba(255,255,255,0.1)',
+              border: '2px solid rgba(255,255,255,0.1)',
               overflow: 'hidden',
               position: 'relative',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              flexDirection: 'column',
-              color: 'rgba(255,255,255,0.6)',
-              fontSize: '0.9rem',
-              fontFamily: "'Inter', sans-serif",
-              textAlign: 'center'
-            }}>
-              <div style={{ fontSize: '1rem', marginBottom: '8px' }}>
-                📸 Personal Photo
-              </div>
-              <div style={{ fontSize: '0.8rem', opacity: 0.7, lineHeight: '1.4' }}>
-                Please manually copy your photo to:<br/>
-                <code style={{ 
-                  background: 'rgba(255,255,255,0.1)', 
-                  padding: '2px 4px', 
-                  borderRadius: '4px',
-                  fontSize: '0.7rem'
-                }}>
-                  public/images/xinran-photo.jpg
-                </code>
-              </div>
-              {/* 隐藏的img标签，当照片存在时会显示 */}
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.transform = 'scale(1.05)';
+              e.target.style.borderColor = 'rgba(255,255,255,0.3)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = 'scale(1)';
+              e.target.style.borderColor = 'rgba(255,255,255,0.1)';
+            }}
+            >
+              <span style={{
+                fontSize: '3rem',
+                color: 'rgba(255,255,255,0.4)'
+              }}>
+                👤
+              </span>
               <img
-                src="/Personal-Website/images/xinran-photo.jpg?v=2025100905"
+                src="/Personal-Website/images/xinran-photo.jpg?v=2025100906"
                 alt="Xinran Ouyang"
                 style={{
                   width: '100%',
                   height: '100%',
                   objectFit: 'cover',
-                  borderRadius: '12px',
                   position: 'absolute',
                   top: 0,
                   left: 0,
@@ -972,91 +1190,52 @@ function App() {
                 }}
                 onLoad={(e) => {
                   e.target.style.opacity = 1;
-                  e.target.parentElement.querySelector('div').style.display = 'none';
                 }}
                 onError={(e) => {
                   e.target.style.display = 'none';
                 }}
               />
             </div>
-            
-            {/* 联系方式 - 简洁卡片样式 */}
+
+            {/* 基本信息 */}
             <div style={{
-              background: 'rgba(255,255,255,0.03)',
-              borderRadius: '12px',
-              border: '1px solid rgba(255,255,255,0.08)',
-              padding: '20px',
-              backdropFilter: 'blur(10px)'
+              textAlign: 'center',
+              color: 'rgba(255,255,255,0.8)',
+              fontSize: '0.9rem',
+              fontFamily: "'Inter', sans-serif"
             }}>
-              <h3 style={{
-                fontSize: '1rem',
-                fontWeight: '500',
-                color: 'rgba(255,255,255,0.9)',
-                margin: '0 0 16px 0',
-                fontFamily: "'Inter', sans-serif",
-                textAlign: 'center'
+              <div style={{ fontWeight: '500', marginBottom: '8px' }}>
+                Xinran Ouyang
+              </div>
+              <div style={{ color: 'rgba(255,255,255,0.6)' }}>
+                Digital Artist & Creative Technologist
+              </div>
+            </div>
+
+            {/* 简洁联系方式 */}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '8px',
+              alignItems: 'center',
+              fontSize: '0.8rem',
+              color: 'rgba(255,255,255,0.7)',
+              fontFamily: "'SF Mono', 'Monaco', monospace"
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span>🇨🇳</span> +86 15723351973
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span>🇭🇰</span> +852 84963034
+              </div>
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '6px',
+                paddingTop: '4px',
+                borderTop: '1px solid rgba(255,255,255,0.1)'
               }}>
-                📞 Contact
-              </h3>
-              
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '10px',
-                fontSize: '0.85rem',
-                color: 'rgba(255,255,255,0.8)',
-                fontFamily: "'Inter', sans-serif"
-              }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  padding: '6px 0'
-                }}>
-                  <span style={{ 
-                    fontSize: '0.9rem', 
-                    width: '20px', 
-                    textAlign: 'center',
-                    opacity: 0.7
-                  }}>🇨🇳</span>
-                  <span style={{ fontFamily: "'SF Mono', 'Monaco', monospace" }}>+86 15723351973</span>
-                </div>
-                
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  padding: '6px 0'
-                }}>
-                  <span style={{ 
-                    fontSize: '0.9rem', 
-                    width: '20px', 
-                    textAlign: 'center',
-                    opacity: 0.7
-                  }}>🇭🇰</span>
-                  <span style={{ fontFamily: "'SF Mono', 'Monaco', monospace" }}>+852 84963034</span>
-                </div>
-                
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  padding: '6px 0',
-                  borderTop: '1px solid rgba(255,255,255,0.1)',
-                  marginTop: '6px',
-                  paddingTop: '12px'
-                }}>
-                  <span style={{ 
-                    fontSize: '0.9rem', 
-                    width: '20px', 
-                    textAlign: 'center',
-                    opacity: 0.7
-                  }}>✉️</span>
-                  <span style={{ 
-                    fontFamily: "'SF Mono', 'Monaco', monospace",
-                    fontSize: '0.8rem'
-                  }}>McKenzie.ouyang@gmail.com</span>
-                </div>
+                <span>✉️</span> McKenzie.ouyang@gmail.com
               </div>
             </div>
 
