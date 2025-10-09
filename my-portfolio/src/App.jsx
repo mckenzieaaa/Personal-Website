@@ -834,27 +834,30 @@ function App() {
         overflow: 'hidden'
       }}>
         <div style={{
-          maxWidth: '1000px',
+          maxWidth: '900px',
           width: '100%',
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '30px',
-          alignItems: 'start',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
           height: 'fit-content',
           maxHeight: '100%'
         }}>
-          {/* 左侧：个人信息 */}
-          <div>
+          {/* 个人信息 */}
+          <div style={{
+            width: '100%',
+            textAlign: 'center'
+          }}>
             {/* 头像和标题区域 */}
             <div style={{
               display: 'flex',
-              gap: '20px',
+              flexDirection: 'column',
               alignItems: 'center',
-              marginBottom: '25px'
+              marginBottom: '20px'
             }}>
               {/* 头像 */}
               <div style={{
-                flexShrink: 0
+                flexShrink: 0,
+                marginBottom: '15px'
               }}>
                 <div style={{
                   width: '100px',
@@ -867,7 +870,8 @@ function App() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
+                  margin: '0 auto'
                 }}>
                   <span style={{
                     fontSize: '3rem',
@@ -898,9 +902,7 @@ function App() {
               </div>
 
               {/* 标题和基本信息 */}
-              <div style={{
-                flex: 1
-              }}>
+              <div>
                 <h2 style={{
                   fontSize: 'clamp(2rem, 5vw, 3rem)',
                   fontWeight: '200',
@@ -924,7 +926,9 @@ function App() {
 
             {/* 简介文字 */}
             <div style={{
-              marginBottom: '25px'
+              marginBottom: '20px',
+              textAlign: 'center',
+              maxWidth: '600px'
             }}>
               <p style={{
                 fontSize: '1.1rem',
@@ -952,10 +956,11 @@ function App() {
 
             {/* 简化的信息卡片 */}
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr',
-              gap: '20px',
-              marginBottom: '30px'
+              display: 'flex',
+              gap: '15px',
+              marginBottom: '20px',
+              justifyContent: 'center',
+              flexWrap: 'wrap'
             }}>
               {/* 教育背景卡片 */}
               <div 
@@ -963,9 +968,11 @@ function App() {
                   background: expandedSection === 'education' ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.04)',
                   border: '1px solid rgba(255,255,255,0.1)',
                   borderRadius: '12px',
-                  padding: '20px',
+                  padding: '15px 20px',
                   cursor: 'pointer',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
+                  minWidth: '200px',
+                  maxWidth: '250px'
                 }}
                 onClick={() => setExpandedSection(expandedSection === 'education' ? null : 'education')}
               >
@@ -1021,9 +1028,11 @@ function App() {
                   background: expandedSection === 'interests' ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.04)',
                   border: '1px solid rgba(255,255,255,0.1)',
                   borderRadius: '12px',
-                  padding: '20px',
+                  padding: '15px 20px',
                   cursor: 'pointer',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
+                  minWidth: '200px',
+                  maxWidth: '250px'
                 }}
                 onClick={() => setExpandedSection(expandedSection === 'interests' ? null : 'interests')}
               >
@@ -1072,12 +1081,15 @@ function App() {
 
             {/* 技能标签 */}
             <div style={{
-              marginBottom: '25px'
+              marginBottom: '20px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center'
             }}>
               <h3 style={{
                 fontSize: '1.2rem',
                 fontWeight: '500',
-                margin: '0 0 20px 0',
+                margin: '0 0 15px 0',
                 color: 'white',
                 fontFamily: "'Inter', sans-serif"
               }}>
@@ -1086,7 +1098,9 @@ function App() {
               <div style={{
                 display: 'flex',
                 flexWrap: 'wrap',
-                gap: '12px'
+                gap: '12px',
+                justifyContent: 'center',
+                maxWidth: '600px'
               }}>
                 {['Digital Art', 'Interactive Design', 'Creative Coding', 'Installation Art', 'Visual Design', 'Creative Direction'].map((skill, index) => (
                   <span
@@ -1108,11 +1122,15 @@ function App() {
             </div>
 
             {/* 简化联系信息 */}
-            <div>
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center'
+            }}>
               <h3 style={{
                 fontSize: '1.2rem',
                 fontWeight: '500',
-                margin: '0 0 20px 0',
+                margin: '0 0 15px 0',
                 color: 'white',
                 fontFamily: "'Inter', sans-serif"
               }}>
@@ -1121,7 +1139,8 @@ function App() {
               <div style={{
                 display: 'flex',
                 gap: '15px',
-                flexWrap: 'wrap'
+                flexWrap: 'wrap',
+                justifyContent: 'center'
               }}>
                 <a
                   href="mailto:McKenzie.ouyang@gmail.com"
@@ -1372,13 +1391,14 @@ function App() {
         overflow: 'hidden'
       }}>
         <div style={{
-          maxWidth: '1200px',
+          maxWidth: '900px',
           width: '100%',
-          textAlign: 'center'
+          textAlign: 'center',
+          height: 'fit-content'
         }}>
           {/* 主标题 */}
           <div style={{
-            marginBottom: '40px'
+            marginBottom: '25px'
           }}>
             <h2 style={{
               fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
@@ -1406,9 +1426,9 @@ function App() {
           {/* 联系方式网格 */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-            gap: '20px',
-            marginBottom: '40px'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gap: '15px',
+            marginBottom: '25px'
           }}>
             {/* 邮箱 */}
             <div style={{
@@ -1554,7 +1574,7 @@ function App() {
           <div style={{
             display: 'flex',
             justifyContent: 'center',
-            gap: '30px',
+            gap: '20px',
             flexWrap: 'wrap'
           }}>
             <a
@@ -1659,13 +1679,13 @@ function App() {
 
           {/* 底部状态 */}
           <div style={{
-            marginTop: '40px',
-            padding: '20px',
+            marginTop: '15px',
+            padding: '12px',
             background: 'rgba(255,255,255,0.02)',
             border: '1px solid rgba(255,255,255,0.1)',
             borderRadius: '15px',
-            maxWidth: '400px',
-            margin: '40px auto 0'
+            maxWidth: '350px',
+            margin: '15px auto 0'
           }}>
             <div style={{
               fontSize: '2rem',
