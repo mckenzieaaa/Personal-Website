@@ -186,6 +186,34 @@ function App() {
           padding: '0 80px',
           zIndex: 2
         }}>
+          {/* Logo */}
+          <div style={{
+            marginBottom: '40px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '15px'
+          }}>
+            <img 
+              src="/Personal-Website/images/logo111.svg" 
+              alt="OYXR Logo" 
+              style={{
+                width: '60px',
+                height: '60px',
+                filter: 'invert(1)',
+                opacity: 0.9
+              }}
+            />
+            <div style={{
+              fontSize: '1.5rem',
+              fontWeight: '300',
+              color: 'white',
+              letterSpacing: '0.1em',
+              fontFamily: "'Inter', sans-serif"
+            }}>
+              OYXR
+            </div>
+          </div>
+
           <div style={{
             fontSize: '1rem',
             color: 'rgba(255,255,255,0.6)',
