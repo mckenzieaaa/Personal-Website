@@ -588,49 +588,57 @@ function App() {
         </div>
       </section>
 
-      {/* Featured Work - 平铺展示 */}
+      {/* Featured Work - 左右布局 */}
       <section id="work" style={{
         height: '100vh',
         width: '100vw',
-        padding: '80px 40px',
+        padding: '40px',
         background: 'linear-gradient(180deg, #000000 0%, #1a1a1a 50%, #000000 100%)',
         display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
         scrollSnapAlign: 'start',
         scrollSnapStop: 'always',
-        overflow: 'hidden auto'
+        overflow: 'hidden'
       }}>
+        {/* 左侧：标题和标签 */}
         <div style={{
-          textAlign: 'center',
-          marginBottom: '40px'
+          width: '320px',
+          display: 'flex',
+          flexDirection: 'column',
+          paddingRight: '40px'
         }}>
-          <h2 style={{
-            fontSize: 'clamp(2rem, 5vw, 3rem)',
-            fontWeight: '300',
-            margin: 0,
-            letterSpacing: '-0.02em',
-            color: 'white',
-            fontFamily: "'Inter', sans-serif"
+          {/* 标题 */}
+          <div style={{
+            marginBottom: '40px'
           }}>
-            Featured Work
-          </h2>
-          <p style={{
-            fontSize: 'clamp(0.9rem, 1.5vw, 1rem)',
-            color: 'rgba(255,255,255,0.6)',
-            margin: '15px 0 25px 0',
-            fontFamily: "'Inter', sans-serif"
-          }}>
-            A selection of recent projects exploring digital art and interactive experiences
-          </p>
+            <h2 style={{
+              fontSize: '2.5rem',
+              fontWeight: '300',
+              margin: '0 0 15px 0',
+              letterSpacing: '-0.02em',
+              color: 'white',
+              fontFamily: "'Inter', sans-serif"
+            }}>
+              Featured Work
+            </h2>
+            <p style={{
+              fontSize: '1rem',
+              color: 'rgba(255,255,255,0.6)',
+              margin: 0,
+              fontFamily: "'Inter', sans-serif",
+              lineHeight: '1.6'
+            }}>
+              A selection of recent projects exploring digital art and interactive experiences
+            </p>
+          </div>
           
-          {/* 软件标签过滤器 */}
+          {/* 垂直软件标签 */}
           <div style={{
             display: 'flex',
-            flexWrap: 'wrap',
-            gap: '0.8rem',
-            justifyContent: 'center',
-            marginTop: '20px'
+            flexDirection: 'column',
+            gap: '10px',
+            flex: 1,
+            maxHeight: 'calc(100vh - 200px)',
+            overflowY: 'auto'
           }}>
             {softwareTags.map(tag => (
               <button
@@ -639,55 +647,52 @@ function App() {
                 style={{
                   background: selectedTag === tag.id 
                     ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' 
-                    : 'rgba(255, 255, 255, 0.1)',
-                  border: selectedTag === tag.id ? 'none' : '1px solid rgba(255, 255, 255, 0.2)',
-                  borderRadius: '20px',
-                  padding: '0.5rem 1rem',
+                    : 'rgba(255, 255, 255, 0.05)',
+                  border: selectedTag === tag.id ? 'none' : '1px solid rgba(255, 255, 255, 0.1)',
+                  borderRadius: '12px',
+                  padding: '12px 16px',
                   color: 'white',
-                  fontSize: '0.8rem',
+                  fontSize: '0.9rem',
                   fontWeight: '400',
                   cursor: 'pointer',
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  transition: 'all 0.3s ease',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.4rem',
-                  backdropFilter: 'blur(10px)',
-                  transform: selectedTag === tag.id ? 'scale(1.05)' : 'scale(1)',
-                  boxShadow: selectedTag === tag.id 
-                    ? '0 6px 20px rgba(102, 126, 234, 0.3)' 
-                    : '0 3px 10px rgba(0, 0, 0, 0.1)',
-                  fontFamily: "'Inter', sans-serif"
+                  gap: '10px',
+                  textAlign: 'left',
+                  fontFamily: "'Inter', sans-serif",
+                  transform: selectedTag === tag.id ? 'translateX(5px)' : 'translateX(0)',
+                  boxShadow: selectedTag === tag.id ? '0 4px 15px rgba(102, 126, 234, 0.3)' : 'none'
                 }}
                 onMouseEnter={(e) => {
                   if (selectedTag !== tag.id) {
-                    e.target.style.background = 'rgba(255, 255, 255, 0.15)';
-                    e.target.style.transform = 'scale(1.02)';
+                    e.target.style.background = 'rgba(255, 255, 255, 0.1)';
+                    e.target.style.transform = 'translateX(3px)';
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (selectedTag !== tag.id) {
-                    e.target.style.background = 'rgba(255, 255, 255, 0.1)';
-                    e.target.style.transform = 'scale(1)';
+                    e.target.style.background = 'rgba(255, 255, 255, 0.05)';
+                    e.target.style.transform = 'translateX(0)';
                   }
                 }}
               >
-                <span style={{ fontSize: '0.9rem' }}>{tag.icon}</span>
-                {tag.name}
+                <span style={{ fontSize: '1.1rem' }}>{tag.icon}</span>
+                <span>{tag.name}</span>
               </button>
             ))}
           </div>
         </div>
 
-        {/* 作品网格展示 */}
+        {/* 右侧：作品网格 */}
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '25px',
-          maxWidth: '1000px',
-          width: '100%',
           flex: 1,
-          overflow: 'auto',
-          paddingBottom: '20px'
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gridTemplateRows: 'repeat(2, 1fr)',
+          gap: '20px',
+          height: '100%',
+          overflow: 'hidden'
         }}>
           {filteredProjects.map((project, index) => (
             <div
@@ -700,7 +705,10 @@ function App() {
                 cursor: 'pointer',
                 transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                 transform: 'translateY(0)',
-                opacity: 1
+                opacity: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%'
               }}
               onClick={() => setSelectedProject(project)}
               onMouseEnter={(e) => {
@@ -717,13 +725,14 @@ function App() {
               {/* 图片容器 */}
               <div style={{
                 width: '100%',
-                height: '280px',
+                flex: '1',
                 position: 'relative',
                 overflow: 'hidden',
                 backgroundColor: 'rgba(0,0,0,0.8)',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                minHeight: '180px'
               }}>
                 <img
                   src={`${project.image}?v=${Date.now()}`}
@@ -755,17 +764,17 @@ function App() {
                 {/* 查看按钮 */}
                 <div style={{
                   position: 'absolute',
-                  top: '20px',
-                  right: '20px',
-                  width: '40px',
-                  height: '40px',
+                  top: '12px',
+                  right: '12px',
+                  width: '32px',
+                  height: '32px',
                   background: 'rgba(0,0,0,0.7)',
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   color: 'white',
-                  fontSize: '16px',
+                  fontSize: '14px',
                   opacity: 0.8,
                   transition: 'all 0.3s ease'
                 }}>
@@ -775,14 +784,15 @@ function App() {
               
               {/* 项目信息 */}
               <div style={{
-                padding: '16px 20px',
-                background: 'rgba(0,0,0,0.3)'
+                padding: '12px 16px',
+                background: 'rgba(0,0,0,0.3)',
+                borderTop: '1px solid rgba(255,255,255,0.1)'
               }}>
                 <div style={{
-                  fontSize: '0.85rem',
+                  fontSize: '0.75rem',
                   color: 'rgba(255,255,255,0.6)',
                   letterSpacing: '0.1em',
-                  marginBottom: '12px',
+                  marginBottom: '6px',
                   textTransform: 'uppercase',
                   fontFamily: "'Inter', sans-serif"
                 }}>
@@ -790,9 +800,9 @@ function App() {
                 </div>
                 
                 <h3 style={{
-                  fontSize: '1.5rem',
+                  fontSize: '1rem',
                   fontWeight: '500',
-                  margin: '0 0 15px 0',
+                  margin: '0',
                   color: 'white',
                   letterSpacing: '-0.01em',
                   fontFamily: "'Inter', sans-serif",
@@ -800,16 +810,6 @@ function App() {
                 }}>
                   {project.title}
                 </h3>
-                
-                <p style={{
-                  fontSize: '1rem',
-                  color: 'rgba(255,255,255,0.7)',
-                  lineHeight: '1.6',
-                  margin: 0,
-                  fontFamily: "'Inter', sans-serif"
-                }}>
-                  {project.description || "An exploration of digital art and interactive design, pushing the boundaries of technology and creativity."}
-                </p>
               </div>
             </div>
           ))}
