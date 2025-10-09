@@ -796,16 +796,6 @@ function App() {
                   transform: expandedSection === 'education' ? 'scale(1.02)' : 'scale(1)'
                 }}
                 onClick={() => setExpandedSection(expandedSection === 'education' ? null : 'education')}
-                onMouseEnter={(e) => {
-                  if (expandedSection !== 'education') {
-                    e.target.style.background = 'rgba(255,255,255,0.06)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (expandedSection !== 'education') {
-                    e.target.style.background = 'rgba(255,255,255,0.04)';
-                  }
-                }}
               >
                 <div style={{
                   display: 'flex',
@@ -868,16 +858,6 @@ function App() {
                   transform: expandedSection === 'awards' ? 'scale(1.02)' : 'scale(1)'
                 }}
                 onClick={() => setExpandedSection(expandedSection === 'awards' ? null : 'awards')}
-                onMouseEnter={(e) => {
-                  if (expandedSection !== 'awards') {
-                    e.target.style.background = 'rgba(255,255,255,0.06)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (expandedSection !== 'awards') {
-                    e.target.style.background = 'rgba(255,255,255,0.04)';
-                  }
-                }}
               >
                 <div style={{
                   display: 'flex',
@@ -942,16 +922,6 @@ function App() {
                   transform: expandedSection === 'interests' ? 'scale(1.02)' : 'scale(1)'
                 }}
                 onClick={() => setExpandedSection(expandedSection === 'interests' ? null : 'interests')}
-                onMouseEnter={(e) => {
-                  if (expandedSection !== 'interests') {
-                    e.target.style.background = 'rgba(255,255,255,0.06)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (expandedSection !== 'interests') {
-                    e.target.style.background = 'rgba(255,255,255,0.04)';
-                  }
-                }}
               >
                 <div style={{
                   display: 'flex',
@@ -1239,74 +1209,142 @@ function App() {
               </div>
             </div>
 
-            {/* 额外信息卡片 */}
+            {/* 当前项目展示 */}
             <div style={{
-              background: 'rgba(255,255,255,0.05)',
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)',
               borderRadius: '16px',
-              border: '1px solid rgba(255,255,255,0.1)',
-              padding: '25px',
-              flex: 1
+              border: '1px solid rgba(255,255,255,0.15)',
+              padding: '24px',
+              flex: 1,
+              backdropFilter: 'blur(10px)',
+              position: 'relative',
+              overflow: 'hidden'
             }}>
-              <h3 style={{
-                fontSize: '1.3rem',
-                fontWeight: '500',
-                margin: '0 0 20px 0',
-                color: 'white',
-                fontFamily: "'Inter', sans-serif"
+              {/* 装饰性背景元素 */}
+              <div style={{
+                position: 'absolute',
+                top: '-20px',
+                right: '-20px',
+                width: '60px',
+                height: '60px',
+                background: 'linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1))',
+                borderRadius: '50%',
+                filter: 'blur(20px)'
+              }}/>
+              
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                marginBottom: '20px'
               }}>
-                Currently Working On
-              </h3>
-              <ul style={{
-                listStyle: 'none',
-                padding: 0,
-                margin: 0
+                <span style={{ fontSize: '1.2rem' }}>🚀</span>
+                <h3 style={{
+                  fontSize: '1.2rem',
+                  fontWeight: '600',
+                  margin: 0,
+                  color: 'white',
+                  fontFamily: "'Inter', sans-serif"
+                }}>
+                  Currently Working On
+                </h3>
+              </div>
+              
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '14px'
               }}>
-                <li style={{
-                  fontSize: '1rem',
-                  color: 'rgba(255,255,255,0.7)',
-                  marginBottom: '12px',
-                  fontFamily: "'Inter', sans-serif",
-                  position: 'relative',
-                  paddingLeft: '20px'
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '12px',
+                  padding: '12px 16px',
+                  background: 'rgba(255,255,255,0.03)',
+                  borderRadius: '10px',
+                  border: '1px solid rgba(255,255,255,0.08)'
                 }}>
-                  <span style={{
-                    position: 'absolute',
-                    left: 0,
-                    color: 'rgba(255,255,255,0.5)'
-                  }}>→</span>
-                  New interactive installation series
-                </li>
-                <li style={{
-                  fontSize: '1rem',
-                  color: 'rgba(255,255,255,0.7)',
-                  marginBottom: '12px',
-                  fontFamily: "'Inter', sans-serif",
-                  position: 'relative',
-                  paddingLeft: '20px'
+                  <span style={{ fontSize: '1rem', marginTop: '2px' }}>🎨</span>
+                  <div>
+                    <div style={{
+                      fontSize: '0.95rem',
+                      color: 'rgba(255,255,255,0.9)',
+                      fontWeight: '500',
+                      marginBottom: '4px',
+                      fontFamily: "'Inter', sans-serif"
+                    }}>
+                      New Interactive Installation Series
+                    </div>
+                    <div style={{
+                      fontSize: '0.8rem',
+                      color: 'rgba(255,255,255,0.6)',
+                      fontFamily: "'Inter', sans-serif"
+                    }}>
+                      Exploring AI-generated visual narratives
+                    </div>
+                  </div>
+                </div>
+                
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '12px',
+                  padding: '12px 16px',
+                  background: 'rgba(255,255,255,0.03)',
+                  borderRadius: '10px',
+                  border: '1px solid rgba(255,255,255,0.08)'
                 }}>
-                  <span style={{
-                    position: 'absolute',
-                    left: 0,
-                    color: 'rgba(255,255,255,0.5)'
-                  }}>→</span>
-                  Exploring AI-generated visual narratives
-                </li>
-                <li style={{
-                  fontSize: '1rem',
-                  color: 'rgba(255,255,255,0.7)',
-                  marginBottom: '0',
-                  fontFamily: "'Inter', sans-serif",
-                  position: 'relative',
-                  paddingLeft: '20px'
+                  <span style={{ fontSize: '1rem', marginTop: '2px' }}>🤝</span>
+                  <div>
+                    <div style={{
+                      fontSize: '0.95rem',
+                      color: 'rgba(255,255,255,0.9)',
+                      fontWeight: '500',
+                      marginBottom: '4px',
+                      fontFamily: "'Inter', sans-serif"
+                    }}>
+                      Collaborative Art Projects
+                    </div>
+                    <div style={{
+                      fontSize: '0.8rem',
+                      color: 'rgba(255,255,255,0.6)',
+                      fontFamily: "'Inter', sans-serif"
+                    }}>
+                      Working with international artists
+                    </div>
+                  </div>
+                </div>
+                
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '12px',
+                  padding: '12px 16px',
+                  background: 'rgba(255,255,255,0.03)',
+                  borderRadius: '10px',
+                  border: '1px solid rgba(255,255,255,0.08)'
                 }}>
-                  <span style={{
-                    position: 'absolute',
-                    left: 0,
-                    color: 'rgba(255,255,255,0.5)'
-                  }}>→</span>
-                  Collaborative projects with other artists
-                </li>
-              </ul>
+                  <span style={{ fontSize: '1rem', marginTop: '2px' }}>🔬</span>
+                  <div>
+                    <div style={{
+                      fontSize: '0.95rem',
+                      color: 'rgba(255,255,255,0.9)',
+                      fontWeight: '500',
+                      marginBottom: '4px',
+                      fontFamily: "'Inter', sans-serif"
+                    }}>
+                      Technology Research
+                    </div>
+                    <div style={{
+                      fontSize: '0.8rem',
+                      color: 'rgba(255,255,255,0.6)',
+                      fontFamily: "'Inter', sans-serif"
+                    }}>
+                      Next-gen creative tools development
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
