@@ -775,7 +775,7 @@ function App() {
               margin: '0 0 40px 0',
               fontFamily: "'Inter', sans-serif"
             }}>
-              I'm a digital artist and creative technologist passionate about exploring the intersection of art, technology, and human experience.
+              I'm a digital artist and creative technologist passionate about exploring the intersection of art, technology, and human experience. (Updated 4:12 PM Oct 9)
             </p>
 
             {/* 测试 Modal 按钮 */}
