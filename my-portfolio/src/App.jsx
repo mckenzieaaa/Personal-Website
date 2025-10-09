@@ -1565,8 +1565,8 @@ function App() {
                   </h3>
                   <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                    gap: '20px'
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                    gap: '25px'
                   }}>
                     {selectedProject.gallery.map((img, index) => (
                       <img
@@ -1575,12 +1575,14 @@ function App() {
                         alt={`${selectedProject.title} ${index + 1}`}
                         style={{
                           width: '100%',
-                          height: '180px',
-                          objectFit: 'cover',
+                          height: 'auto',
+                          minHeight: '250px',
+                          objectFit: 'contain',
                           borderRadius: '12px',
                           cursor: 'pointer',
                           transition: 'transform 0.3s ease',
-                          border: '1px solid rgba(255, 255, 255, 0.1)'
+                          border: '1px solid rgba(255, 255, 255, 0.1)',
+                          backgroundColor: 'rgba(0,0,0,0.3)'
                         }}
                         onMouseEnter={(e) => {
                           e.target.style.transform = 'scale(1.03)';
