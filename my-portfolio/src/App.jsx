@@ -926,7 +926,7 @@ function App() {
             {/* 个人照片 */}
             <div style={{
               width: '100%',
-              height: '80px',
+              height: '120px',
               background: 'rgba(255,255,255,0.05)',
               borderRadius: '16px',
               border: '1px solid rgba(255,255,255,0.1)',
@@ -957,12 +957,13 @@ function App() {
               </div>
               {/* 隐藏的img标签，当照片存在时会显示 */}
               <img
-                src="/Personal-Website/images/xinran-photo.jpg?v=2025100902"
+                src="/Personal-Website/images/xinran-photo.jpg?v=2025100903"
                 alt="Xinran Ouyang"
                 style={{
                   width: '100%',
                   height: '100%',
-                  objectFit: 'contain',
+                  objectFit: 'cover',
+                  objectPosition: 'center 20%',
                   borderRadius: '16px',
                   position: 'absolute',
                   top: 0,
