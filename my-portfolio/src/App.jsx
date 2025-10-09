@@ -25,7 +25,10 @@ function App() {
         '/Personal-Website/images/1-Virtual%20Soul/image001.jpg',
         '/Personal-Website/images/1-Virtual%20Soul/image002.jpg',
         '/Personal-Website/images/1-Virtual%20Soul/image003.jpg',
-        '/Personal-Website/images/1-Virtual%20Soul/image004.jpg'
+        '/Personal-Website/images/1-Virtual%20Soul/image004.jpg',
+        '/Personal-Website/images/1-Virtual%20Soul/image005.jpg',
+        '/Personal-Website/images/1-Virtual%20Soul/image006.jpg',
+        '/Personal-Website/images/1-Virtual%20Soul/image007.jpg'
       ]
     },
     {
@@ -40,7 +43,9 @@ function App() {
         '/Personal-Website/images/2-Nether%20Portal/image008.jpg',
         '/Personal-Website/images/2-Nether%20Portal/image009.jpg',
         '/Personal-Website/images/2-Nether%20Portal/image010.jpg',
-        '/Personal-Website/images/2-Nether%20Portal/image011.jpg'
+        '/Personal-Website/images/2-Nether%20Portal/image011.jpg',
+        '/Personal-Website/images/2-Nether%20Portal/image013.jpg',
+        '/Personal-Website/images/2-Nether%20Portal/image014.jpg'
       ]
     },
     {
@@ -55,7 +60,8 @@ function App() {
         '/Personal-Website/images/3-Prayer%20of%20Wind%20and%20Bloom/image015.jpg',
         '/Personal-Website/images/3-Prayer%20of%20Wind%20and%20Bloom/image016.jpg',
         '/Personal-Website/images/3-Prayer%20of%20Wind%20and%20Bloom/image017.jpg',
-        '/Personal-Website/images/3-Prayer%20of%20Wind%20and%20Bloom/image018.jpg'
+        '/Personal-Website/images/3-Prayer%20of%20Wind%20and%20Bloom/image018.jpg',
+        '/Personal-Website/images/3-Prayer%20of%20Wind%20and%20Bloom/image019.jpg'
       ]
     },
     {
@@ -70,7 +76,10 @@ function App() {
         '/Personal-Website/images/4-Unnatural%20Chronologies/image020.jpg',
         '/Personal-Website/images/4-Unnatural%20Chronologies/image021.jpg',
         '/Personal-Website/images/4-Unnatural%20Chronologies/image022.jpg',
-        '/Personal-Website/images/4-Unnatural%20Chronologies/image023.jpg'
+        '/Personal-Website/images/4-Unnatural%20Chronologies/image023.jpg',
+        '/Personal-Website/images/4-Unnatural%20Chronologies/image024.jpg',
+        '/Personal-Website/images/4-Unnatural%20Chronologies/image025.jpg',
+        '/Personal-Website/images/4-Unnatural%20Chronologies/image026.jpg'
       ]
     }
   ];
@@ -83,8 +92,6 @@ function App() {
     { id: 'aftereffects', name: 'After Effects', icon: '🎬' },
     { id: 'cinema4d', name: 'Cinema 4D', icon: '🎭' },
     { id: 'touchdesigner', name: 'TouchDesigner', icon: '⚡' },
-    { id: 'premiere', name: 'Premiere', icon: '🎞️' },
-    { id: 'octane', name: 'Octane', icon: '✨' },
     { id: 'arduino', name: 'Arduino', icon: '🔧' },
     { id: '3dmax', name: '3D Max', icon: '🏗️' },
     { id: 'unrealengine', name: 'Unreal Engine', icon: '🎮' },
