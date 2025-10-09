@@ -1,0 +1,15 @@
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .favicon-text {
+        font-family: 'Brush Script MT', cursive, serif;
+        font-size: 14px;
+        font-weight: bold;
+        fill: #000000;
+        letter-spacing: -1px;
+      }
+    </style>
+  </defs>
+  <rect width="32" height="32" fill="white" rx="4"/>
+  <text x="16" y="22" text-anchor="middle" class="favicon-text">OYXR</text>
+</svg>
