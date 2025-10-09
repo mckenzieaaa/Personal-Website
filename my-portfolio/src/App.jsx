@@ -726,7 +726,7 @@ function App() {
                 justifyContent: 'center'
               }}>
                 <img
-                  src={project.image}
+                  src={`${project.image}?v=${Date.now()}`}
                   alt={project.title}
                   style={{
                     maxWidth: '100%',
