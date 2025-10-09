@@ -728,8 +728,9 @@ function App() {
                   style={{
                     width: '100%',
                     height: '100%',
-                    objectFit: 'cover',
-                    transition: 'transform 0.4s ease'
+                    objectFit: 'contain',
+                    transition: 'transform 0.4s ease',
+                    backgroundColor: 'rgba(0,0,0,0.8)'
                   }}
                   onError={(e) => {
                     e.target.style.display = 'none';
