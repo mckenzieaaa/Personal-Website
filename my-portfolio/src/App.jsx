@@ -6,6 +6,7 @@ function App() {
   const [isRotating, setIsRotating] = useState(false);
   const [selectedTag, setSelectedTag] = useState('all');
   const [expandedSection, setExpandedSection] = useState(null);
+  const [modalContent, setModalContent] = useState(null);
 
   // 项目数据，包含图片路径和软件标签
   const projects = [
@@ -777,11 +778,59 @@ function App() {
               I'm a digital artist and creative technologist passionate about exploring the intersection of art, technology, and human experience.
             </p>
 
-            {/* 交互式信息卡片 */}
+            {/* 测试 Modal 按钮 */}
+            <div style={{ marginBottom: '20px' }}>
+              <button 
+                onClick={() => setModalContent('about')}
+                style={{
+                  background: 'rgba(255,255,255,0.1)',
+                  border: '1px solid rgba(255,255,255,0.3)',
+                  color: 'white',
+                  padding: '10px 20px',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  marginRight: '10px',
+                  fontFamily: "'Inter', sans-serif"
+                }}
+              >
+                Test About Modal
+              </button>
+              <button 
+                onClick={() => setModalContent('education')}
+                style={{
+                  background: 'rgba(255,255,255,0.1)',
+                  border: '1px solid rgba(255,255,255,0.3)',
+                  color: 'white',
+                  padding: '10px 20px',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  marginRight: '10px',
+                  fontFamily: "'Inter', sans-serif"
+                }}
+              >
+                Test Education Modal
+              </button>
+              <button 
+                onClick={() => setModalContent('contact')}
+                style={{
+                  background: 'rgba(255,255,255,0.1)',
+                  border: '1px solid rgba(255,255,255,0.3)',
+                  color: 'white',
+                  padding: '10px 20px',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  fontFamily: "'Inter', sans-serif"
+                }}
+              >
+                Test Contact Modal
+              </button>
+            </div>
+
+            {/* Sharyap风格交互式卡片 */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-              gap: '16px',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+              gap: '20px',
               marginBottom: '40px'
             }}>
               {/* 教育背景卡片 */}
@@ -1484,6 +1533,440 @@ function App() {
                       />
                     ))}
                   </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal 弹窗 */}
+      {modalContent && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0,0,0,0.8)',
+            backdropFilter: 'blur(10px)',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px'
+          }}
+          onClick={() => setModalContent(null)}
+        >
+          <div 
+            style={{
+              background: 'rgba(20,20,20,0.95)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '20px',
+              padding: '40px',
+              maxWidth: '600px',
+              width: '100%',
+              maxHeight: '80vh',
+              overflow: 'auto',
+              position: 'relative'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* 关闭按钮 */}
+            <button
+              style={{
+                position: 'absolute',
+                top: '20px',
+                right: '20px',
+                background: 'transparent',
+                border: 'none',
+                color: 'rgba(255,255,255,0.7)',
+                fontSize: '24px',
+                cursor: 'pointer',
+                padding: '10px',
+                borderRadius: '50%',
+                transition: 'all 0.3s ease'
+              }}
+              onClick={() => setModalContent(null)}
+              onMouseEnter={(e) => {
+                e.target.style.background = 'rgba(255,255,255,0.1)';
+                e.target.style.color = 'white';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'transparent';
+                e.target.style.color = 'rgba(255,255,255,0.7)';
+              }}
+            >
+              ×
+            </button>
+
+            {/* Modal 内容 */}
+            <div style={{ marginTop: '20px' }}>
+              {modalContent === 'about' && (
+                <div>
+                  <h2 style={{ color: 'white', marginBottom: '20px', fontFamily: "'Inter', sans-serif" }}>About Me</h2>
+                  <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: '1.6', fontFamily: "'Inter', sans-serif" }}>
+                    I'm a digital artist and creative technologist passionate about exploring the intersection of art, 
+                    technology, and human experience. My work spans from interactive installations to digital sculptures, 
+                    always seeking to create meaningful connections between the virtual and physical worlds.
+                  </p>
+                  <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: '1.6', fontFamily: "'Inter', sans-serif" }}>
+                    Through my artistic practice, I investigate themes of identity, presence, and the evolving relationship 
+                    between humans and technology in our increasingly digital age.
+                  </p>
+                </div>
+              )}
+
+              {modalContent === 'education' && (
+                <div>
+                  <h2 style={{ color: 'white', marginBottom: '20px', fontFamily: "'Inter', sans-serif" }}>Education</h2>
+                  <div style={{ marginBottom: '24px' }}>
+                    <h3 style={{ color: 'white', fontSize: '1.1rem', marginBottom: '8px', fontFamily: "'Inter', sans-serif" }}>
+                      Master's in Digital Arts
+                    </h3>
+                    <p style={{ color: 'rgba(255,255,255,0.7)', margin: '0 0 4px 0', fontFamily: "'Inter', sans-serif" }}>
+                      University of Arts
+                    </p>
+                    <p style={{ color: 'rgba(255,255,255,0.5)', margin: 0, fontFamily: "'Inter', sans-serif" }}>
+                      2022 - 2024
+                    </p>
+                    <p style={{ color: 'rgba(255,255,255,0.8)', marginTop: '12px', lineHeight: '1.6', fontFamily: "'Inter', sans-serif" }}>
+                      Focused on interactive media art, computational creativity, and human-computer interaction in artistic contexts.
+                    </p>
+                  </div>
+                  <div>
+                    <h3 style={{ color: 'white', fontSize: '1.1rem', marginBottom: '8px', fontFamily: "'Inter', sans-serif" }}>
+                      Bachelor's in Interactive Media
+                    </h3>
+                    <p style={{ color: 'rgba(255,255,255,0.7)', margin: '0 0 4px 0', fontFamily: "'Inter', sans-serif" }}>
+                      Design Institute
+                    </p>
+                    <p style={{ color: 'rgba(255,255,255,0.5)', margin: 0, fontFamily: "'Inter', sans-serif" }}>
+                      2018 - 2022
+                    </p>
+                    <p style={{ color: 'rgba(255,255,255,0.8)', marginTop: '12px', lineHeight: '1.6', fontFamily: "'Inter', sans-serif" }}>
+                      Specialized in digital design, programming for creative applications, and new media art practices.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {modalContent === 'awards' && (
+                <div>
+                  <h2 style={{ color: 'white', marginBottom: '20px', fontFamily: "'Inter', sans-serif" }}>Awards & Recognition</h2>
+                  <div style={{ marginBottom: '20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
+                      <span style={{ fontSize: '1.5rem', marginRight: '12px' }}>🥇</span>
+                      <h3 style={{ color: 'white', fontSize: '1.1rem', margin: 0, fontFamily: "'Inter', sans-serif" }}>
+                        Digital Art Excellence Award
+                      </h3>
+                    </div>
+                    <p style={{ color: 'rgba(255,255,255,0.7)', margin: '0 0 12px 0', fontFamily: "'Inter', sans-serif" }}>
+                      National Arts Competition 2024
+                    </p>
+                    <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: '1.6', fontFamily: "'Inter', sans-serif" }}>
+                      Recognized for innovative use of AI in creating immersive digital art experiences.
+                    </p>
+                  </div>
+                  <div style={{ marginBottom: '20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
+                      <span style={{ fontSize: '1.5rem', marginRight: '12px' }}>🥈</span>
+                      <h3 style={{ color: 'white', fontSize: '1.1rem', margin: 0, fontFamily: "'Inter', sans-serif" }}>
+                        Interactive Installation Prize
+                      </h3>
+                    </div>
+                    <p style={{ color: 'rgba(255,255,255,0.7)', margin: '0 0 12px 0', fontFamily: "'Inter', sans-serif" }}>
+                      Tech Arts Festival 2023
+                    </p>
+                    <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: '1.6', fontFamily: "'Inter', sans-serif" }}>
+                      Awarded for "Neural Echoes" - an interactive installation exploring consciousness through digital mediums.
+                    </p>
+                  </div>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
+                      <span style={{ fontSize: '1.5rem', marginRight: '12px' }}>🏅</span>
+                      <h3 style={{ color: 'white', fontSize: '1.1rem', margin: 0, fontFamily: "'Inter', sans-serif" }}>
+                        Emerging Artist Recognition
+                      </h3>
+                    </div>
+                    <p style={{ color: 'rgba(255,255,255,0.7)', margin: '0 0 12px 0', fontFamily: "'Inter', sans-serif" }}>
+                      Digital Arts Foundation 2022
+                    </p>
+                    <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: '1.6', fontFamily: "'Inter', sans-serif" }}>
+                      Selected as one of the top 10 emerging digital artists to watch.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {modalContent === 'interests' && (
+                <div>
+                  <h2 style={{ color: 'white', marginBottom: '20px', fontFamily: "'Inter', sans-serif" }}>Interests & Passions</h2>
+                  <div style={{ display: 'grid', gap: '16px' }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                      <span style={{ fontSize: '1.5rem' }}>🎨</span>
+                      <div>
+                        <h3 style={{ color: 'white', fontSize: '1.1rem', margin: '0 0 8px 0', fontFamily: "'Inter', sans-serif" }}>
+                          Digital Art & Animation
+                        </h3>
+                        <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: '1.6', margin: 0, fontFamily: "'Inter', sans-serif" }}>
+                          Exploring new frontiers in digital creativity and motion graphics.
+                        </p>
+                      </div>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                      <span style={{ fontSize: '1.5rem' }}>🤖</span>
+                      <div>
+                        <h3 style={{ color: 'white', fontSize: '1.1rem', margin: '0 0 8px 0', fontFamily: "'Inter', sans-serif" }}>
+                          AI & Machine Learning
+                        </h3>
+                        <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: '1.6', margin: 0, fontFamily: "'Inter', sans-serif" }}>
+                          Investigating the creative potential of artificial intelligence in artistic practice.
+                        </p>
+                      </div>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                      <span style={{ fontSize: '1.5rem' }}>🎮</span>
+                      <div>
+                        <h3 style={{ color: 'white', fontSize: '1.1rem', margin: '0 0 8px 0', fontFamily: "'Inter', sans-serif" }}>
+                          Interactive Experience Design
+                        </h3>
+                        <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: '1.6', margin: 0, fontFamily: "'Inter', sans-serif" }}>
+                          Creating immersive experiences that blur the line between art and interaction.
+                        </p>
+                      </div>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                      <span style={{ fontSize: '1.5rem' }}>📚</span>
+                      <div>
+                        <h3 style={{ color: 'white', fontSize: '1.1rem', margin: '0 0 8px 0', fontFamily: "'Inter', sans-serif" }}>
+                          Philosophy & Technology
+                        </h3>
+                        <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: '1.6', margin: 0, fontFamily: "'Inter', sans-serif" }}>
+                          Exploring the philosophical implications of our digital age.
+                        </p>
+                      </div>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                      <span style={{ fontSize: '1.5rem' }}>🎵</span>
+                      <div>
+                        <h3 style={{ color: 'white', fontSize: '1.1rem', margin: '0 0 8px 0', fontFamily: "'Inter', sans-serif" }}>
+                          Electronic Music Production
+                        </h3>
+                        <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: '1.6', margin: 0, fontFamily: "'Inter', sans-serif" }}>
+                          Creating atmospheric soundscapes and experimental electronic compositions.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {modalContent === 'skills' && (
+                <div>
+                  <h2 style={{ color: 'white', marginBottom: '20px', fontFamily: "'Inter', sans-serif" }}>Skills & Expertise</h2>
+                  <div style={{ display: 'grid', gap: '24px' }}>
+                    <div>
+                      <h3 style={{ color: 'white', fontSize: '1.1rem', marginBottom: '12px', fontFamily: "'Inter', sans-serif" }}>
+                        Creative Software
+                      </h3>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                        {['Photoshop', 'After Effects', 'Blender', 'Cinema 4D', 'Touch Designer', 'Processing'].map((skill) => (
+                          <span key={skill} style={{
+                            background: 'rgba(255,255,255,0.1)',
+                            color: 'rgba(255,255,255,0.9)',
+                            padding: '6px 12px',
+                            borderRadius: '20px',
+                            fontSize: '0.9rem',
+                            fontFamily: "'Inter', sans-serif"
+                          }}>
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <h3 style={{ color: 'white', fontSize: '1.1rem', marginBottom: '12px', fontFamily: "'Inter', sans-serif" }}>
+                        Programming
+                      </h3>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                        {['JavaScript', 'Python', 'GLSL', 'Max/MSP', 'Arduino', 'React'].map((skill) => (
+                          <span key={skill} style={{
+                            background: 'rgba(255,255,255,0.1)',
+                            color: 'rgba(255,255,255,0.9)',
+                            padding: '6px 12px',
+                            borderRadius: '20px',
+                            fontSize: '0.9rem',
+                            fontFamily: "'Inter', sans-serif"
+                          }}>
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <h3 style={{ color: 'white', fontSize: '1.1rem', marginBottom: '12px', fontFamily: "'Inter', sans-serif" }}>
+                        Specializations
+                      </h3>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                        {['Interactive Installations', 'AI Art', 'Generative Design', 'Motion Graphics', 'Sound Design', 'VR/AR'].map((skill) => (
+                          <span key={skill} style={{
+                            background: 'rgba(255,255,255,0.1)',
+                            color: 'rgba(255,255,255,0.9)',
+                            padding: '6px 12px',
+                            borderRadius: '20px',
+                            fontSize: '0.9rem',
+                            fontFamily: "'Inter', sans-serif"
+                          }}>
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {modalContent === 'contact' && (
+                <div>
+                  <h2 style={{ color: 'white', marginBottom: '20px', fontFamily: "'Inter', sans-serif" }}>Get In Touch</h2>
+                  <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: '1.6', marginBottom: '24px', fontFamily: "'Inter', sans-serif" }}>
+                    I'm always interested in collaborating on creative projects, discussing new ideas, 
+                    or exploring opportunities in digital art and interactive design.
+                  </p>
+                  <div style={{ display: 'grid', gap: '16px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <span style={{ fontSize: '1.2rem' }}>📧</span>
+                      <div>
+                        <p style={{ color: 'rgba(255,255,255,0.7)', margin: '0 0 4px 0', fontSize: '0.9rem', fontFamily: "'Inter', sans-serif" }}>
+                          Email
+                        </p>
+                        <p style={{ color: 'white', margin: 0, fontFamily: "'Inter', sans-serif" }}>
+                          hello@xinranouyang.com
+                        </p>
+                      </div>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <span style={{ fontSize: '1.2rem' }}>🌐</span>
+                      <div>
+                        <p style={{ color: 'rgba(255,255,255,0.7)', margin: '0 0 4px 0', fontSize: '0.9rem', fontFamily: "'Inter', sans-serif" }}>
+                          Portfolio
+                        </p>
+                        <p style={{ color: 'white', margin: 0, fontFamily: "'Inter', sans-serif" }}>
+                          www.xinranouyang.com
+                        </p>
+                      </div>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <span style={{ fontSize: '1.2rem' }}>💼</span>
+                      <div>
+                        <p style={{ color: 'rgba(255,255,255,0.7)', margin: '0 0 4px 0', fontSize: '0.9rem', fontFamily: "'Inter', sans-serif" }}>
+                          LinkedIn
+                        </p>
+                        <p style={{ color: 'white', margin: 0, fontFamily: "'Inter', sans-serif" }}>
+                          /in/xinran-ouyang
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div style={{ 
+                    marginTop: '24px', 
+                    padding: '16px', 
+                    background: 'rgba(255,255,255,0.05)', 
+                    borderRadius: '12px',
+                    border: '1px solid rgba(255,255,255,0.1)'
+                  }}>
+                    <p style={{ color: 'rgba(255,255,255,0.8)', margin: 0, fontSize: '0.9rem', fontFamily: "'Inter', sans-serif" }}>
+                      💡 <strong>Currently open to:</strong> Freelance projects, gallery collaborations, 
+                      and opportunities in creative technology.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal 弹窗 */}
+      {modalContent && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0,0,0,0.8)',
+            backdropFilter: 'blur(10px)',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px'
+          }}
+          onClick={() => setModalContent(null)}
+        >
+          <div 
+            style={{
+              background: 'rgba(20,20,20,0.95)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '20px',
+              padding: '40px',
+              maxWidth: '600px',
+              width: '100%',
+              maxHeight: '80vh',
+              overflow: 'auto',
+              position: 'relative'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              style={{
+                position: 'absolute',
+                top: '20px',
+                right: '20px',
+                background: 'transparent',
+                border: 'none',
+                color: 'rgba(255,255,255,0.7)',
+                fontSize: '24px',
+                cursor: 'pointer',
+                padding: '10px',
+                borderRadius: '50%',
+                transition: 'all 0.3s ease'
+              }}
+              onClick={() => setModalContent(null)}
+            >
+              ×
+            </button>
+
+            <div style={{ marginTop: '20px' }}>
+              {modalContent === 'about' && (
+                <div>
+                  <h2 style={{ color: 'white', marginBottom: '20px', fontFamily: "'Inter', sans-serif" }}>About Me</h2>
+                  <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: '1.6', fontFamily: "'Inter', sans-serif" }}>
+                    I'm a digital artist and creative technologist passionate about exploring the intersection of art, 
+                    technology, and human experience.
+                  </p>
+                </div>
+              )}
+              {modalContent === 'education' && (
+                <div>
+                  <h2 style={{ color: 'white', marginBottom: '20px', fontFamily: "'Inter', sans-serif" }}>Education</h2>
+                  <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: '1.6', fontFamily: "'Inter', sans-serif" }}>
+                    Master's in Digital Arts, University of Arts (2022-2024)
+                  </p>
+                </div>
+              )}
+              {modalContent === 'contact' && (
+                <div>
+                  <h2 style={{ color: 'white', marginBottom: '20px', fontFamily: "'Inter', sans-serif" }}>Contact</h2>
+                  <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: '1.6', fontFamily: "'Inter', sans-serif" }}>
+                    Email: hello@xinranouyang.com
+                  </p>
                 </div>
               )}
             </div>
