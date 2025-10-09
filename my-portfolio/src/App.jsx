@@ -920,57 +920,51 @@ function App() {
           <div style={{
             display: 'flex',
             flexDirection: 'column',
-            gap: '30px',
+            gap: '24px',
             height: '100%'
           }}>
-            {/* 头像和联系方式组合 */}
+            {/* 个人照片 - 居中显示 */}
             <div style={{
+              width: '160px',
+              height: '120px',
+              alignSelf: 'center',
+              background: 'rgba(255,255,255,0.05)',
+              borderRadius: '12px',
+              border: '1px solid rgba(255,255,255,0.1)',
+              overflow: 'hidden',
+              position: 'relative',
               display: 'flex',
-              gap: '20px',
-              alignItems: 'flex-start'
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              color: 'rgba(255,255,255,0.6)',
+              fontSize: '0.9rem',
+              fontFamily: "'Inter', sans-serif",
+              textAlign: 'center'
             }}>
-              {/* 个人照片 */}
-              <div style={{
-                width: '180px',
-                aspectRatio: '3/2',
-                background: 'rgba(255,255,255,0.05)',
-                borderRadius: '16px',
-                border: '1px solid rgba(255,255,255,0.1)',
-                overflow: 'hidden',
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexDirection: 'column',
-                color: 'rgba(255,255,255,0.6)',
-                fontSize: '1rem',
-                fontFamily: "'Inter', sans-serif",
-                textAlign: 'center',
-                flexShrink: 0
-              }}>
-              <div style={{ fontSize: '1.1rem', marginBottom: '10px' }}>
+              <div style={{ fontSize: '1rem', marginBottom: '8px' }}>
                 📸 Personal Photo
               </div>
-              <div style={{ fontSize: '0.9rem', opacity: 0.7, lineHeight: '1.5' }}>
+              <div style={{ fontSize: '0.8rem', opacity: 0.7, lineHeight: '1.4' }}>
                 Please manually copy your photo to:<br/>
                 <code style={{ 
                   background: 'rgba(255,255,255,0.1)', 
-                  padding: '2px 6px', 
+                  padding: '2px 4px', 
                   borderRadius: '4px',
-                  fontSize: '0.8rem'
+                  fontSize: '0.7rem'
                 }}>
                   public/images/xinran-photo.jpg
                 </code>
               </div>
               {/* 隐藏的img标签，当照片存在时会显示 */}
               <img
-                src="/Personal-Website/images/xinran-photo.jpg?v=2025100904"
+                src="/Personal-Website/images/xinran-photo.jpg?v=2025100905"
                 alt="Xinran Ouyang"
                 style={{
                   width: '100%',
                   height: '100%',
-                  objectFit: 'contain',
-                  borderRadius: '16px',
+                  objectFit: 'cover',
+                  borderRadius: '12px',
                   position: 'absolute',
                   top: 0,
                   left: 0,
@@ -986,61 +980,84 @@ function App() {
               />
             </div>
             
-            {/* 联系方式 */}
+            {/* 联系方式 - 简洁卡片样式 */}
             <div style={{
-              flex: 1,
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              gap: '12px'
+              background: 'rgba(255,255,255,0.03)',
+              borderRadius: '12px',
+              border: '1px solid rgba(255,255,255,0.08)',
+              padding: '20px',
+              backdropFilter: 'blur(10px)'
             }}>
               <h3 style={{
-                fontSize: '1.1rem',
+                fontSize: '1rem',
                 fontWeight: '500',
-                color: 'white',
-                margin: 0,
-                fontFamily: "'Inter', sans-serif"
+                color: 'rgba(255,255,255,0.9)',
+                margin: '0 0 16px 0',
+                fontFamily: "'Inter', sans-serif",
+                textAlign: 'center'
               }}>
-                Contact Information
+                📞 Contact
               </h3>
               
               <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '8px',
-                fontSize: '0.9rem',
+                gap: '10px',
+                fontSize: '0.85rem',
                 color: 'rgba(255,255,255,0.8)',
                 fontFamily: "'Inter', sans-serif"
               }}>
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px'
+                  gap: '10px',
+                  padding: '6px 0'
                 }}>
-                  <span style={{ fontSize: '1rem' }}>📱</span>
-                  <span>+86 15723351973</span>
+                  <span style={{ 
+                    fontSize: '0.9rem', 
+                    width: '20px', 
+                    textAlign: 'center',
+                    opacity: 0.7
+                  }}>🇨🇳</span>
+                  <span style={{ fontFamily: "'SF Mono', 'Monaco', monospace" }}>+86 15723351973</span>
                 </div>
                 
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px'
+                  gap: '10px',
+                  padding: '6px 0'
                 }}>
-                  <span style={{ fontSize: '1rem' }}>📞</span>
-                  <span>+852 84963034</span>
+                  <span style={{ 
+                    fontSize: '0.9rem', 
+                    width: '20px', 
+                    textAlign: 'center',
+                    opacity: 0.7
+                  }}>🇭🇰</span>
+                  <span style={{ fontFamily: "'SF Mono', 'Monaco', monospace" }}>+852 84963034</span>
                 </div>
                 
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px'
+                  gap: '10px',
+                  padding: '6px 0',
+                  borderTop: '1px solid rgba(255,255,255,0.1)',
+                  marginTop: '6px',
+                  paddingTop: '12px'
                 }}>
-                  <span style={{ fontSize: '1rem' }}>✉️</span>
-                  <span>McKenzie.ouyang@gmail.com</span>
+                  <span style={{ 
+                    fontSize: '0.9rem', 
+                    width: '20px', 
+                    textAlign: 'center',
+                    opacity: 0.7
+                  }}>✉️</span>
+                  <span style={{ 
+                    fontFamily: "'SF Mono', 'Monaco', monospace",
+                    fontSize: '0.8rem'
+                  }}>McKenzie.ouyang@gmail.com</span>
                 </div>
               </div>
-            </div>
-            
             </div>
 
             {/* 额外信息卡片 */}
