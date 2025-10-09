@@ -152,30 +152,12 @@ function App() {
             fontSize: '1rem',
             color: 'rgba(255,255,255,0.6)',
             letterSpacing: '0.3em',
-            marginBottom: '20px',
+            marginBottom: '30px',
             textTransform: 'uppercase',
             fontWeight: '300',
             fontFamily: "'Inter', sans-serif"
           }}>
             Digital Artist & Creative Technologist
-          </div>
-
-          {/* Logo */}
-          <div style={{
-            marginBottom: '25px',
-            display: 'flex',
-            justifyContent: 'flex-start'
-          }}>
-            <img 
-              src="/Personal-Website/logo.svg"
-              alt="OYXR Logo"
-              style={{
-                height: '60px',
-                width: 'auto',
-                filter: 'invert(1)',
-                opacity: 0.9
-              }}
-            />
           </div>
           
           <h1 style={{
