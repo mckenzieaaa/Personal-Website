@@ -957,7 +957,7 @@ function App() {
               </div>
               {/* 隐藏的img标签，当照片存在时会显示 */}
               <img
-                src="/Personal-Website/images/xinran-photo.jpg"
+                src="/Personal-Website/images/xinran-photo.jpg?v=2025100902"
                 alt="Xinran Ouyang"
                 style={{
                   width: '100%',
