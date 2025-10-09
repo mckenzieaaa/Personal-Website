@@ -180,14 +180,15 @@ function App() {
         minHeight: '100vh',
         height: '100vh',
         width: '100vw',
-        padding: '0 40px',
+        padding: '40px',
         background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         position: 'relative',
         scrollSnapAlign: 'start',
-        scrollSnapStop: 'always'
+        scrollSnapStop: 'always',
+        overflow: 'hidden'
       }}>
         {/* 左侧：个人信息 */}
         <div style={{
@@ -596,6 +597,8 @@ function App() {
         padding: '40px',
         background: 'linear-gradient(180deg, #000000 0%, #1a1a1a 50%, #000000 100%)',
         display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         scrollSnapAlign: 'start',
         scrollSnapStop: 'always',
         overflow: 'hidden'
@@ -821,7 +824,7 @@ function App() {
       <section id="about" style={{
         height: '100vh',
         width: '100vw',
-        padding: '20px 40px',
+        padding: '40px',
         background: 'linear-gradient(180deg, #1a1a1a 0%, #000000 50%, #1a1a1a 100%)',
         display: 'flex',
         alignItems: 'center',
@@ -1359,7 +1362,7 @@ function App() {
       <section id="contact" style={{
         height: '100vh',
         width: '100vw',
-        padding: '20px 40px',
+        padding: '40px',
         background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%)',
         display: 'flex',
         alignItems: 'center',
