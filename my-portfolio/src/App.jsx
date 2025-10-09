@@ -717,7 +717,7 @@ function App() {
               {/* 图片容器 */}
               <div style={{
                 width: '100%',
-                height: '250px',
+                height: '220px',
                 position: 'relative',
                 overflow: 'hidden',
                 backgroundColor: 'rgba(255,255,255,0.05)'
@@ -728,9 +728,9 @@ function App() {
                   style={{
                     width: '100%',
                     height: '100%',
-                    objectFit: 'contain',
-                    transition: 'transform 0.4s ease',
-                    backgroundColor: 'rgba(0,0,0,0.8)'
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                    transition: 'transform 0.4s ease'
                   }}
                   onError={(e) => {
                     e.target.style.display = 'none';
