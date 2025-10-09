@@ -681,9 +681,9 @@ function App() {
         {/* 作品网格展示 */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))',
-          gap: '30px',
-          maxWidth: '1200px',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: '25px',
+          maxWidth: '1000px',
           width: '100%',
           flex: 1,
           overflow: 'auto',
@@ -717,7 +717,7 @@ function App() {
               {/* 图片容器 */}
               <div style={{
                 width: '100%',
-                height: '200px',
+                height: '250px',
                 position: 'relative',
                 overflow: 'hidden',
                 backgroundColor: 'rgba(255,255,255,0.05)'
@@ -773,7 +773,7 @@ function App() {
               
               {/* 项目信息 */}
               <div style={{
-                padding: '20px',
+                padding: '16px 20px',
                 background: 'rgba(0,0,0,0.3)'
               }}>
                 <div style={{
