@@ -200,7 +200,11 @@ function App() {
                 width: '60px',
                 height: '60px',
                 filter: 'invert(1)',
-                opacity: 0.9
+                opacity: 0.9,
+                backgroundColor: 'white',
+                borderRadius: '50%',
+                padding: '8px',
+                border: '2px solid rgba(255,255,255,0.8)'
               }}
             />
             <div style={{
@@ -823,25 +827,96 @@ function App() {
           {/* 左侧：个人信息 */}
           <div>
             <h2 style={{
-              fontSize: 'clamp(2rem, 5vw, 3rem)',
-              fontWeight: '300',
-              margin: '0 0 30px 0',
+              fontSize: 'clamp(2.5rem, 6vw, 4rem)',
+              fontWeight: '200',
+              margin: '0 0 40px 0',
               letterSpacing: '-0.02em',
               color: 'white',
-              fontFamily: "'Inter', sans-serif"
+              fontFamily: "'Inter', sans-serif",
+              textAlign: 'center'
             }}>
               About Me
             </h2>
-            
-            <p style={{
-              fontSize: '1.2rem',
-              lineHeight: '1.8',
-              color: 'rgba(255,255,255,0.8)',
-              margin: '0 0 40px 0',
-              fontFamily: "'Inter', sans-serif"
+
+            {/* 头像和简介区域 */}
+            <div style={{
+              display: 'flex',
+              gap: '30px',
+              alignItems: 'flex-start',
+              marginBottom: '40px'
             }}>
-              I'm a digital artist and creative technologist passionate about exploring the intersection of art, technology, and human experience.
-            </p>
+              {/* 头像 */}
+              <div style={{
+                flexShrink: 0
+              }}>
+                <div style={{
+                  width: '160px',
+                  height: '160px',
+                  borderRadius: '50%',
+                  background: 'rgba(255,255,255,0.05)',
+                  border: '2px solid rgba(255,255,255,0.1)',
+                  overflow: 'hidden',
+                  position: 'relative',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.3s ease'
+                }}>
+                  <span style={{
+                    fontSize: '3rem',
+                    color: 'rgba(255,255,255,0.4)'
+                  }}>
+                    👤
+                  </span>
+                  <img
+                    src="/Personal-Website/images/xinran-photo.jpg?v=2025100908"
+                    alt="Xinran Ouyang"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      opacity: 0
+                    }}
+                    onLoad={(e) => {
+                      e.target.style.opacity = 1;
+                    }}
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* 简介文字 */}
+              <div style={{
+                flex: 1,
+                paddingTop: '10px'
+              }}>
+                <p style={{
+                  fontSize: '1.25rem',
+                  lineHeight: '1.8',
+                  color: 'rgba(255,255,255,0.9)',
+                  margin: '0 0 20px 0',
+                  fontFamily: "'Inter', sans-serif",
+                  fontWeight: '300'
+                }}>
+                  I'm a digital artist and creative technologist passionate about exploring the intersection of art, technology, and human experience.
+                </p>
+                <p style={{
+                  fontSize: '1.1rem',
+                  lineHeight: '1.7',
+                  color: 'rgba(255,255,255,0.7)',
+                  margin: 0,
+                  fontFamily: "'Inter', sans-serif",
+                  fontWeight: '300'
+                }}>
+                  My work focuses on creating immersive digital experiences that blur the boundaries between the virtual and physical worlds, always seeking to create meaningful connections through innovative technology.
+                </p>
+              </div>
+            </div>
 
 
 
