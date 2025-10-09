@@ -826,23 +826,11 @@ function App() {
         }}>
           {/* 左侧：个人信息 */}
           <div>
-            <h2 style={{
-              fontSize: 'clamp(2.5rem, 6vw, 4rem)',
-              fontWeight: '200',
-              margin: '0 0 40px 0',
-              letterSpacing: '-0.02em',
-              color: 'white',
-              fontFamily: "'Inter', sans-serif",
-              textAlign: 'center'
-            }}>
-              About Me
-            </h2>
-
-            {/* 头像和简介区域 */}
+            {/* 头像和标题区域 */}
             <div style={{
               display: 'flex',
               gap: '30px',
-              alignItems: 'flex-start',
+              alignItems: 'center',
               marginBottom: '40px'
             }}>
               {/* 头像 */}
@@ -850,8 +838,8 @@ function App() {
                 flexShrink: 0
               }}>
                 <div style={{
-                  width: '160px',
-                  height: '160px',
+                  width: '140px',
+                  height: '140px',
                   borderRadius: '50%',
                   background: 'rgba(255,255,255,0.05)',
                   border: '2px solid rgba(255,255,255,0.1)',
@@ -869,7 +857,7 @@ function App() {
                     👤
                   </span>
                   <img
-                    src="/Personal-Website/images/xinran-photo.jpg?v=2025100908"
+                    src="/Personal-Website/images/xinran-photo.jpg?v=2025100909"
                     alt="Xinran Ouyang"
                     style={{
                       width: '100%',
@@ -890,32 +878,55 @@ function App() {
                 </div>
               </div>
 
-              {/* 简介文字 */}
+              {/* 标题和基本信息 */}
               <div style={{
-                flex: 1,
-                paddingTop: '10px'
+                flex: 1
               }}>
-                <p style={{
-                  fontSize: '1.25rem',
-                  lineHeight: '1.8',
-                  color: 'rgba(255,255,255,0.9)',
-                  margin: '0 0 20px 0',
-                  fontFamily: "'Inter', sans-serif",
-                  fontWeight: '300'
+                <h2 style={{
+                  fontSize: 'clamp(2.5rem, 6vw, 4rem)',
+                  fontWeight: '200',
+                  margin: '0 0 15px 0',
+                  letterSpacing: '-0.02em',
+                  color: 'white',
+                  fontFamily: "'Inter', sans-serif"
                 }}>
-                  I'm a digital artist and creative technologist passionate about exploring the intersection of art, technology, and human experience.
-                </p>
-                <p style={{
+                  About Me
+                </h2>
+                <div style={{
                   fontSize: '1.1rem',
-                  lineHeight: '1.7',
                   color: 'rgba(255,255,255,0.7)',
-                  margin: 0,
                   fontFamily: "'Inter', sans-serif",
                   fontWeight: '300'
                 }}>
-                  My work focuses on creating immersive digital experiences that blur the boundaries between the virtual and physical worlds, always seeking to create meaningful connections through innovative technology.
-                </p>
+                  Xinran Ouyang · Digital Artist & Creative Technologist
+                </div>
               </div>
+            </div>
+
+            {/* 简介文字 */}
+            <div style={{
+              marginBottom: '40px'
+            }}>
+              <p style={{
+                fontSize: '1.25rem',
+                lineHeight: '1.8',
+                color: 'rgba(255,255,255,0.9)',
+                margin: '0 0 20px 0',
+                fontFamily: "'Inter', sans-serif",
+                fontWeight: '300'
+              }}>
+                I'm a digital artist and creative technologist passionate about exploring the intersection of art, technology, and human experience.
+              </p>
+              <p style={{
+                fontSize: '1.1rem',
+                lineHeight: '1.7',
+                color: 'rgba(255,255,255,0.7)',
+                margin: 0,
+                fontFamily: "'Inter', sans-serif",
+                fontWeight: '300'
+              }}>
+                My work focuses on creating immersive digital experiences that blur the boundaries between the virtual and physical worlds, always seeking to create meaningful connections through innovative technology.
+              </p>
             </div>
 
 
@@ -1251,242 +1262,183 @@ function App() {
             </div>
           </div>
 
-          {/* 右侧：简洁个人信息 */}
+          {/* 右侧：技能和联系方式 */}
           <div style={{
             display: 'flex',
             flexDirection: 'column',
-            gap: '20px',
+            gap: '30px',
             height: '100%',
-            alignItems: 'center'
+            paddingTop: '20px'
           }}>
-            {/* 简洁头像展示 */}
+            {/* 技能概览 */}
             <div style={{
-              width: '140px',
-              height: '140px',
-              borderRadius: '50%',
-              background: 'rgba(255,255,255,0.05)',
-              border: '2px solid rgba(255,255,255,0.1)',
-              overflow: 'hidden',
-              position: 'relative',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = 'scale(1.05)';
-              e.target.style.borderColor = 'rgba(255,255,255,0.3)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = 'scale(1)';
-              e.target.style.borderColor = 'rgba(255,255,255,0.1)';
-            }}
-            >
-              <span style={{
-                fontSize: '3rem',
-                color: 'rgba(255,255,255,0.4)'
-              }}>
-                👤
-              </span>
-              <img
-                src="/Personal-Website/images/xinran-photo.jpg?v=2025100906"
-                alt="Xinran Ouyang"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  opacity: 0
-                }}
-                onLoad={(e) => {
-                  e.target.style.opacity = 1;
-                }}
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                }}
-              />
-            </div>
-
-            {/* 基本信息 */}
-            <div style={{
-              textAlign: 'center',
-              color: 'rgba(255,255,255,0.8)',
-              fontSize: '0.9rem',
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '20px',
+              padding: '30px',
               fontFamily: "'Inter', sans-serif"
             }}>
-              <div style={{ fontWeight: '500', marginBottom: '8px' }}>
-                Xinran Ouyang
-              </div>
-              <div style={{ color: 'rgba(255,255,255,0.6)' }}>
-                Digital Artist & Creative Technologist
-              </div>
-            </div>
-
-            {/* 简洁联系方式 */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '8px',
-              alignItems: 'center',
-              fontSize: '0.8rem',
-              color: 'rgba(255,255,255,0.7)',
-              fontFamily: "'SF Mono', 'Monaco', monospace"
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span>🇨🇳</span> +86 15723351973
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span>🇭🇰</span> +852 84963034
-              </div>
-              <div style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: '6px',
-                paddingTop: '4px',
-                borderTop: '1px solid rgba(255,255,255,0.1)'
-              }}>
-                <span>✉️</span> McKenzie.ouyang@gmail.com
-              </div>
-            </div>
-
-            {/* 当前项目展示 */}
-            <div style={{
-              background: 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)',
-              borderRadius: '16px',
-              border: '1px solid rgba(255,255,255,0.15)',
-              padding: '24px',
-              flex: 1,
-              backdropFilter: 'blur(10px)',
-              position: 'relative',
-              overflow: 'hidden'
-            }}>
-              {/* 装饰性背景元素 */}
-              <div style={{
-                position: 'absolute',
-                top: '-20px',
-                right: '-20px',
-                width: '60px',
-                height: '60px',
-                background: 'linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1))',
-                borderRadius: '50%',
-                filter: 'blur(20px)'
-              }}/>
-              
-              <div style={{
+              <h3 style={{
+                fontSize: '1.4rem',
+                fontWeight: '500',
+                color: 'white',
+                margin: '0 0 25px 0',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '12px',
-                marginBottom: '20px'
+                gap: '12px'
               }}>
-                <span style={{ fontSize: '1.2rem' }}>🚀</span>
-                <h3 style={{
-                  fontSize: '1.2rem',
-                  fontWeight: '600',
-                  margin: 0,
-                  color: 'white',
-                  fontFamily: "'Inter', sans-serif"
-                }}>
-                  Currently Working On
-                </h3>
+                <span style={{ fontSize: '1.8rem' }}>⚡</span>
+                Skills & Tools
+              </h3>
+              
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gap: '15px'
+              }}>
+                {[
+                  { name: 'TouchDesigner', level: '95%', color: '#00ff88' },
+                  { name: 'Blender', level: '90%', color: '#ff6b35' },
+                  { name: 'After Effects', level: '85%', color: '#9999ff' },
+                  { name: 'Cinema 4D', level: '80%', color: '#ffcc00' },
+                  { name: 'Arduino', level: '75%', color: '#00ccff' },
+                  { name: 'Premiere Pro', level: '85%', color: '#ff3366' }
+                ].map((skill, index) => (
+                  <div key={index} style={{
+                    background: 'rgba(255,255,255,0.04)',
+                    borderRadius: '12px',
+                    padding: '15px',
+                    border: '1px solid rgba(255,255,255,0.08)'
+                  }}>
+                    <div style={{
+                      fontSize: '0.9rem',
+                      fontWeight: '500',
+                      color: 'rgba(255,255,255,0.9)',
+                      marginBottom: '8px'
+                    }}>
+                      {skill.name}
+                    </div>
+                    <div style={{
+                      background: 'rgba(255,255,255,0.1)',
+                      borderRadius: '6px',
+                      height: '4px',
+                      overflow: 'hidden'
+                    }}>
+                      <div style={{
+                        background: skill.color,
+                        height: '100%',
+                        width: skill.level,
+                        borderRadius: '6px',
+                        transition: 'width 2s ease'
+                      }} />
+                    </div>
+                  </div>
+                ))}
               </div>
+            </div>
+
+            {/* 联系方式 */}
+            <div style={{
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '20px',
+              padding: '30px',
+              fontFamily: "'Inter', sans-serif"
+            }}>
+              <h3 style={{
+                fontSize: '1.4rem',
+                fontWeight: '500',
+                color: 'white',
+                margin: '0 0 25px 0',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px'
+              }}>
+                <span style={{ fontSize: '1.8rem' }}>�</span>
+                Get In Touch
+              </h3>
               
               <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '14px'
+                gap: '15px'
               }}>
                 <div style={{
                   display: 'flex',
-                  alignItems: 'flex-start',
+                  alignItems: 'center',
                   gap: '12px',
                   padding: '12px 16px',
-                  background: 'rgba(255,255,255,0.03)',
-                  borderRadius: '10px',
-                  border: '1px solid rgba(255,255,255,0.08)'
+                  background: 'rgba(255,255,255,0.04)',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  fontSize: '0.95rem',
+                  color: 'rgba(255,255,255,0.8)'
                 }}>
-                  <span style={{ fontSize: '1rem', marginTop: '2px' }}>🎨</span>
-                  <div>
-                    <div style={{
-                      fontSize: '0.95rem',
-                      color: 'rgba(255,255,255,0.9)',
-                      fontWeight: '500',
-                      marginBottom: '4px',
-                      fontFamily: "'Inter', sans-serif"
-                    }}>
-                      New Interactive Installation Series
-                    </div>
-                    <div style={{
-                      fontSize: '0.8rem',
-                      color: 'rgba(255,255,255,0.6)',
-                      fontFamily: "'Inter', sans-serif"
-                    }}>
-                      Exploring AI-generated visual narratives
-                    </div>
-                  </div>
+                  <span>🇨🇳</span>
+                  <span>+86 15723351973</span>
                 </div>
                 
                 <div style={{
                   display: 'flex',
-                  alignItems: 'flex-start',
+                  alignItems: 'center',
                   gap: '12px',
                   padding: '12px 16px',
-                  background: 'rgba(255,255,255,0.03)',
-                  borderRadius: '10px',
-                  border: '1px solid rgba(255,255,255,0.08)'
+                  background: 'rgba(255,255,255,0.04)',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  fontSize: '0.95rem',
+                  color: 'rgba(255,255,255,0.8)'
                 }}>
-                  <span style={{ fontSize: '1rem', marginTop: '2px' }}>🤝</span>
-                  <div>
-                    <div style={{
-                      fontSize: '0.95rem',
-                      color: 'rgba(255,255,255,0.9)',
-                      fontWeight: '500',
-                      marginBottom: '4px',
-                      fontFamily: "'Inter', sans-serif"
-                    }}>
-                      Collaborative Art Projects
-                    </div>
-                    <div style={{
-                      fontSize: '0.8rem',
-                      color: 'rgba(255,255,255,0.6)',
-                      fontFamily: "'Inter', sans-serif"
-                    }}>
-                      Working with international artists
-                    </div>
-                  </div>
+                  <span>🇭🇰</span>
+                  <span>+852 84963034</span>
                 </div>
                 
                 <div style={{
                   display: 'flex',
-                  alignItems: 'flex-start',
+                  alignItems: 'center',
                   gap: '12px',
                   padding: '12px 16px',
-                  background: 'rgba(255,255,255,0.03)',
-                  borderRadius: '10px',
-                  border: '1px solid rgba(255,255,255,0.08)'
+                  background: 'rgba(255,255,255,0.04)',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  fontSize: '0.95rem',
+                  color: 'rgba(255,255,255,0.8)'
                 }}>
-                  <span style={{ fontSize: '1rem', marginTop: '2px' }}>🔬</span>
-                  <div>
-                    <div style={{
-                      fontSize: '0.95rem',
-                      color: 'rgba(255,255,255,0.9)',
-                      fontWeight: '500',
-                      marginBottom: '4px',
-                      fontFamily: "'Inter', sans-serif"
-                    }}>
-                      Technology Research
-                    </div>
-                    <div style={{
-                      fontSize: '0.8rem',
-                      color: 'rgba(255,255,255,0.6)',
-                      fontFamily: "'Inter', sans-serif"
-                    }}>
-                      Next-gen creative tools development
-                    </div>
-                  </div>
+                  <span>📧</span>
+                  <span>McKenzie.ouyang@gmail.com</span>
                 </div>
+              </div>
+            </div>
+
+            {/* 当前状态 */}
+            <div style={{
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '20px',
+              padding: '25px',
+              fontFamily: "'Inter', sans-serif",
+              textAlign: 'center'
+            }}>
+              <div style={{
+                fontSize: '2rem',
+                marginBottom: '10px'
+              }}>
+                🎯
+              </div>
+              <div style={{
+                fontSize: '1.1rem',
+                fontWeight: '500',
+                color: 'white',
+                marginBottom: '8px'
+              }}>
+                Currently Available
+              </div>
+              <div style={{
+                fontSize: '0.9rem',
+                color: 'rgba(255,255,255,0.7)',
+                lineHeight: '1.5'
+              }}>
+                Open for creative collaborations and digital art projects
               </div>
             </div>
           </div>
