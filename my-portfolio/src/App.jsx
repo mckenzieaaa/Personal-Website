@@ -821,7 +821,7 @@ function App() {
       <section id="about" style={{
         height: '100vh',
         width: '100vw',
-        padding: '80px 40px',
+        padding: '20px 40px',
         background: 'linear-gradient(180deg, #1a1a1a 0%, #000000 50%, #1a1a1a 100%)',
         display: 'flex',
         alignItems: 'center',
@@ -1359,7 +1359,7 @@ function App() {
       <section id="contact" style={{
         height: '100vh',
         width: '100vw',
-        padding: '80px 40px',
+        padding: '20px 40px',
         background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%)',
         display: 'flex',
         alignItems: 'center',
