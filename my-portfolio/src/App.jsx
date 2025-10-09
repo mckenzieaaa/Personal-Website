@@ -831,14 +831,14 @@ function App() {
         justifyContent: 'center',
         scrollSnapAlign: 'start',
         scrollSnapStop: 'always',
-        overflow: 'hidden auto'
+        overflow: 'hidden'
       }}>
         <div style={{
-          maxWidth: '1200px',
+          maxWidth: '1000px',
           width: '100%',
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
-          gap: '50px',
+          gap: '30px',
           alignItems: 'start',
           height: 'fit-content',
           maxHeight: '100%'
@@ -848,17 +848,17 @@ function App() {
             {/* 头像和标题区域 */}
             <div style={{
               display: 'flex',
-              gap: '30px',
+              gap: '20px',
               alignItems: 'center',
-              marginBottom: '40px'
+              marginBottom: '25px'
             }}>
               {/* 头像 */}
               <div style={{
                 flexShrink: 0
               }}>
                 <div style={{
-                  width: '140px',
-                  height: '140px',
+                  width: '100px',
+                  height: '100px',
                   borderRadius: '50%',
                   background: 'rgba(255,255,255,0.05)',
                   border: '2px solid rgba(255,255,255,0.1)',
@@ -902,9 +902,9 @@ function App() {
                 flex: 1
               }}>
                 <h2 style={{
-                  fontSize: 'clamp(2.5rem, 6vw, 4rem)',
+                  fontSize: 'clamp(2rem, 5vw, 3rem)',
                   fontWeight: '200',
-                  margin: '0 0 15px 0',
+                  margin: '0 0 10px 0',
                   letterSpacing: '-0.02em',
                   color: 'white',
                   fontFamily: "'Inter', sans-serif"
@@ -924,21 +924,21 @@ function App() {
 
             {/* 简介文字 */}
             <div style={{
-              marginBottom: '40px'
+              marginBottom: '25px'
             }}>
               <p style={{
-                fontSize: '1.25rem',
-                lineHeight: '1.8',
+                fontSize: '1.1rem',
+                lineHeight: '1.7',
                 color: 'rgba(255,255,255,0.9)',
-                margin: '0 0 20px 0',
+                margin: '0 0 15px 0',
                 fontFamily: "'Inter', sans-serif",
                 fontWeight: '300'
               }}>
                 I'm a digital artist and creative technologist passionate about exploring the intersection of art, technology, and human experience.
               </p>
               <p style={{
-                fontSize: '1.1rem',
-                lineHeight: '1.7',
+                fontSize: '1rem',
+                lineHeight: '1.6',
                 color: 'rgba(255,255,255,0.7)',
                 margin: 0,
                 fontFamily: "'Inter', sans-serif",
@@ -1072,7 +1072,7 @@ function App() {
 
             {/* 技能标签 */}
             <div style={{
-              marginBottom: '40px'
+              marginBottom: '25px'
             }}>
               <h3 style={{
                 fontSize: '1.2rem',
@@ -1369,7 +1369,7 @@ function App() {
         justifyContent: 'center',
         scrollSnapAlign: 'start',
         scrollSnapStop: 'always',
-        overflow: 'hidden auto'
+        overflow: 'hidden'
       }}>
         <div style={{
           maxWidth: '1200px',
@@ -1378,12 +1378,12 @@ function App() {
         }}>
           {/* 主标题 */}
           <div style={{
-            marginBottom: '60px'
+            marginBottom: '40px'
           }}>
             <h2 style={{
-              fontSize: 'clamp(3rem, 8vw, 6rem)',
+              fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
               fontWeight: '200',
-              margin: '0 0 20px 0',
+              margin: '0 0 15px 0',
               letterSpacing: '-0.02em',
               color: 'white',
               fontFamily: "'Inter', sans-serif"
@@ -1391,11 +1391,11 @@ function App() {
               Let's Connect
             </h2>
             <p style={{
-              fontSize: '1.3rem',
+              fontSize: '1.1rem',
               color: 'rgba(255,255,255,0.7)',
-              maxWidth: '600px',
+              maxWidth: '500px',
               margin: '0 auto',
-              lineHeight: '1.6',
+              lineHeight: '1.5',
               fontFamily: "'Inter', sans-serif",
               fontWeight: '300'
             }}>
@@ -1406,16 +1406,16 @@ function App() {
           {/* 联系方式网格 */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '30px',
-            marginBottom: '60px'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+            gap: '20px',
+            marginBottom: '40px'
           }}>
             {/* 邮箱 */}
             <div style={{
               background: 'rgba(255,255,255,0.03)',
               border: '1px solid rgba(255,255,255,0.1)',
               borderRadius: '20px',
-              padding: '40px 30px',
+              padding: '25px 20px',
               transition: 'all 0.3s ease',
               cursor: 'pointer'
             }}
@@ -1462,7 +1462,7 @@ function App() {
               background: 'rgba(255,255,255,0.03)',
               border: '1px solid rgba(255,255,255,0.1)',
               borderRadius: '20px',
-              padding: '40px 30px',
+              padding: '25px 20px',
               transition: 'all 0.3s ease',
               cursor: 'pointer'
             }}
@@ -1508,7 +1508,7 @@ function App() {
               background: 'rgba(255,255,255,0.03)',
               border: '1px solid rgba(255,255,255,0.1)',
               borderRadius: '20px',
-              padding: '40px 30px',
+              padding: '25px 20px',
               transition: 'all 0.3s ease',
               cursor: 'pointer'
             }}
@@ -1659,13 +1659,13 @@ function App() {
 
           {/* 底部状态 */}
           <div style={{
-            marginTop: '60px',
-            padding: '25px',
+            marginTop: '40px',
+            padding: '20px',
             background: 'rgba(255,255,255,0.02)',
             border: '1px solid rgba(255,255,255,0.1)',
             borderRadius: '15px',
-            maxWidth: '500px',
-            margin: '60px auto 0'
+            maxWidth: '400px',
+            margin: '40px auto 0'
           }}>
             <div style={{
               fontSize: '2rem',
