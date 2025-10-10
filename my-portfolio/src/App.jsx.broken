@@ -827,114 +827,111 @@ function App() {
         padding: '40px',
         background: 'linear-gradient(180deg, #1a1a1a 0%, #000000 50%, #1a1a1a 100%)',
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        flexDirection: 'column',
         scrollSnapAlign: 'start',
         scrollSnapStop: 'always',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        boxSizing: 'border-box'
       }}>
-        <div style={{
-          maxWidth: '900px',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          height: 'fit-content',
-          maxHeight: '100%'
+        {/* About Me标题 - 左上角 */}
+        <h2 style={{
+          fontSize: 'clamp(2.5rem, 6vw, 4rem)',
+          fontWeight: '700',
+          background: 'linear-gradient(45deg, #ffffff, #e0e0e0)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          margin: '0 0 40px 0',
+          fontFamily: "'Inter', sans-serif",
+          letterSpacing: '-0.02em',
+          alignSelf: 'flex-start'
         }}>
-          {/* 个人信息 */}
-          <div style={{
-            width: '100%',
-            textAlign: 'center'
-          }}>
-            {/* 头像和标题区域 */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              marginBottom: '20px'
-            }}>
-              {/* 头像 */}
-              <div style={{
-                flexShrink: 0,
-                marginBottom: '15px'
-              }}>
-                <div style={{
-                  width: '100px',
-                  height: '100px',
-                  borderRadius: '50%',
-                  background: 'rgba(255,255,255,0.05)',
-                  border: '2px solid rgba(255,255,255,0.1)',
-                  overflow: 'hidden',
-                  position: 'relative',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  transition: 'all 0.3s ease',
-                  margin: '0 auto'
-                }}>
-                  <span style={{
-                    fontSize: '3rem',
-                    color: 'rgba(255,255,255,0.4)'
-                  }}>
-                    👤
-                  </span>
-                  <img
-                    src="/Personal-Website/images/xinran-photo.jpg?v=2025100909"
-                    alt="Xinran Ouyang"
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      opacity: 0
-                    }}
-                    onLoad={(e) => {
-                      e.target.style.opacity = 1;
-                    }}
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                    }}
-                  />
-                </div>
-              </div>
+          About Me
+        </h2>
 
-              {/* 标题和基本信息 */}
-              <div>
-                <h2 style={{
-                  fontSize: 'clamp(2rem, 5vw, 3rem)',
-                  fontWeight: '200',
-                  margin: '0 0 10px 0',
-                  letterSpacing: '-0.02em',
-                  color: 'white',
-                  fontFamily: "'Inter', sans-serif"
-                }}>
-                  About Me
-                </h2>
-                <div style={{
-                  fontSize: '1.1rem',
-                  color: 'rgba(255,255,255,0.7)',
-                  fontFamily: "'Inter', sans-serif",
-                  fontWeight: '300'
-                }}>
-                  Xinran Ouyang · Digital Artist & Creative Technologist
-                </div>
-              </div>
+        {/* 主要内容区域 */}
+        <div style={{
+          display: 'flex',
+          flex: 1,
+          gap: '50px',
+          alignItems: 'flex-start',
+          maxWidth: '1000px',
+          width: '100%',
+          alignSelf: 'center'
+        }}>
+          {/* 左侧：头像 */}
+          <div style={{
+            flexShrink: 0
+          }}>
+            <div style={{
+              width: '220px',
+              height: '220px',
+              borderRadius: '50%',
+              background: 'rgba(255,255,255,0.05)',
+              border: '3px solid rgba(255,255,255,0.2)',
+              overflow: 'hidden',
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 15px 40px rgba(0,0,0,0.4)'
+            }}>
+              <span style={{
+                fontSize: '4rem',
+                color: 'rgba(255,255,255,0.4)'
+              }}>
+                👤
+              </span>
+              <img
+                src="/Personal-Website/images/xinran-photo.jpg?v=2025100909"
+                alt="Xinran Ouyang"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  opacity: 0
+                }}
+                onLoad={(e) => {
+                  e.target.style.opacity = 1;
+                }}
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
+              />
+            </div>
+          </div>
+
+          {/* 右侧：简介和其他内容 */}
+          <div style={{
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '25px',
+            height: '100%'
+          }}>
+            {/* 副标题 */}
+            <div style={{
+              fontSize: '1.3rem',
+              color: 'rgba(255,255,255,0.8)',
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: '300',
+              marginBottom: '10px'
+            }}>
+              Xinran Ouyang • Digital Artist & Creative Technologist
             </div>
 
-            {/* 简介文字 */}
+            {/* 简介文本 */}
             <div style={{
-              marginBottom: '20px',
-              textAlign: 'center',
-              maxWidth: '600px'
+              marginBottom: '20px'
             }}>
               <p style={{
                 fontSize: '1.1rem',
-                lineHeight: '1.7',
+                lineHeight: '1.6',
                 color: 'rgba(255,255,255,0.9)',
-                margin: '0 0 15px 0',
+                marginBottom: '15px',
                 fontFamily: "'Inter', sans-serif",
                 fontWeight: '300'
               }}>
@@ -954,12 +951,11 @@ function App() {
 
 
 
-            {/* 简化的信息卡片 */}
+            {/* 信息卡片 */}
             <div style={{
               display: 'flex',
               gap: '15px',
               marginBottom: '20px',
-              justifyContent: 'center',
               flexWrap: 'wrap'
             }}>
               {/* 教育背景卡片 */}
@@ -968,23 +964,23 @@ function App() {
                   background: expandedSection === 'education' ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.04)',
                   border: '1px solid rgba(255,255,255,0.1)',
                   borderRadius: '12px',
-                  padding: '15px 20px',
+                  padding: '12px 16px',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
-                  minWidth: '200px',
-                  maxWidth: '250px'
+                  minWidth: '180px',
+                  flex: 1
                 }}
                 onClick={() => setExpandedSection(expandedSection === 'education' ? null : 'education')}
               >
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '12px',
-                  marginBottom: expandedSection === 'education' ? '16px' : '0'
+                  gap: '8px',
+                  marginBottom: expandedSection === 'education' ? '12px' : '0'
                 }}>
-                  <span style={{ fontSize: '1.5rem' }}>🎓</span>
+                  <span style={{ fontSize: '1.2rem' }}>🎓</span>
                   <h3 style={{
-                    fontSize: '1.1rem',
+                    fontSize: '1rem',
                     fontWeight: '500',
                     color: 'white',
                     margin: 0,
@@ -993,7 +989,7 @@ function App() {
                     Education
                   </h3>
                   <span style={{
-                    fontSize: '0.8rem',
+                    fontSize: '0.7rem',
                     color: 'rgba(255,255,255,0.5)',
                     marginLeft: 'auto',
                     transform: expandedSection === 'education' ? 'rotate(180deg)' : 'rotate(0deg)',
@@ -1005,12 +1001,12 @@ function App() {
                 
                 {expandedSection === 'education' && (
                   <div style={{
-                    fontSize: '0.9rem',
+                    fontSize: '0.85rem',
                     color: 'rgba(255,255,255,0.8)',
-                    lineHeight: '1.6',
+                    lineHeight: '1.5',
                     fontFamily: "'Inter', sans-serif"
                   }}>
-                    <div style={{ marginBottom: '10px' }}>
+                    <div style={{ marginBottom: '8px' }}>
                       <strong>Master's in Digital Arts</strong><br/>
                       University of Arts | 2022-2024
                     </div>
@@ -1028,23 +1024,23 @@ function App() {
                   background: expandedSection === 'interests' ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.04)',
                   border: '1px solid rgba(255,255,255,0.1)',
                   borderRadius: '12px',
-                  padding: '15px 20px',
+                  padding: '12px 16px',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
-                  minWidth: '200px',
-                  maxWidth: '250px'
+                  minWidth: '180px',
+                  flex: 1
                 }}
                 onClick={() => setExpandedSection(expandedSection === 'interests' ? null : 'interests')}
               >
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '12px',
-                  marginBottom: expandedSection === 'interests' ? '16px' : '0'
+                  gap: '8px',
+                  marginBottom: expandedSection === 'interests' ? '12px' : '0'
                 }}>
-                  <span style={{ fontSize: '1.5rem' }}>💫</span>
+                  <span style={{ fontSize: '1.2rem' }}>💫</span>
                   <h3 style={{
-                    fontSize: '1.1rem',
+                    fontSize: '1rem',
                     fontWeight: '500',
                     color: 'white',
                     margin: 0,
@@ -1053,7 +1049,7 @@ function App() {
                     Interests
                   </h3>
                   <span style={{
-                    fontSize: '0.8rem',
+                    fontSize: '0.7rem',
                     color: 'rgba(255,255,255,0.5)',
                     marginLeft: 'auto',
                     transform: expandedSection === 'interests' ? 'rotate(180deg)' : 'rotate(0deg)',
@@ -1065,14 +1061,14 @@ function App() {
                 
                 {expandedSection === 'interests' && (
                   <div style={{
-                    fontSize: '0.9rem',
+                    fontSize: '0.85rem',
                     color: 'rgba(255,255,255,0.8)',
-                    lineHeight: '1.6',
+                    lineHeight: '1.5',
                     fontFamily: "'Inter', sans-serif"
                   }}>
-                    <div style={{ marginBottom: '6px' }}>🎨 Digital Art & Animation</div>
-                    <div style={{ marginBottom: '6px' }}>🤖 AI & Machine Learning</div>
-                    <div style={{ marginBottom: '6px' }}>🎮 Interactive Experience Design</div>
+                    <div style={{ marginBottom: '4px' }}>🎨 Digital Art & Animation</div>
+                    <div style={{ marginBottom: '4px' }}>🤖 AI & Machine Learning</div>
+                    <div style={{ marginBottom: '4px' }}>🎮 Interactive Experience Design</div>
                     <div>🎵 Electronic Music Production</div>
                   </div>
                 )}
@@ -1080,16 +1076,11 @@ function App() {
             </div>
 
             {/* 技能标签 */}
-            <div style={{
-              marginBottom: '20px',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center'
-            }}>
+            <div>
               <h3 style={{
-                fontSize: '1.2rem',
+                fontSize: '1.1rem',
                 fontWeight: '500',
-                margin: '0 0 15px 0',
+                margin: '0 0 12px 0',
                 color: 'white',
                 fontFamily: "'Inter', sans-serif"
               }}>
@@ -1098,21 +1089,19 @@ function App() {
               <div style={{
                 display: 'flex',
                 flexWrap: 'wrap',
-                gap: '12px',
-                justifyContent: 'center',
-                maxWidth: '600px'
+                gap: '8px'
               }}>
                 {['Digital Art', 'Interactive Design', 'Creative Coding', 'Installation Art', 'Visual Design', 'Creative Direction'].map((skill, index) => (
                   <span
                     key={index}
                     style={{
-                      padding: '8px 16px',
-                      background: 'rgba(255,255,255,0.1)',
-                      borderRadius: '20px',
-                      fontSize: '0.9rem',
+                      background: 'rgba(255,255,255,0.08)',
+                      padding: '6px 12px',
+                      borderRadius: '16px',
+                      fontSize: '0.85rem',
                       color: 'rgba(255,255,255,0.8)',
                       fontFamily: "'Inter', sans-serif",
-                      border: '1px solid rgba(255,255,255,0.2)'
+                      border: '1px solid rgba(255,255,255,0.15)'
                     }}
                   >
                     {skill}
@@ -1120,55 +1109,9 @@ function App() {
                 ))}
               </div>
             </div>
-
-            {/* 简化联系信息 */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center'
-            }}>
-              <h3 style={{
-                fontSize: '1.2rem',
-                fontWeight: '500',
-                margin: '0 0 15px 0',
-                color: 'white',
-                fontFamily: "'Inter', sans-serif"
-              }}>
-                Get in Touch
-              </h3>
-              <div style={{
-                display: 'flex',
-                gap: '15px',
-                flexWrap: 'wrap',
-                justifyContent: 'center'
-              }}>
-                <a
-                  href="mailto:McKenzie.ouyang@gmail.com"
-                  style={{
-                    color: 'rgba(255,255,255,0.8)',
-                    textDecoration: 'none',
-                    fontSize: '1rem',
-                    fontFamily: "'Inter', sans-serif",
-                    padding: '10px 20px',
-                    border: '1px solid rgba(255,255,255,0.3)',
-                    borderRadius: '6px',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.background = 'rgba(255,255,255,0.1)';
-                    e.target.style.borderColor = 'rgba(255,255,255,0.5)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.background = 'transparent';
-                    e.target.style.borderColor = 'rgba(255,255,255,0.3)';
-                  }}
-                >
-                  Email
-                </a>
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+          </div>
+        </div>
+      </section>
                   style={{
                     color: 'rgba(255,255,255,0.8)',
                     textDecoration: 'none',
@@ -1355,7 +1298,7 @@ function App() {
                 fontSize: '2rem',
                 marginBottom: '10px'
               }}>
-                �
+                🎯
               </div>
               <div style={{
                 fontSize: '1.1rem',
@@ -1363,14 +1306,14 @@ function App() {
                 color: 'white',
                 marginBottom: '8px'
               }}>
-                Interest Focus
+                Currently Available
               </div>
               <div style={{
                 fontSize: '0.9rem',
                 color: 'rgba(255,255,255,0.7)',
                 lineHeight: '1.5'
               }}>
-                Passionate about game level design and technical art, exploring the intersection of gameplay mechanics and visual storytelling
+                Open for creative collaborations and digital art projects
               </div>
             </div>
           </div>
@@ -1691,7 +1634,7 @@ function App() {
               fontSize: '2rem',
               marginBottom: '15px'
             }}>
-              🎮
+              🚀
             </div>
             <div style={{
               fontSize: '1.2rem',
@@ -1700,7 +1643,7 @@ function App() {
               marginBottom: '10px',
               fontFamily: "'Inter', sans-serif"
             }}>
-              Interest Focus
+              Currently Available
             </div>
             <div style={{
               fontSize: '1rem',
@@ -1708,7 +1651,7 @@ function App() {
               lineHeight: '1.6',
               fontFamily: "'Inter', sans-serif"
             }}>
-              Passionate about game level design and technical art, exploring immersive virtual worlds and gameplay mechanics.
+              Open for creative collaborations, digital art projects, and innovative technology explorations.
             </div>
           </div>
         </div>
