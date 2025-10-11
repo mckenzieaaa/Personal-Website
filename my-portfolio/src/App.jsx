@@ -827,41 +827,40 @@ function App() {
         padding: '40px',
         background: 'linear-gradient(180deg, #1a1a1a 0%, #000000 50%, #1a1a1a 100%)',
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
         scrollSnapAlign: 'start',
         scrollSnapStop: 'always',
         overflow: 'hidden'
       }}>
         <div style={{
-          maxWidth: '900px',
+          maxWidth: '1200px',
           width: '100%',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
+          alignItems: 'flex-start',
           height: 'fit-content',
           maxHeight: '100%'
         }}>
           {/* 个人信息 */}
           <div style={{
             width: '100%',
-            textAlign: 'center'
+            textAlign: 'left'
           }}>
-            {/* 头像和标题区域 */}
+            {/* 左上角：头像和标题区域 */}
             <div style={{
               display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              marginBottom: '20px'
+              alignItems: 'flex-start',
+              gap: '20px',
+              marginBottom: '30px'
             }}>
               {/* 头像 */}
               <div style={{
-                flexShrink: 0,
-                marginBottom: '15px'
+                flexShrink: 0
               }}>
                 <div style={{
-                  width: '100px',
-                  height: '100px',
+                  width: '80px',
+                  height: '80px',
                   borderRadius: '50%',
                   background: 'rgba(255,255,255,0.05)',
                   border: '2px solid rgba(255,255,255,0.1)',
@@ -870,11 +869,10 @@ function App() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  transition: 'all 0.3s ease',
-                  margin: '0 auto'
+                  transition: 'all 0.3s ease'
                 }}>
                   <span style={{
-                    fontSize: '3rem',
+                    fontSize: '2rem',
                     color: 'rgba(255,255,255,0.4)'
                   }}>
                     👤
@@ -926,9 +924,9 @@ function App() {
 
             {/* 简介文字 */}
             <div style={{
-              marginBottom: '20px',
-              textAlign: 'center',
-              maxWidth: '600px'
+              marginBottom: '30px',
+              textAlign: 'left',
+              maxWidth: '800px'
             }}>
               <p style={{
                 fontSize: '1.1rem',
@@ -958,8 +956,8 @@ function App() {
             <div style={{
               display: 'flex',
               gap: '15px',
-              marginBottom: '20px',
-              justifyContent: 'center',
+              marginBottom: '30px',
+              justifyContent: 'flex-start',
               flexWrap: 'wrap'
             }}>
               {/* 教育背景卡片 */}
@@ -1081,10 +1079,10 @@ function App() {
 
             {/* 技能标签 */}
             <div style={{
-              marginBottom: '20px',
+              marginBottom: '30px',
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center'
+              alignItems: 'flex-start'
             }}>
               <h3 style={{
                 fontSize: '1.2rem',
@@ -1099,7 +1097,7 @@ function App() {
                 display: 'flex',
                 flexWrap: 'wrap',
                 gap: '12px',
-                justifyContent: 'center',
+                justifyContent: 'flex-start',
                 maxWidth: '600px'
               }}>
                 {['Digital Art', 'Interactive Design', 'Creative Coding', 'Installation Art', 'Visual Design', 'Creative Direction'].map((skill, index) => (
@@ -1125,7 +1123,7 @@ function App() {
             <div style={{
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center'
+              alignItems: 'flex-start'
             }}>
               <h3 style={{
                 fontSize: '1.2rem',
@@ -1140,7 +1138,7 @@ function App() {
                 display: 'flex',
                 gap: '15px',
                 flexWrap: 'wrap',
-                justifyContent: 'center'
+                justifyContent: 'flex-start'
               }}>
                 <a
                   href="mailto:McKenzie.ouyang@gmail.com"
