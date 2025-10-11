@@ -825,7 +825,7 @@ function App() {
         height: '100vh',
         width: '100vw',
         padding: '40px',
-        background: 'linear-gradient(180deg, #1a1a1a 0%, #000000 50%, #1a1a1a 100%)',
+        background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%)',
         display: 'flex',
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
@@ -859,8 +859,8 @@ function App() {
                 flexShrink: 0
               }}>
                 <div style={{
-                  width: '80px',
-                  height: '80px',
+                  width: '120px',
+                  height: '120px',
                   borderRadius: '50%',
                   background: 'rgba(255,255,255,0.05)',
                   border: '2px solid rgba(255,255,255,0.1)',
@@ -901,12 +901,27 @@ function App() {
 
               {/* 标题和基本信息 */}
               <div>
+                <div style={{
+                  fontSize: '1rem',
+                  color: 'rgba(255,255,255,0.6)',
+                  letterSpacing: '0.3em',
+                  marginBottom: '15px',
+                  textTransform: 'uppercase',
+                  fontWeight: '300',
+                  fontFamily: "'Inter', sans-serif"
+                }}>
+                  Digital Artist & Creative Technologist
+                </div>
+                
                 <h2 style={{
-                  fontSize: 'clamp(2rem, 5vw, 3rem)',
-                  fontWeight: '200',
+                  fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                  fontWeight: '100',
                   margin: '0 0 10px 0',
-                  letterSpacing: '-0.02em',
-                  color: 'white',
+                  letterSpacing: '-0.03em',
+                  lineHeight: '1.1',
+                  background: 'linear-gradient(135deg, #ffffff 0%, #888888 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
                   fontFamily: "'Inter', sans-serif"
                 }}>
                   About Me
@@ -917,7 +932,7 @@ function App() {
                   fontFamily: "'Inter', sans-serif",
                   fontWeight: '300'
                 }}>
-                  Xinran Ouyang · Digital Artist & Creative Technologist
+                  Xinran Ouyang
                 </div>
               </div>
             </div>
@@ -929,9 +944,9 @@ function App() {
               maxWidth: '800px'
             }}>
               <p style={{
-                fontSize: '1.1rem',
-                lineHeight: '1.7',
-                color: 'rgba(255,255,255,0.9)',
+                fontSize: 'clamp(1rem, 2vw, 1.2rem)',
+                lineHeight: '1.6',
+                color: 'rgba(255,255,255,0.8)',
                 margin: '0 0 15px 0',
                 fontFamily: "'Inter', sans-serif",
                 fontWeight: '300'
@@ -1189,6 +1204,68 @@ function App() {
                   LinkedIn
                 </a>
               </div>
+            </div>
+            
+            {/* 按钮组 */}
+            <div style={{
+              display: 'flex',
+              gap: '20px',
+              flexWrap: 'wrap',
+              marginTop: '40px'
+            }}>
+              <button
+                style={{
+                  background: 'white',
+                  color: 'black',
+                  border: 'none',
+                  padding: '16px 32px',
+                  fontSize: '0.95rem',
+                  fontWeight: '500',
+                  letterSpacing: '0.05em',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  fontFamily: "'Inter', sans-serif",
+                  textTransform: 'uppercase'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.background = 'rgba(255,255,255,0.9)';
+                  e.target.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.background = 'white';
+                  e.target.style.transform = 'translateY(0)';
+                }}
+                onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
+              >
+                Get in Touch
+              </button>
+              
+              <button
+                style={{
+                  background: 'transparent',
+                  color: 'white',
+                  border: '1px solid rgba(255,255,255,0.3)',
+                  padding: '16px 32px',
+                  fontSize: '0.95rem',
+                  fontWeight: '400',
+                  letterSpacing: '0.05em',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  fontFamily: "'Inter', sans-serif",
+                  textTransform: 'uppercase'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.borderColor = 'white';
+                  e.target.style.background = 'rgba(255,255,255,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.borderColor = 'rgba(255,255,255,0.3)';
+                  e.target.style.background = 'transparent';
+                }}
+                onClick={() => document.getElementById('work').scrollIntoView({ behavior: 'smooth' })}
+              >
+                View Work
+              </button>
             </div>
           </div>
 
