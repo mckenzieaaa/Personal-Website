@@ -1697,52 +1697,12 @@ function App() {
         background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%)',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         scrollSnapAlign: 'start',
         scrollSnapStop: 'always',
         overflow: 'hidden',
         position: 'relative'
       }}>
-        {/* 背景3D模型 */}
-        <div style={{
-          position: 'absolute',
-          top: '10%',
-          left: '5%',
-          width: '200px',
-          height: '200px',
-          opacity: 0.15,
-          zIndex: 0,
-          pointerEvents: 'none'
-        }}>
-          <ThreeModel 
-            modelSize={1.2}
-            rotationSpeed={0.008}
-            showWireframe={false}
-            color={0x6b73ff}
-            geometry='sphere'
-          />
-        </div>
-        
-        {/* 另一个背景3D模型 */}
-        <div style={{
-          position: 'absolute',
-          bottom: '15%',
-          right: '8%',
-          width: '150px',
-          height: '150px',
-          opacity: 0.1,
-          zIndex: 0,
-          pointerEvents: 'none'
-        }}>
-          <ThreeModel 
-            modelSize={0.8}
-            rotationSpeed={-0.012}
-            showWireframe={true}
-            color={0xff6b9d}
-            geometry='box'
-          />
-        </div>
-
         {/* 左侧：联系信息 - 与首页对齐 */}
         <div style={{
           flex: '1',
