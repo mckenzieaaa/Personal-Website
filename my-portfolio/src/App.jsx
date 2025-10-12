@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ThreeModel from './components/ThreeModel';
 
 // Portfolio website with Contact page update
 function App() {
@@ -11,6 +12,10 @@ function App() {
   const [modalPosition, setModalPosition] = useState({ x: 100, y: 100 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  
+  // 加载状态
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadingProgress, setLoadingProgress] = useState(0);
 
   // 项目数据，包含图片路径和软件标签
   const projects = [
@@ -163,6 +168,165 @@ function App() {
       };
     }
   }, [isDragging, dragOffset]);
+
+  // 加载动画效果
+  useEffect(() => {
+    const loadingTimer = setInterval(() => {
+      setLoadingProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(loadingTimer);
+          setTimeout(() => setIsLoading(false), 300); // 缩短延迟时间
+          return 100;
+        }
+        return prev + Math.random() * 25; // 加快进度增长
+      });
+    }, 50); // 缩短间隔时间
+
+    return () => clearInterval(loadingTimer);
+  }, []);
+
+  // 如果正在加载，显示加载屏幕
+  if (isLoading) {
+    return (
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 9999,
+        color: 'white',
+        fontFamily: "'Inter', sans-serif"
+      }}>
+        {/* Logo 动画 */}
+        <div style={{
+          marginBottom: '40px',
+          animation: 'pulse 2s ease-in-out infinite',
+          transform: `scale(${1 + Math.sin(Date.now() / 500) * 0.1})`
+        }}>
+          <img 
+            src="/Personal-Website/images/logo111.svg" 
+            alt="OYXR Logo" 
+            style={{
+              width: '100px',
+              height: '100px',
+              filter: 'invert(1)',
+              opacity: 0.9,
+              backgroundColor: 'white',
+              borderRadius: '50%',
+              padding: '15px',
+              border: '3px solid rgba(255,255,255,0.8)',
+              boxShadow: '0 0 30px rgba(255,255,255,0.3)'
+            }}
+          />
+        </div>
+
+        {/* 品牌名称 */}
+        <div style={{
+          fontSize: '2rem',
+          fontWeight: '300',
+          color: 'white',
+          letterSpacing: '0.2em',
+          marginBottom: '30px',
+          fontFamily: "'Inter', sans-serif"
+        }}>
+          OYXR
+        </div>
+
+        {/* 加载文字 */}
+        <div style={{
+          fontSize: '1rem',
+          color: 'rgba(255,255,255,0.7)',
+          letterSpacing: '0.1em',
+          marginBottom: '40px',
+          textAlign: 'center'
+        }}>
+          Loading Digital Experience<br/>
+          <span style={{ opacity: 0.5 }}>欢迎来到创意世界</span>
+        </div>
+
+        {/* 进度条 */}
+        <div style={{
+          width: '300px',
+          height: '3px',
+          background: 'rgba(255,255,255,0.1)',
+          borderRadius: '2px',
+          overflow: 'hidden',
+          marginBottom: '20px'
+        }}>
+          <div style={{
+            width: `${loadingProgress}%`,
+            height: '100%',
+            background: 'linear-gradient(90deg, #ffffff 0%, #888888 50%, #ffffff 100%)',
+            borderRadius: '2px',
+            transition: 'width 0.3s ease',
+            boxShadow: '0 0 10px rgba(255,255,255,0.5)'
+          }} />
+        </div>
+
+        {/* 进度百分比 */}
+        <div style={{
+          fontSize: '0.9rem',
+          color: 'rgba(255,255,255,0.8)',
+          letterSpacing: '0.1em'
+        }}>
+          {Math.round(loadingProgress)}%
+        </div>
+
+        {/* 3D旋转的粒子效果 */}
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '400px',
+          height: '400px',
+          pointerEvents: 'none',
+          zIndex: -1
+        }}>
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={i}
+              style={{
+                position: 'absolute',
+                width: '4px',
+                height: '4px',
+                background: 'rgba(255,255,255,0.3)',
+                borderRadius: '50%',
+                top: '50%',
+                left: '50%',
+                transform: `
+                  translate(-50%, -50%) 
+                  rotate(${i * 18}deg) 
+                  translateY(-${100 + i * 10}px)
+                  rotate(${Date.now() / (1000 + i * 100)}deg)
+                `,
+                animation: `float ${2 + i * 0.1}s ease-in-out infinite`,
+                animationDelay: `${i * 0.1}s`
+              }}
+            />
+          ))}
+        </div>
+
+        {/* CSS动画定义 */}
+        <style jsx>{`
+          @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+          }
+          @keyframes float {
+            0%, 100% { transform: translate(-50%, -50%) rotate(${Math.random() * 360}deg) translateY(-100px) scale(0.8); }
+            50% { transform: translate(-50%, -50%) rotate(${Math.random() * 360}deg) translateY(-120px) scale(1.2); }
+          }
+        `}</style>
+      </div>
+    );
+  }
 
   return (
         <div style={{
@@ -338,13 +502,35 @@ function App() {
           alignItems: 'center',
           justifyContent: 'flex-start',
           padding: '0 80px 0 20px',
-          perspective: '1000px'
+          perspective: '1000px',
+          position: 'relative'
         }}>
+          {/* 背景3D模型 */}
+          <div style={{
+            position: 'absolute',
+            top: '20%',
+            right: '-100px',
+            width: '300px',
+            height: '300px',
+            opacity: 0.3,
+            zIndex: 0,
+            pointerEvents: 'none'
+          }}>
+            <ThreeModel 
+              modelSize={1.5}
+              rotationSpeed={0.01}
+              showWireframe={true}
+              color={0x4a9eff}
+              geometry='torus'
+            />
+          </div>
+
           <div style={{
             position: 'relative',
             width: '100%',
             maxWidth: '700px',
-            height: '400px'
+            height: '400px',
+            zIndex: 1
           }}>
             {/* 旋转的作品预览 */}
             <div style={{
@@ -827,20 +1013,22 @@ function App() {
         padding: '40px',
         background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%)',
         display: 'flex',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         scrollSnapAlign: 'start',
         scrollSnapStop: 'always',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        position: 'relative'
       }}>
+        {/* 左侧：个人信息 - 与首页对齐 */}
         <div style={{
-          maxWidth: '1200px',
-          width: '100%',
+          flex: '1',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'flex-start',
-          height: 'fit-content',
-          maxHeight: '100%'
+          justifyContent: 'center',
+          padding: '0 80px',
+          zIndex: 2,
+          maxWidth: '600px'
         }}>
           {/* 个人信息 */}
           <div style={{
@@ -1131,6 +1319,55 @@ function App() {
                     {skill}
                   </span>
                 ))}
+              </div>
+            </div>
+
+            {/* 3D模型展示 */}
+            <div style={{
+              marginBottom: '30px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start'
+            }}>
+              <h3 style={{
+                fontSize: '1.2rem',
+                fontWeight: '500',
+                margin: '0 0 15px 0',
+                color: 'white',
+                fontFamily: "'Inter', sans-serif"
+              }}>
+                3D Showcase
+              </h3>
+              <div style={{
+                width: '100%',
+                maxWidth: '400px',
+                height: '250px',
+                background: 'rgba(255,255,255,0.02)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: '15px',
+                overflow: 'hidden',
+                position: 'relative'
+              }}>
+                <ThreeModel 
+                  scale={1.5}
+                  position={[0, 0, 0]}
+                  rotation={[0.2, 0, 0]}
+                  modelSize={1.8}
+                  rotationSpeed={0.015}
+                  showWireframe={false}
+                  color={0x00ff88}
+                  geometry='sphere'
+                />
+                <div style={{
+                  position: 'absolute',
+                  bottom: '10px',
+                  left: '15px',
+                  fontSize: '0.8rem',
+                  color: 'rgba(255,255,255,0.6)',
+                  fontFamily: "'Inter', sans-serif"
+                }}>
+                  Interactive 3D Model
+                </div>
               </div>
             </div>
 
@@ -1460,20 +1697,66 @@ function App() {
         background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%)',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         scrollSnapAlign: 'start',
         scrollSnapStop: 'always',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        position: 'relative'
       }}>
+        {/* 背景3D模型 */}
         <div style={{
-          maxWidth: '900px',
-          width: '100%',
-          textAlign: 'center',
-          height: 'fit-content'
+          position: 'absolute',
+          top: '10%',
+          left: '5%',
+          width: '200px',
+          height: '200px',
+          opacity: 0.15,
+          zIndex: 0,
+          pointerEvents: 'none'
+        }}>
+          <ThreeModel 
+            modelSize={1.2}
+            rotationSpeed={0.008}
+            showWireframe={false}
+            color={0x6b73ff}
+            geometry='sphere'
+          />
+        </div>
+        
+        {/* 另一个背景3D模型 */}
+        <div style={{
+          position: 'absolute',
+          bottom: '15%',
+          right: '8%',
+          width: '150px',
+          height: '150px',
+          opacity: 0.1,
+          zIndex: 0,
+          pointerEvents: 'none'
+        }}>
+          <ThreeModel 
+            modelSize={0.8}
+            rotationSpeed={-0.012}
+            showWireframe={true}
+            color={0xff6b9d}
+            geometry='box'
+          />
+        </div>
+
+        {/* 左侧：联系信息 - 与首页对齐 */}
+        <div style={{
+          flex: '1',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          padding: '0 80px',
+          zIndex: 2,
+          maxWidth: '600px'
         }}>
           {/* 主标题 */}
           <div style={{
-            marginBottom: '25px'
+            marginBottom: '40px',
+            textAlign: 'left'
           }}>
             <h2 style={{
               fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
@@ -1489,7 +1772,7 @@ function App() {
               fontSize: '1.1rem',
               color: 'rgba(255,255,255,0.7)',
               maxWidth: '500px',
-              margin: '0 auto',
+              margin: '0',
               lineHeight: '1.5',
               fontFamily: "'Inter', sans-serif",
               fontWeight: '300'
@@ -1498,12 +1781,12 @@ function App() {
             </p>
           </div>
 
-          {/* 联系方式网格 */}
+          {/* 联系方式列表 */}
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: '15px',
-            marginBottom: '25px'
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px',
+            marginBottom: '40px'
           }}>
             {/* 邮箱 */}
             <div style={{
