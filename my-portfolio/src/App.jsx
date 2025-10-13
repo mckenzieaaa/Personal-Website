@@ -1514,176 +1514,990 @@ function App() {
             height: '100%',
             paddingTop: '20px'
           }}>
-            {/* 技能概览 */}
+            {/* 技能概览 - 简化版 */}
             <div style={{
               background: 'rgba(255,255,255,0.03)',
               border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '20px',
-              padding: '30px',
-              fontFamily: "'Inter', sans-serif"
+              borderRadius: '15px',
+              overflow: 'hidden',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+            }}
+            onClick={() => {
+              setExpandedSection(expandedSection === 'skills-preview' ? null : 'skills-preview');
             }}>
-              <h3 style={{
-                fontSize: '1.4rem',
-                fontWeight: '500',
-                color: 'white',
-                margin: '0 0 25px 0',
+              <div style={{
+                padding: '20px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '12px'
+                justifyContent: 'space-between'
               }}>
-                <span style={{ fontSize: '1.8rem' }}>⚡</span>
-                Skills & Tools
-              </h3>
-              
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(2, 1fr)',
-                gap: '15px'
-              }}>
-                {[
-                  { name: 'TouchDesigner', level: '95%', color: '#00ff88' },
-                  { name: 'Blender', level: '90%', color: '#ff6b35' },
-                  { name: 'After Effects', level: '85%', color: '#9999ff' },
-                  { name: 'Cinema 4D', level: '80%', color: '#ffcc00' },
-                  { name: 'Arduino', level: '75%', color: '#00ccff' },
-                  { name: 'Premiere Pro', level: '85%', color: '#ff3366' }
-                ].map((skill, index) => (
-                  <div key={index} style={{
-                    background: 'rgba(255,255,255,0.04)',
-                    borderRadius: '12px',
-                    padding: '15px',
-                    border: '1px solid rgba(255,255,255,0.08)'
-                  }}>
-                    <div style={{
-                      fontSize: '0.9rem',
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px'
+                }}>
+                  <span style={{ fontSize: '1.5rem' }}>⚡</span>
+                  <div>
+                    <h3 style={{
+                      fontSize: '1.2rem',
                       fontWeight: '500',
-                      color: 'rgba(255,255,255,0.9)',
-                      marginBottom: '8px'
+                      color: 'white',
+                      margin: '0',
+                      fontFamily: "'Inter', sans-serif"
                     }}>
-                      {skill.name}
-                    </div>
+                      Skills & Tools
+                    </h3>
                     <div style={{
-                      background: 'rgba(255,255,255,0.1)',
-                      borderRadius: '6px',
-                      height: '4px',
-                      overflow: 'hidden'
+                      fontSize: '0.85rem',
+                      color: 'rgba(255,255,255,0.6)',
+                      marginTop: '2px'
                     }}>
-                      <div style={{
-                        background: skill.color,
-                        height: '100%',
-                        width: skill.level,
-                        borderRadius: '6px',
-                        transition: 'width 2s ease'
-                      }} />
+                      TouchDesigner • Blender • Adobe Suite
                     </div>
                   </div>
-                ))}
+                </div>
+                <div style={{
+                  fontSize: '1.2rem',
+                  color: 'rgba(255,255,255,0.6)',
+                  transform: expandedSection === 'skills-preview' ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.3s ease'
+                }}>
+                  ▼
+                </div>
               </div>
+              {expandedSection === 'skills-preview' && (
+                <div style={{
+                  padding: '0 20px 20px 20px',
+                  borderTop: '1px solid rgba(255,255,255,0.1)',
+                  paddingTop: '20px'
+                }}>
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gap: '10px'
+                  }}>
+                    {[
+                      { name: 'TouchDesigner', level: '95%', color: '#00ff88' },
+                      { name: 'Blender', level: '90%', color: '#ff6b35' },
+                      { name: 'After Effects', level: '85%', color: '#9999ff' },
+                      { name: 'Cinema 4D', level: '80%', color: '#ffcc00' }
+                    ].map((skill, index) => (
+                      <div key={index} style={{
+                        background: 'rgba(255,255,255,0.04)',
+                        borderRadius: '8px',
+                        padding: '10px',
+                        border: '1px solid rgba(255,255,255,0.08)'
+                      }}>
+                        <div style={{
+                          fontSize: '0.85rem',
+                          fontWeight: '500',
+                          color: 'rgba(255,255,255,0.9)',
+                          marginBottom: '6px'
+                        }}>
+                          {skill.name}
+                        </div>
+                        <div style={{
+                          background: 'rgba(255,255,255,0.1)',
+                          borderRadius: '3px',
+                          height: '3px',
+                          overflow: 'hidden'
+                        }}>
+                          <div style={{
+                            background: skill.color,
+                            height: '100%',
+                            width: skill.level,
+                            borderRadius: '3px'
+                          }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div style={{
+                    textAlign: 'center',
+                    fontSize: '0.8rem',
+                    color: 'rgba(255,255,255,0.5)',
+                    marginTop: '15px'
+                  }}>
+                    + Arduino • Premiere Pro • View all in detailed page
+                  </div>
+                </div>
+              )}
             </div>
 
-            {/* 联系方式 */}
+            {/* 联系方式 - 简化版 */}
             <div style={{
               background: 'rgba(255,255,255,0.03)',
               border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '20px',
-              padding: '30px',
-              fontFamily: "'Inter', sans-serif"
+              borderRadius: '15px',
+              overflow: 'hidden',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+            }}
+            onClick={() => {
+              setExpandedSection(expandedSection === 'contact-preview' ? null : 'contact-preview');
             }}>
-              <h3 style={{
-                fontSize: '1.4rem',
-                fontWeight: '500',
-                color: 'white',
-                margin: '0 0 25px 0',
+              <div style={{
+                padding: '20px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '12px'
-              }}>
-                <span style={{ fontSize: '1.8rem' }}>�</span>
-                Get In Touch
-              </h3>
-              
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '15px'
+                justifyContent: 'space-between'
               }}>
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '12px',
-                  padding: '12px 16px',
-                  background: 'rgba(255,255,255,0.04)',
-                  borderRadius: '12px',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  fontSize: '0.95rem',
-                  color: 'rgba(255,255,255,0.8)'
+                  gap: '12px'
                 }}>
-                  <span>🇨🇳</span>
-                  <span>+86 15723351973</span>
+                  <span style={{ fontSize: '1.5rem' }}>📞</span>
+                  <div>
+                    <h3 style={{
+                      fontSize: '1.2rem',
+                      fontWeight: '500',
+                      color: 'white',
+                      margin: '0',
+                      fontFamily: "'Inter', sans-serif"
+                    }}>
+                      Get In Touch
+                    </h3>
+                    <div style={{
+                      fontSize: '0.85rem',
+                      color: 'rgba(255,255,255,0.6)',
+                      marginTop: '2px'
+                    }}>
+                      Multiple contact options available
+                    </div>
+                  </div>
                 </div>
-                
                 <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  padding: '12px 16px',
-                  background: 'rgba(255,255,255,0.04)',
-                  borderRadius: '12px',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  fontSize: '0.95rem',
-                  color: 'rgba(255,255,255,0.8)'
+                  fontSize: '1.2rem',
+                  color: 'rgba(255,255,255,0.6)',
+                  transform: expandedSection === 'contact-preview' ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.3s ease'
                 }}>
-                  <span>🇭🇰</span>
-                  <span>+852 84963034</span>
-                </div>
-                
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  padding: '12px 16px',
-                  background: 'rgba(255,255,255,0.04)',
-                  borderRadius: '12px',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  fontSize: '0.95rem',
-                  color: 'rgba(255,255,255,0.8)'
-                }}>
-                  <span>📧</span>
-                  <span>McKenzie.ouyang@gmail.com</span>
+                  ▼
                 </div>
               </div>
+              {expandedSection === 'contact-preview' && (
+                <div style={{
+                  padding: '0 20px 20px 20px',
+                  borderTop: '1px solid rgba(255,255,255,0.1)',
+                  paddingTop: '20px'
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '12px'
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      padding: '10px 14px',
+                      background: 'rgba(255,255,255,0.04)',
+                      borderRadius: '8px',
+                      border: '1px solid rgba(255,255,255,0.08)',
+                      fontSize: '0.9rem',
+                      color: 'rgba(255,255,255,0.8)'
+                    }}>
+                      <span>📧</span>
+                      <span>McKenzie.ouyang@gmail.com</span>
+                    </div>
+                    
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      padding: '10px 14px',
+                      background: 'rgba(255,255,255,0.04)',
+                      borderRadius: '8px',
+                      border: '1px solid rgba(255,255,255,0.08)',
+                      fontSize: '0.9rem',
+                      color: 'rgba(255,255,255,0.8)'
+                    }}>
+                      <span>🇨🇳</span>
+                      <span>+86 15723351973</span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
-            {/* 当前状态 */}
+            {/* 当前状态 - 简化版 */}
             <div style={{
               background: 'rgba(255,255,255,0.03)',
               border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '20px',
-              padding: '25px',
-              fontFamily: "'Inter', sans-serif",
-              textAlign: 'center'
+              borderRadius: '15px',
+              overflow: 'hidden',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+            }}
+            onClick={() => {
+              setExpandedSection(expandedSection === 'status-preview' ? null : 'status-preview');
             }}>
               <div style={{
-                fontSize: '2rem',
-                marginBottom: '10px'
+                padding: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
               }}>
-                �
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px'
+                }}>
+                  <span style={{ fontSize: '1.5rem' }}>🎯</span>
+                  <div>
+                    <h3 style={{
+                      fontSize: '1.2rem',
+                      fontWeight: '500',
+                      color: 'white',
+                      margin: '0',
+                      fontFamily: "'Inter', sans-serif"
+                    }}>
+                      Interest Focus
+                    </h3>
+                    <div style={{
+                      fontSize: '0.85rem',
+                      color: 'rgba(255,255,255,0.6)',
+                      marginTop: '2px'
+                    }}>
+                      Game design & technical art
+                    </div>
+                  </div>
+                </div>
+                <div style={{
+                  fontSize: '1.2rem',
+                  color: 'rgba(255,255,255,0.6)',
+                  transform: expandedSection === 'status-preview' ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.3s ease'
+                }}>
+                  ▼
+                </div>
               </div>
+              {expandedSection === 'status-preview' && (
+                <div style={{
+                  padding: '0 20px 20px 20px',
+                  borderTop: '1px solid rgba(255,255,255,0.1)',
+                  paddingTop: '20px'
+                }}>
+                  <div style={{
+                    fontSize: '0.9rem',
+                    color: 'rgba(255,255,255,0.7)',
+                    lineHeight: '1.5',
+                    textAlign: 'left'
+                  }}>
+                    Passionate about game level design and technical art, exploring the intersection of gameplay mechanics and visual storytelling. Currently focused on innovative approaches to interactive experiences and digital art creation.
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About & Experience Details - Page 2 */}
+      <section id="about-details" style={{
+        minHeight: '100vh',
+        width: '100vw',
+        background: 'linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 50%, #1a1a1a 100%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        scrollSnapAlign: 'start',
+        scrollSnapStop: 'always',
+        overflow: 'auto',
+        position: 'relative',
+        padding: '40px'
+      }}>
+        {/* 主要内容 */}
+        <div style={{
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          padding: '0 80px',
+          zIndex: 2,
+          maxWidth: '1200px'
+        }}>
+          {/* 页面标题 */}
+          <div style={{
+            textAlign: 'center',
+            marginBottom: '50px'
+          }}>
+            <h2 style={{
+              fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+              fontWeight: '100',
+              margin: '0 0 10px 0',
+              letterSpacing: '-0.03em',
+              lineHeight: '1.1',
+              background: 'linear-gradient(135deg, #ffffff 0%, #888888 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              fontFamily: "'Inter', sans-serif"
+            }}>
+              Experience & Education
+            </h2>
+            <div style={{
+              fontSize: '1.1rem',
+              color: 'rgba(255,255,255,0.7)',
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: '300'
+            }}>
+              Detailed Background & Achievements
+            </div>
+          </div>
+
+          {/* 详细的可展开模块 */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '30px'
+          }}>
+            {/* 教育经历模块 */}
+            <div style={{
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '15px',
+              overflow: 'hidden',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+            }}
+            onClick={() => {
+              setExpandedSection(expandedSection === 'education' ? null : 'education');
+            }}>
               <div style={{
-                fontSize: '1.1rem',
-                fontWeight: '500',
-                color: 'white',
-                marginBottom: '8px'
+                padding: '25px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
               }}>
-                Interest Focus
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '15px'
+                }}>
+                  <span style={{ fontSize: '2rem' }}>🎓</span>
+                  <div>
+                    <h3 style={{
+                      fontSize: '1.3rem',
+                      fontWeight: '500',
+                      color: 'white',
+                      margin: '0',
+                      fontFamily: "'Inter', sans-serif"
+                    }}>
+                      Education & Experience
+                    </h3>
+                    <div style={{
+                      fontSize: '0.9rem',
+                      color: 'rgba(255,255,255,0.6)',
+                      marginTop: '4px'
+                    }}>
+                      Academic background & work experience
+                    </div>
+                  </div>
+                </div>
+                <div style={{
+                  fontSize: '1.4rem',
+                  color: 'rgba(255,255,255,0.6)',
+                  transform: expandedSection === 'education' ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.3s ease'
+                }}>
+                  ▼
+                </div>
               </div>
+              {expandedSection === 'education' && (
+                <div style={{
+                  padding: '0 25px 25px 25px',
+                  borderTop: '1px solid rgba(255,255,255,0.1)',
+                  paddingTop: '25px'
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '20px'
+                  }}>
+                    <div style={{
+                      background: 'rgba(255,255,255,0.04)',
+                      borderRadius: '12px',
+                      padding: '20px',
+                      border: '1px solid rgba(255,255,255,0.08)'
+                    }}>
+                      <div style={{
+                        fontSize: '1rem',
+                        fontWeight: '600',
+                        color: 'rgba(255,255,255,0.95)',
+                        marginBottom: '8px'
+                      }}>
+                        The Hong Kong Polytechnic University
+                      </div>
+                      <div style={{
+                        fontSize: '0.9rem',
+                        color: 'rgba(255,255,255,0.8)',
+                        marginBottom: '4px'
+                      }}>
+                        Master's in Innovative Multimedia Entertainment
+                      </div>
+                      <div style={{
+                        fontSize: '0.8rem',
+                        color: 'rgba(255,255,255,0.6)'
+                      }}>
+                        2024 - Present
+                      </div>
+                    </div>
+                    <div style={{
+                      background: 'rgba(255,255,255,0.04)',
+                      borderRadius: '12px',
+                      padding: '20px',
+                      border: '1px solid rgba(255,255,255,0.08)'
+                    }}>
+                      <div style={{
+                        fontSize: '1rem',
+                        fontWeight: '600',
+                        color: 'rgba(255,255,255,0.95)',
+                        marginBottom: '8px'
+                      }}>
+                        Sichuan Fine Arts Institute
+                      </div>
+                      <div style={{
+                        fontSize: '0.9rem',
+                        color: 'rgba(255,255,255,0.8)',
+                        marginBottom: '4px'
+                      }}>
+                        Bachelor's in Digital Media Arts
+                      </div>
+                      <div style={{
+                        fontSize: '0.8rem',
+                        color: 'rgba(255,255,255,0.6)'
+                      }}>
+                        2020 - 2024
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* 完整奖项列表 */}
+            <div style={{
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '15px',
+              overflow: 'hidden',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+            }}
+            onClick={() => {
+              setExpandedSection(expandedSection === 'full-awards' ? null : 'full-awards');
+            }}>
               <div style={{
-                fontSize: '0.9rem',
-                color: 'rgba(255,255,255,0.7)',
-                lineHeight: '1.5'
+                padding: '25px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
               }}>
-                Passionate about game level design and technical art, exploring the intersection of gameplay mechanics and visual storytelling
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '15px'
+                }}>
+                  <span style={{ fontSize: '2rem' }}>🏆</span>
+                  <div>
+                    <h3 style={{
+                      fontSize: '1.3rem',
+                      fontWeight: '500',
+                      color: 'white',
+                      margin: '0',
+                      fontFamily: "'Inter', sans-serif"
+                    }}>
+                      Complete Awards List
+                    </h3>
+                    <div style={{
+                      fontSize: '0.9rem',
+                      color: 'rgba(255,255,255,0.6)',
+                      marginTop: '4px'
+                    }}>
+                      All achievements and recognitions
+                    </div>
+                  </div>
+                </div>
+                <div style={{
+                  fontSize: '1.4rem',
+                  color: 'rgba(255,255,255,0.6)',
+                  transform: expandedSection === 'full-awards' ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.3s ease'
+                }}>
+                  ▼
+                </div>
               </div>
+              {expandedSection === 'full-awards' && (
+                <div style={{
+                  padding: '0 25px 25px 25px',
+                  borderTop: '1px solid rgba(255,255,255,0.1)',
+                  paddingTop: '25px',
+                  maxHeight: '400px',
+                  overflow: 'auto'
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '15px'
+                  }}>
+                    {[
+                      {
+                        title: "The 14th National Exhibition of Fine Arts",
+                        subtitle: "Nominated for Final",
+                        year: "07/2024",
+                        color: '#FFD700'
+                      },
+                      {
+                        title: "EDA Oriental Lake District - Leading South",
+                        subtitle: "Nominated for District Level",
+                        year: "05/2023",
+                        color: '#00ff88'
+                      },
+                      {
+                        title: "Sichuan Fine Arts Institute - Second-class Scholarship",
+                        subtitle: "Academic Excellence",
+                        year: "12/2022",
+                        color: '#9999ff'
+                      },
+                      {
+                        title: "Busan International Art Festival 2022",
+                        subtitle: "Selected Award",
+                        year: "12/2022",
+                        color: '#ff6b35'
+                      },
+                      {
+                        title: 'Internet + Innovation Competition',
+                        subtitle: "Third Prize",
+                        year: "09/2022",
+                        color: '#00ccff'
+                      },
+                      {
+                        title: "National Printmakers Exhibition",
+                        subtitle: "Excellence Award",
+                        year: "05/2021",
+                        color: '#ff3366'
+                      }
+                    ].map((achievement, index) => (
+                      <div key={index} style={{
+                        background: 'rgba(255,255,255,0.04)',
+                        borderRadius: '10px',
+                        padding: '15px',
+                        border: '1px solid rgba(255,255,255,0.08)',
+                        borderLeft: `4px solid ${achievement.color}`
+                      }}>
+                        <div style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'flex-start',
+                          marginBottom: '4px'
+                        }}>
+                          <div style={{
+                            fontSize: '0.95rem',
+                            fontWeight: '600',
+                            color: 'rgba(255,255,255,0.95)'
+                          }}>
+                            {achievement.title}
+                          </div>
+                          <div style={{
+                            fontSize: '0.8rem',
+                            color: achievement.color,
+                            fontWeight: '500',
+                            background: 'rgba(255,255,255,0.1)',
+                            padding: '2px 8px',
+                            borderRadius: '12px'
+                          }}>
+                            {achievement.year}
+                          </div>
+                        </div>
+                        <div style={{
+                          fontSize: '0.85rem',
+                          color: 'rgba(255,255,255,0.7)'
+                        }}>
+                          {achievement.subtitle}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* 完整游戏经历 */}
+            <div style={{
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '15px',
+              overflow: 'hidden',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+            }}
+            onClick={() => {
+              setExpandedSection(expandedSection === 'full-gaming' ? null : 'full-gaming');
+            }}>
+              <div style={{
+                padding: '25px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+              }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '15px'
+                }}>
+                  <span style={{ fontSize: '2rem' }}>🎮</span>
+                  <div>
+                    <h3 style={{
+                      fontSize: '1.3rem',
+                      fontWeight: '500',
+                      color: 'white',
+                      margin: '0',
+                      fontFamily: "'Inter', sans-serif"
+                    }}>
+                      Game Experience Details
+                    </h3>
+                    <div style={{
+                      fontSize: '0.9rem',
+                      color: 'rgba(255,255,255,0.6)',
+                      marginTop: '4px'
+                    }}>
+                      Complete gaming background
+                    </div>
+                  </div>
+                </div>
+                <div style={{
+                  fontSize: '1.4rem',
+                  color: 'rgba(255,255,255,0.6)',
+                  transform: expandedSection === 'full-gaming' ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.3s ease'
+                }}>
+                  ▼
+                </div>
+              </div>
+              {expandedSection === 'full-gaming' && (
+                <div style={{
+                  padding: '0 25px 25px 25px',
+                  borderTop: '1px solid rgba(255,255,255,0.1)',
+                  paddingTop: '25px'
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '20px'
+                  }}>
+                    <div style={{
+                      background: 'rgba(255,255,255,0.04)',
+                      borderRadius: '12px',
+                      padding: '20px',
+                      border: '1px solid rgba(255,255,255,0.08)',
+                      borderLeft: '4px solid #00ff88'
+                    }}>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        marginBottom: '8px'
+                      }}>
+                        <span style={{ fontSize: '1.2rem' }}>💻</span>
+                        <div style={{
+                          fontSize: '1rem',
+                          fontWeight: '600',
+                          color: 'rgba(255,255,255,0.95)'
+                        }}>
+                          Steam Gaming Collection
+                        </div>
+                      </div>
+                      <div style={{
+                        fontSize: '0.9rem',
+                        color: 'rgba(255,255,255,0.7)',
+                        lineHeight: '1.5'
+                      }}>
+                        Own over 200 games on Steam, with particular passion for CRPGs such as Divinity: Original Sin 2 and Disco Elysium, demonstrating strong interest in narrative-driven and strategy-heavy titles.
+                      </div>
+                    </div>
+
+                    <div style={{
+                      background: 'rgba(255,255,255,0.04)',
+                      borderRadius: '12px',
+                      padding: '20px',
+                      border: '1px solid rgba(255,255,255,0.08)',
+                      borderLeft: '4px solid #9999ff'
+                    }}>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        marginBottom: '8px'
+                      }}>
+                        <span style={{ fontSize: '1.2rem' }}>🎲</span>
+                        <div style={{
+                          fontSize: '1rem',
+                          fontWeight: '600',
+                          color: 'rgba(255,255,255,0.95)'
+                        }}>
+                          Board Game Expertise
+                        </div>
+                      </div>
+                      <div style={{
+                        fontSize: '0.9rem',
+                        color: 'rgba(255,255,255,0.7)',
+                        lineHeight: '1.5'
+                      }}>
+                        Experienced board game player, having played over 100 different board games including heavy strategy titles like Brass: Birmingham and Ark Nova, reflecting analytical thinking and familiarity with complex rule systems.
+                      </div>
+                    </div>
+
+                    <div style={{
+                      background: 'rgba(255,255,255,0.04)',
+                      borderRadius: '12px',
+                      padding: '20px',
+                      border: '1px solid rgba(255,255,255,0.08)',
+                      borderLeft: '4px solid #ff6b35'
+                    }}>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        marginBottom: '8px'
+                      }}>
+                        <span style={{ fontSize: '1.2rem' }}>📱</span>
+                        <div style={{
+                          fontSize: '1rem',
+                          fontWeight: '600',
+                          color: 'rgba(255,255,255,0.95)'
+                        }}>
+                          Competitive Mobile Gaming
+                        </div>
+                      </div>
+                      <div style={{
+                        fontSize: '0.9rem',
+                        color: 'rgba(255,255,255,0.7)',
+                        lineHeight: '1.5'
+                      }}>
+                        Active mobile gamer with strong competitive performance; ranked top 3 in regional weapon leaderboard in CrossFire Mobile, demonstrating strategic thinking and precision skills.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* 基本信息详细版 */}
+            <div style={{
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '15px',
+              overflow: 'hidden',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+            }}
+            onClick={() => {
+              setExpandedSection(expandedSection === 'basic-info' ? null : 'basic-info');
+            }}>
+              <div style={{
+                padding: '25px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+              }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '15px'
+                }}>
+                  <span style={{ fontSize: '2rem' }}>👤</span>
+                  <div>
+                    <h3 style={{
+                      fontSize: '1.3rem',
+                      fontWeight: '500',
+                      color: 'white',
+                      margin: '0',
+                      fontFamily: "'Inter', sans-serif"
+                    }}>
+                      Personal Details
+                    </h3>
+                    <div style={{
+                      fontSize: '0.9rem',
+                      color: 'rgba(255,255,255,0.6)',
+                      marginTop: '4px'
+                    }}>
+                      Detailed personal information
+                    </div>
+                  </div>
+                </div>
+                <div style={{
+                  fontSize: '1.4rem',
+                  color: 'rgba(255,255,255,0.6)',
+                  transform: expandedSection === 'basic-info' ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.3s ease'
+                }}>
+                  ▼
+                </div>
+              </div>
+              {expandedSection === 'basic-info' && (
+                <div style={{
+                  padding: '0 25px 25px 25px',
+                  borderTop: '1px solid rgba(255,255,255,0.1)',
+                  paddingTop: '25px'
+                }}>
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gap: '15px'
+                  }}>
+                    <div style={{
+                      background: 'rgba(255,255,255,0.05)',
+                      padding: '15px 20px',
+                      borderRadius: '12px',
+                      border: '1px solid rgba(255,255,255,0.1)'
+                    }}>
+                      <div style={{
+                        fontSize: '0.8rem',
+                        color: 'rgba(255,255,255,0.6)',
+                        marginBottom: '5px',
+                        fontFamily: "'Inter', sans-serif"
+                      }}>
+                        Location
+                      </div>
+                      <div style={{
+                        fontSize: '0.95rem',
+                        color: 'rgba(255,255,255,0.9)',
+                        fontFamily: "'Inter', sans-serif",
+                        fontWeight: '400'
+                      }}>
+                        Hong Kong
+                      </div>
+                    </div>
+                    <div style={{
+                      background: 'rgba(255,255,255,0.05)',
+                      padding: '15px 20px',
+                      borderRadius: '12px',
+                      border: '1px solid rgba(255,255,255,0.1)'
+                    }}>
+                      <div style={{
+                        fontSize: '0.8rem',
+                        color: 'rgba(255,255,255,0.6)',
+                        marginBottom: '5px',
+                        fontFamily: "'Inter', sans-serif"
+                      }}>
+                        Focus
+                      </div>
+                      <div style={{
+                        fontSize: '0.95rem',
+                        color: 'rgba(255,255,255,0.9)',
+                        fontFamily: "'Inter', sans-serif",
+                        fontWeight: '400'
+                      }}>
+                        Digital Media & Entertainment
+                      </div>
+                    </div>
+                    <div style={{
+                      background: 'rgba(255,255,255,0.05)',
+                      padding: '15px 20px',
+                      borderRadius: '12px',
+                      border: '1px solid rgba(255,255,255,0.1)'
+                    }}>
+                      <div style={{
+                        fontSize: '0.8rem',
+                        color: 'rgba(255,255,255,0.6)',
+                        marginBottom: '5px',
+                        fontFamily: "'Inter', sans-serif"
+                      }}>
+                        Languages
+                      </div>
+                      <div style={{
+                        fontSize: '0.95rem',
+                        color: 'rgba(255,255,255,0.9)',
+                        fontFamily: "'Inter', sans-serif",
+                        fontWeight: '400'
+                      }}>
+                        Chinese, English
+                      </div>
+                    </div>
+                    <div style={{
+                      background: 'rgba(255,255,255,0.05)',
+                      padding: '15px 20px',
+                      borderRadius: '12px',
+                      border: '1px solid rgba(255,255,255,0.1)'
+                    }}>
+                      <div style={{
+                        fontSize: '0.8rem',
+                        color: 'rgba(255,255,255,0.6)',
+                        marginBottom: '5px',
+                        fontFamily: "'Inter', sans-serif"
+                      }}>
+                        Specialization
+                      </div>
+                      <div style={{
+                        fontSize: '0.95rem',
+                        color: 'rgba(255,255,255,0.9)',
+                        fontFamily: "'Inter', sans-serif",
+                        fontWeight: '400'
+                      }}>
+                        Interactive Installations
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
