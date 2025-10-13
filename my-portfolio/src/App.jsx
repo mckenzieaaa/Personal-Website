@@ -490,7 +490,7 @@ function App() {
               }}
               onClick={() => document.getElementById('about').scrollIntoView({ behavior: 'smooth' })}
             >
-              About
+              About Me
             </button>
           </div>
         </div>
