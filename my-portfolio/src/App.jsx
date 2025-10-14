@@ -465,33 +465,6 @@ function App() {
             >
               View Work
             </button>
-            
-            <button
-              style={{
-                background: 'transparent',
-                color: 'white',
-                border: '1px solid rgba(255,255,255,0.3)',
-                padding: '16px 32px',
-                fontSize: '0.95rem',
-                fontWeight: '400',
-                letterSpacing: '0.05em',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                fontFamily: "'Inter', sans-serif",
-                textTransform: 'uppercase'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.borderColor = 'white';
-                e.target.style.background = 'rgba(255,255,255,0.1)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.borderColor = 'rgba(255,255,255,0.3)';
-                e.target.style.background = 'transparent';
-              }}
-              onClick={() => document.getElementById('about').scrollIntoView({ behavior: 'smooth' })}
-            >
-              About Me
-            </button>
           </div>
         </div>
 
