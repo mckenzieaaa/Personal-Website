@@ -3026,7 +3026,6 @@ function App() {
               margin: 0,
               fontFamily: "'Inter', sans-serif"
             }}>
-              {modalContent === 'about' && 'About Me'}
               {modalContent === 'education' && 'Education'}
               {modalContent === 'contact' && 'Contact'}
               {modalContent === 'awards' && 'Awards'}
@@ -3067,22 +3066,6 @@ function App() {
             color: 'white',
             fontFamily: "'Inter', sans-serif"
           }}>
-            {modalContent === 'about' && (
-              <div>
-                <div style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '16px' }}>👋</div>
-                <p style={{ 
-                  fontSize: '0.95rem', 
-                  lineHeight: '1.6', 
-                  color: 'rgba(255,255,255,0.9)',
-                  margin: 0
-                }}>
-                  I'm a digital artist and creative technologist passionate about exploring the intersection of art, 
-                  technology, and human experience. My work focuses on creating immersive digital experiences 
-                  that blur the boundaries between the virtual and physical worlds.
-                </p>
-              </div>
-            )}
-
             {modalContent === 'education' && (
               <div>
                 <div style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '16px' }}>🎓</div>
