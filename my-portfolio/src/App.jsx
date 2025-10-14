@@ -979,36 +979,64 @@ function App() {
         </div>
       </section>
 
-      {/* About & Personal Information */}
-      <section id="about" style={{
-        height: '100vh',
+      {/* Contact Page */}
+      <section id="about-details" style={{
+        minHeight: '100vh',
         width: '100vw',
-        padding: '40px',
-        background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%)',
+        background: 'linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 50%, #1a1a1a 100%)',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         scrollSnapAlign: 'start',
         scrollSnapStop: 'always',
-        overflow: 'hidden',
-        position: 'relative'
+        overflow: 'auto',
+        position: 'relative',
+        padding: '40px'
       }}>
-        {/* 左侧：个人信息 - 与首页对齐 */}
+        {/* 主要内容 */}
         <div style={{
-          flex: '1',
+          width: '100%',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
           padding: '0 80px',
           zIndex: 2,
-          maxWidth: '600px'
+          maxWidth: '1200px'
         }}>
-          {/* 个人信息 */}
+          {/* 页面标题 */}
           <div style={{
-            width: '100%',
-            textAlign: 'left'
+            textAlign: 'center',
+            marginBottom: '50px'
           }}>
-            {/* 左上角：头像和标题区域 */}
+            <h2 style={{
+              fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+              fontWeight: '100',
+              margin: '0 0 10px 0',
+              letterSpacing: '-0.03em',
+              lineHeight: '1.1',
+              background: 'linear-gradient(135deg, #ffffff 0%, #888888 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              fontFamily: "'Inter', sans-serif"
+            }}>
+              Experience & Education
+            </h2>
+            <div style={{
+              fontSize: '1.1rem',
+              color: 'rgba(255,255,255,0.7)',
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: '300'
+            }}>
+              Detailed Background & Achievements
+            </div>
+          </div>
+
+          {/* 详细的可展开模块 */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '30px'
+          }}>
             <div style={{
               display: 'flex',
               alignItems: 'flex-start',
@@ -1792,8 +1820,8 @@ function App() {
         </div>
       </section>
 
-      {/* About & Experience Details - Page 2 */}
-      <section id="about-details" style={{
+      {/* Contact Page */}
+      <section id="contact" style={{
         minHeight: '100vh',
         width: '100vw',
         background: 'linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 50%, #1a1a1a 100%)',
