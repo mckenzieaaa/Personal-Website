@@ -980,18 +980,18 @@ function App() {
       </section>
 
       {/* Contact Page */}
-      <section id="about-details" style={{
-        minHeight: '100vh',
+      <section id="contact" style={{
+        height: '100vh',
         width: '100vw',
-        background: 'linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 50%, #1a1a1a 100%)',
+        padding: '40px',
+        background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         scrollSnapAlign: 'start',
         scrollSnapStop: 'always',
-        overflow: 'auto',
-        position: 'relative',
-        padding: '40px'
+        overflow: 'hidden',
+        position: 'relative'
       }}>
         {/* 主要内容 */}
         <div style={{
