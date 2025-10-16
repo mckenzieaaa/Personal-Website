@@ -341,42 +341,6 @@ function App() {
       overflow: 'hidden auto',
       scrollSnapType: 'y mandatory'
     }}>
-      {/* 导航菜单 */}
-      <nav style={{
-        position: 'fixed',
-        top: '30px',
-        right: '30px',
-        zIndex: 1000,
-        display: 'flex',
-        gap: '15px'
-      }}>
-        <button
-          onClick={() => setCurrentPage('fluid')}
-          style={{
-            background: 'rgba(255, 255, 255, 0.1)',
-            border: '1px solid rgba(255, 255, 255, 0.3)',
-            color: 'white',
-            padding: '12px 24px',
-            borderRadius: '8px',
-            cursor: 'pointer',
-            fontSize: '0.9rem',
-            fontFamily: "'Inter', sans-serif",
-            backdropFilter: 'blur(10px)',
-            transition: 'all 0.3s ease'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.background = 'rgba(100, 120, 255, 0.3)';
-            e.target.style.borderColor = 'rgba(100, 120, 255, 0.5)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.background = 'rgba(255, 255, 255, 0.1)';
-            e.target.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-          }}
-        >
-          🌊 Fluid Particles
-        </button>
-      </nav>
-
       {/* 首页 - 个人介绍 + 3D画廊预览 */}
       <section style={{
         minHeight: '100vh',
@@ -415,7 +379,7 @@ function App() {
             OYXR
           </h1>
 
-                    <div style={{
+          <div style={{
             fontSize: '1rem',
             color: 'rgba(255,255,255,0.6)',
             letterSpacing: '0.3em',
@@ -426,6 +390,37 @@ function App() {
           }}>
             Designer · Coder · Gamer · Occasional Reality Glitcher
           </div>
+
+          {/* Fluid Particles 按钮 */}
+          <button
+            onClick={() => setCurrentPage('fluid')}
+            style={{
+              background: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              color: 'rgba(255, 255, 255, 0.8)',
+              padding: '15px 30px',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontSize: '0.9rem',
+              fontFamily: "'Inter', sans-serif",
+              backdropFilter: 'blur(10px)',
+              transition: 'all 0.3s ease',
+              alignSelf: 'flex-start',
+              letterSpacing: '0.1em'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.background = 'rgba(100, 120, 255, 0.2)';
+              e.target.style.borderColor = 'rgba(100, 120, 255, 0.4)';
+              e.target.style.color = 'rgba(255, 255, 255, 1)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.background = 'rgba(255, 255, 255, 0.05)';
+              e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+              e.target.style.color = 'rgba(255, 255, 255, 0.8)';
+            }}
+          >
+            🌊 FLUID PARTICLES
+          </button>
         </div>
 
         {/* 右侧：作品预览画廊 */}

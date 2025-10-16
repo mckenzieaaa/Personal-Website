@@ -230,54 +230,25 @@ const FluidParticlesPage = () => {
 
   return (
     <div className="fluid-particles-page">
-      <div className="fluid-header">
-        <h1>Fluid Particle System</h1>
-        <p>Interactive particle simulation inspired by Processing PixelFlow</p>
-        <p className="instructions">Drag your mouse to create fluid motion</p>
-      </div>
-      
-      <div className="fluid-canvas-container">
-        <canvas
-          ref={canvasRef}
-          width={1400}
-          height={800}
-          className="fluid-canvas"
-          onMouseDown={handlePointerDown}
-          onMouseMove={handlePointerMove}
-          onMouseUp={handlePointerUp}
-          onMouseLeave={handlePointerUp}
-          onTouchStart={(e) => {
-            e.preventDefault();
-            handlePointerDown(e.touches[0]);
-          }}
-          onTouchMove={(e) => {
-            e.preventDefault();
-            handlePointerMove(e.touches[0]);
-          }}
-          onTouchEnd={handlePointerUp}
-        />
-      </div>
-
-      <div className="fluid-info">
-        <div className="info-card">
-          <h3>技术说明</h3>
-          <ul>
-            <li>基于流体动力学的粒子系统</li>
-            <li>{PARTICLE_COUNT.toLocaleString()} 个交互粒子</li>
-            <li>实时速度场计算</li>
-            <li>支持鼠标/触摸交互</li>
-          </ul>
-        </div>
-        
-        <div className="info-card">
-          <h3>灵感来源</h3>
-          <p>
-            这个项目受到 Processing 的 PixelFlow 库启发，
-            将流体模拟的概念转化为 Web Canvas 实现。
-            粒子跟随流体场运动，创造出有机而流畅的视觉效果。
-          </p>
-        </div>
-      </div>
+      <canvas
+        ref={canvasRef}
+        width={window.innerWidth}
+        height={window.innerHeight}
+        className="fluid-canvas"
+        onMouseDown={handlePointerDown}
+        onMouseMove={handlePointerMove}
+        onMouseUp={handlePointerUp}
+        onMouseLeave={handlePointerUp}
+        onTouchStart={(e) => {
+          e.preventDefault();
+          handlePointerDown(e.touches[0]);
+        }}
+        onTouchMove={(e) => {
+          e.preventDefault();
+          handlePointerMove(e.touches[0]);
+        }}
+        onTouchEnd={handlePointerUp}
+      />
     </div>
   );
 };
