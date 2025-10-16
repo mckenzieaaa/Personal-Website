@@ -207,8 +207,8 @@ function App() {
           marginBottom: '40px',
           textAlign: 'center'
         }}>
-          Loading Digital Experience<br/>
-          <span style={{ opacity: 0.5 }}>欢迎来到创意世界</span>
+          Loading<br/>
+          <span style={{ opacity: 0.5 }}>Step Into My Universe</span>
         </div>
 
         {/* 进度条 */}
@@ -327,7 +327,7 @@ function App() {
           <h1 style={{
             fontSize: 'clamp(3rem, 6vw, 5rem)',
             fontWeight: '100',
-            margin: '0 0 30px 0',
+            margin: '0 0 20px 0',
             letterSpacing: '-0.03em',
             lineHeight: '1.1',
             background: 'linear-gradient(135deg, #ffffff 0%, #888888 100%)',
@@ -335,41 +335,28 @@ function App() {
             WebkitTextFillColor: 'transparent',
             fontFamily: "'Inter', sans-serif"
           }}>
-            Portfolio
+            OYXR
           </h1>
-          
-          <div style={{
-            display: 'flex',
-            gap: '20px',
-            flexWrap: 'wrap'
+
+                    <div style={{
+            fontSize: '1rem',
+            color: 'rgba(255,255,255,0.6)',
+            letterSpacing: '0.3em',
+            marginBottom: '50px',
+            textTransform: 'uppercase',
+            fontWeight: '300',
+            fontFamily: "'Inter', sans-serif"
           }}>
-            <button
-              style={{
-                background: 'white',
-                color: 'black',
-                border: 'none',
-                padding: '16px 32px',
-                fontSize: '0.95rem',
-                fontWeight: '500',
-                letterSpacing: '0.05em',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                fontFamily: "'Inter', sans-serif",
-                textTransform: 'uppercase'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.background = 'rgba(255,255,255,0.9)';
-                e.target.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.background = 'white';
-                e.target.style.transform = 'translateY(0)';
-              }}
-              onClick={() => document.getElementById('work').scrollIntoView({ behavior: 'smooth' })}
-            >
-              View Work
-            </button>
+            Designer · Coder · Gamer · Occasional Reality Glitcher
           </div>
+        </div>
+
+        {/* 右侧：作品预览画廊 */}
+        <div style={{
+          flex: '1',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-start',
         </div>
 
         {/* 右侧：作品预览画廊 */}
