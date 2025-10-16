@@ -341,6 +341,14 @@ function App() {
       overflow: 'hidden auto',
       scrollSnapType: 'y mandatory'
     }}>
+      {/* CSS动画 */}
+      <style>{`
+        @keyframes fadeInOut {
+          0%, 100% { opacity: 0.4; transform: translateY(0px); }
+          50% { opacity: 1; transform: translateY(-5px); }
+        }
+      `}</style>
+
       {/* 首页 - 个人介绍 + 3D画廊预览 */}
       <section style={{
         minHeight: '100vh',
@@ -350,77 +358,104 @@ function App() {
         background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         position: 'relative',
         scrollSnapAlign: 'start',
         scrollSnapStop: 'always',
         overflow: 'hidden'
       }}>
-        {/* 左侧：简化的标题 */}
+        {/* 左侧：个人介绍 */}
         <div style={{
           flex: '1',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          padding: '0 80px',
-          zIndex: 2
+          alignItems: 'center',
+          padding: '0 60px',
+          zIndex: 2,
+          maxWidth: '600px'
         }}>
-          <h1 style={{
-            fontSize: 'clamp(3rem, 6vw, 5rem)',
-            fontWeight: '100',
-            margin: '0 0 20px 0',
-            letterSpacing: '-0.03em',
-            lineHeight: '1.1',
-            background: 'linear-gradient(135deg, #ffffff 0%, #888888 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            fontFamily: "'Inter', sans-serif"
-          }}>
-            OYXR
-          </h1>
+          <div style={{ width: '100%', textAlign: 'center' }}>
+            <h1 style={{
+              fontSize: 'clamp(4rem, 8vw, 6rem)',
+              fontWeight: '100',
+              margin: '0 0 30px 0',
+              letterSpacing: '-0.03em',
+              lineHeight: '1.1',
+              background: 'linear-gradient(135deg, #ffffff 0%, #888888 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              fontFamily: "'Inter', sans-serif"
+            }}>
+              OYXR
+            </h1>
 
-          <div style={{
-            fontSize: '1rem',
-            color: 'rgba(255,255,255,0.6)',
-            letterSpacing: '0.3em',
-            marginBottom: '50px',
-            textTransform: 'uppercase',
-            fontWeight: '300',
-            fontFamily: "'Inter', sans-serif"
-          }}>
-            Designer · Coder · Gamer · Occasional Reality Glitcher
-          </div>
-
-          {/* Fluid Particles 按钮 */}
-          <button
-            onClick={() => setCurrentPage('fluid')}
-            style={{
-              background: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              color: 'rgba(255, 255, 255, 0.8)',
-              padding: '15px 30px',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              fontSize: '0.9rem',
+            <div style={{
+              fontSize: '0.85rem',
+              color: 'rgba(255,255,255,0.6)',
+              letterSpacing: '0.15em',
+              marginBottom: '60px',
+              textTransform: 'uppercase',
+              fontWeight: '300',
               fontFamily: "'Inter', sans-serif",
-              backdropFilter: 'blur(10px)',
-              transition: 'all 0.3s ease',
-              alignSelf: 'flex-start',
-              letterSpacing: '0.1em'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.background = 'rgba(100, 120, 255, 0.2)';
-              e.target.style.borderColor = 'rgba(100, 120, 255, 0.4)';
-              e.target.style.color = 'rgba(255, 255, 255, 1)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.background = 'rgba(255, 255, 255, 0.05)';
-              e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-              e.target.style.color = 'rgba(255, 255, 255, 0.8)';
-            }}
-          >
-            🌊 FLUID PARTICLES
-          </button>
+              whiteSpace: 'nowrap'
+            }}>
+              Designer · Coder · Gamer · Occasional Reality Glitcher
+            </div>
+
+            {/* Fluid Particles 按钮 */}
+            <button
+              onClick={() => setCurrentPage('fluid')}
+              style={{
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                color: 'rgba(255, 255, 255, 0.8)',
+                padding: '18px 40px',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontSize: '0.9rem',
+                fontFamily: "'Inter', sans-serif",
+                backdropFilter: 'blur(10px)',
+                transition: 'all 0.3s ease',
+                letterSpacing: '0.15em',
+                marginBottom: '40px'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = 'rgba(100, 120, 255, 0.2)';
+                e.target.style.borderColor = 'rgba(100, 120, 255, 0.4)';
+                e.target.style.color = 'rgba(255, 255, 255, 1)';
+                e.target.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'rgba(255, 255, 255, 0.05)';
+                e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                e.target.style.color = 'rgba(255, 255, 255, 0.8)';
+                e.target.style.transform = 'translateY(0)';
+              }}
+            >
+              🌊 FLUID PARTICLES
+            </button>
+
+            {/* 装饰性分隔线 */}
+            <div style={{
+              width: '60px',
+              height: '1px',
+              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
+              margin: '0 auto 30px'
+            }} />
+
+            {/* 滚动提示 */}
+            <div style={{
+              fontSize: '0.7rem',
+              color: 'rgba(255,255,255,0.4)',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              fontFamily: "'Inter', sans-serif",
+              animation: 'fadeInOut 2s ease-in-out infinite'
+            }}>
+              Scroll to Explore
+            </div>
+          </div>
         </div>
 
         {/* 右侧：作品预览画廊 */}
