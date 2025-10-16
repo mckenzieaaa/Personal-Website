@@ -354,119 +354,118 @@ function App() {
         minHeight: '100vh',
         height: '100vh',
         width: '100vw',
-        padding: '40px',
+        padding: '40px 80px',
         background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         position: 'relative',
         scrollSnapAlign: 'start',
         scrollSnapStop: 'always',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        gap: '60px'
       }}>
-        {/* 左侧：个人介绍 */}
+        {/* 左侧：个人介绍 - 更窄的宽度 */}
         <div style={{
-          flex: '1',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          alignItems: 'center',
-          padding: '0 60px',
+          alignItems: 'flex-start',
           zIndex: 2,
-          maxWidth: '600px'
+          minWidth: '400px',
+          maxWidth: '450px'
         }}>
-          <div style={{ width: '100%', textAlign: 'center' }}>
-            <h1 style={{
-              fontSize: 'clamp(4rem, 8vw, 6rem)',
-              fontWeight: '100',
-              margin: '0 0 30px 0',
-              letterSpacing: '-0.03em',
-              lineHeight: '1.1',
-              background: 'linear-gradient(135deg, #ffffff 0%, #888888 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              fontFamily: "'Inter', sans-serif"
-            }}>
-              OYXR
-            </h1>
+          <h1 style={{
+            fontSize: 'clamp(3.5rem, 7vw, 5.5rem)',
+            fontWeight: '100',
+            margin: '0 0 25px 0',
+            letterSpacing: '-0.03em',
+            lineHeight: '1',
+            background: 'linear-gradient(135deg, #ffffff 0%, #888888 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            fontFamily: "'Inter', sans-serif"
+          }}>
+            OYXR
+          </h1>
 
-            <div style={{
+          <div style={{
+            fontSize: '0.8rem',
+            color: 'rgba(255,255,255,0.6)',
+            letterSpacing: '0.12em',
+            marginBottom: '50px',
+            textTransform: 'uppercase',
+            fontWeight: '300',
+            fontFamily: "'Inter', sans-serif",
+            lineHeight: '1.8',
+            maxWidth: '420px'
+          }}>
+            Designer · Coder · Gamer · Occasional Reality Glitcher
+          </div>
+
+          {/* Fluid Particles 按钮 */}
+          <button
+            onClick={() => setCurrentPage('fluid')}
+            style={{
+              background: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              color: 'rgba(255, 255, 255, 0.8)',
+              padding: '16px 35px',
+              borderRadius: '8px',
+              cursor: 'pointer',
               fontSize: '0.85rem',
-              color: 'rgba(255,255,255,0.6)',
+              fontFamily: "'Inter', sans-serif",
+              backdropFilter: 'blur(10px)',
+              transition: 'all 0.3s ease',
               letterSpacing: '0.15em',
-              marginBottom: '60px',
-              textTransform: 'uppercase',
-              fontWeight: '300',
-              fontFamily: "'Inter', sans-serif",
-              whiteSpace: 'nowrap'
-            }}>
-              Designer · Coder · Gamer · Occasional Reality Glitcher
-            </div>
+              marginBottom: '35px'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.background = 'rgba(100, 120, 255, 0.2)';
+              e.target.style.borderColor = 'rgba(100, 120, 255, 0.4)';
+              e.target.style.color = 'rgba(255, 255, 255, 1)';
+              e.target.style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.background = 'rgba(255, 255, 255, 0.05)';
+              e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+              e.target.style.color = 'rgba(255, 255, 255, 0.8)';
+              e.target.style.transform = 'translateY(0)';
+            }}
+          >
+            🌊 FLUID PARTICLES
+          </button>
 
-            {/* Fluid Particles 按钮 */}
-            <button
-              onClick={() => setCurrentPage('fluid')}
-              style={{
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                color: 'rgba(255, 255, 255, 0.8)',
-                padding: '18px 40px',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontSize: '0.9rem',
-                fontFamily: "'Inter', sans-serif",
-                backdropFilter: 'blur(10px)',
-                transition: 'all 0.3s ease',
-                letterSpacing: '0.15em',
-                marginBottom: '40px'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.background = 'rgba(100, 120, 255, 0.2)';
-                e.target.style.borderColor = 'rgba(100, 120, 255, 0.4)';
-                e.target.style.color = 'rgba(255, 255, 255, 1)';
-                e.target.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.background = 'rgba(255, 255, 255, 0.05)';
-                e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                e.target.style.color = 'rgba(255, 255, 255, 0.8)';
-                e.target.style.transform = 'translateY(0)';
-              }}
-            >
-              🌊 FLUID PARTICLES
-            </button>
+          {/* 装饰性分隔线 */}
+          <div style={{
+            width: '50px',
+            height: '1px',
+            background: 'linear-gradient(90deg, rgba(255,255,255,0.3), transparent)',
+            marginBottom: '25px'
+          }} />
 
-            {/* 装饰性分隔线 */}
-            <div style={{
-              width: '60px',
-              height: '1px',
-              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
-              margin: '0 auto 30px'
-            }} />
-
-            {/* 滚动提示 */}
-            <div style={{
-              fontSize: '0.7rem',
-              color: 'rgba(255,255,255,0.4)',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              fontFamily: "'Inter', sans-serif",
-              animation: 'fadeInOut 2s ease-in-out infinite'
-            }}>
-              Scroll to Explore
-            </div>
+          {/* 滚动提示 */}
+          <div style={{
+            fontSize: '0.65rem',
+            color: 'rgba(255,255,255,0.4)',
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            fontFamily: "'Inter', sans-serif",
+            animation: 'fadeInOut 2s ease-in-out infinite'
+          }}>
+            Scroll to Explore
           </div>
         </div>
 
-        {/* 右侧：作品预览画廊 */}
+        {/* 右侧：作品预览画廊 - 占据更多空间 */}
         <div style={{
-          flex: '1',
+          flex: '1.5',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'flex-start',
-          padding: '0 80px 0 20px',
+          justifyContent: 'center',
           perspective: '1000px',
-          position: 'relative'
+          position: 'relative',
+          minWidth: '600px'
         }}>
           {/* 背景3D模型 */}
           <div style={{
