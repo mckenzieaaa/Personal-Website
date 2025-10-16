@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ThreeModel from './components/ThreeModel';
+import FluidParticlesPage from './components/FluidParticlesPage';
 
 // Portfolio website - Homepage and Work sections only
 function App() {
@@ -7,6 +8,7 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isRotating, setIsRotating] = useState(false);
   const [selectedTag, setSelectedTag] = useState('all');
+  const [currentPage, setCurrentPage] = useState('home'); // 'home' or 'fluid'
   
   // 加载状态
   const [isLoading, setIsLoading] = useState(true);
@@ -289,6 +291,45 @@ function App() {
     );
   }
 
+  // 如果在流体粒子页面，显示该页面
+  if (currentPage === 'fluid') {
+    return (
+      <div style={{ position: 'relative' }}>
+        {/* 返回按钮 */}
+        <button
+          onClick={() => setCurrentPage('home')}
+          style={{
+            position: 'fixed',
+            top: '30px',
+            left: '30px',
+            zIndex: 1000,
+            background: 'rgba(255, 255, 255, 0.1)',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
+            color: 'white',
+            padding: '12px 24px',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            fontSize: '1rem',
+            fontFamily: "'Inter', sans-serif",
+            backdropFilter: 'blur(10px)',
+            transition: 'all 0.3s ease'
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+            e.target.style.borderColor = 'rgba(255, 255, 255, 0.5)';
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.background = 'rgba(255, 255, 255, 0.1)';
+            e.target.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+          }}
+        >
+          ← Back to Portfolio
+        </button>
+        <FluidParticlesPage />
+      </div>
+    );
+  }
+
   return (
         <div style={{
       width: '100vw',
@@ -300,6 +341,42 @@ function App() {
       overflow: 'hidden auto',
       scrollSnapType: 'y mandatory'
     }}>
+      {/* 导航菜单 */}
+      <nav style={{
+        position: 'fixed',
+        top: '30px',
+        right: '30px',
+        zIndex: 1000,
+        display: 'flex',
+        gap: '15px'
+      }}>
+        <button
+          onClick={() => setCurrentPage('fluid')}
+          style={{
+            background: 'rgba(255, 255, 255, 0.1)',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
+            color: 'white',
+            padding: '12px 24px',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            fontSize: '0.9rem',
+            fontFamily: "'Inter', sans-serif",
+            backdropFilter: 'blur(10px)',
+            transition: 'all 0.3s ease'
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.background = 'rgba(100, 120, 255, 0.3)';
+            e.target.style.borderColor = 'rgba(100, 120, 255, 0.5)';
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.background = 'rgba(255, 255, 255, 0.1)';
+            e.target.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+          }}
+        >
+          🌊 Fluid Particles
+        </button>
+      </nav>
+
       {/* 首页 - 个人介绍 + 3D画廊预览 */}
       <section style={{
         minHeight: '100vh',
@@ -349,14 +426,6 @@ function App() {
           }}>
             Designer · Coder · Gamer · Occasional Reality Glitcher
           </div>
-        </div>
-
-        {/* 右侧：作品预览画廊 */}
-        <div style={{
-          flex: '1',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
         </div>
 
         {/* 右侧：作品预览画廊 */}
