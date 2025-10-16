@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import ThreeModel from './components/ThreeModel';
 
-// Portfolio website with Contact page update
+// Portfolio website - Homepage and Work sections only
 function App() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isRotating, setIsRotating] = useState(false);
   const [selectedTag, setSelectedTag] = useState('all');
-  const [expandedSection, setExpandedSection] = useState(null);
-  const [modalContent, setModalContent] = useState(null);
-  const [modalPosition, setModalPosition] = useState({ x: 100, y: 100 });
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   
   // 加载状态
   const [isLoading, setIsLoading] = useState(true);
@@ -134,40 +129,6 @@ function App() {
     
     return () => clearInterval(interval);
   }, [selectedProject, isRotating]);
-
-  // 拖拽处理函数
-  const handleMouseDown = (e) => {
-    setIsDragging(true);
-    const rect = e.target.getBoundingClientRect();
-    setDragOffset({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    });
-  };
-
-  const handleMouseMove = (e) => {
-    if (isDragging) {
-      setModalPosition({
-        x: e.clientX - dragOffset.x,
-        y: e.clientY - dragOffset.y
-      });
-    }
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  useEffect(() => {
-    if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-      return () => {
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
-      };
-    }
-  }, [isDragging, dragOffset]);
 
   // 加载动画效果
   useEffect(() => {
@@ -354,7 +315,7 @@ function App() {
         scrollSnapStop: 'always',
         overflow: 'hidden'
       }}>
-        {/* 左侧：个人信息 */}
+        {/* 左侧：简化的标题 */}
         <div style={{
           flex: '1',
           display: 'flex',
@@ -363,52 +324,8 @@ function App() {
           padding: '0 80px',
           zIndex: 2
         }}>
-          {/* Logo */}
-          <div style={{
-            marginBottom: '40px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '15px'
-          }}>
-            <img 
-              src="/Personal-Website/images/logo111.svg" 
-              alt="OYXR Logo" 
-              style={{
-                width: '60px',
-                height: '60px',
-                filter: 'invert(1)',
-                opacity: 0.9,
-                backgroundColor: 'white',
-                borderRadius: '50%',
-                padding: '8px',
-                border: '2px solid rgba(255,255,255,0.8)'
-              }}
-            />
-            <div style={{
-              fontSize: '1.5rem',
-              fontWeight: '300',
-              color: 'white',
-              letterSpacing: '0.1em',
-              fontFamily: "'Inter', sans-serif"
-            }}>
-              OYXR
-            </div>
-          </div>
-
-          <div style={{
-            fontSize: '1rem',
-            color: 'rgba(255,255,255,0.6)',
-            letterSpacing: '0.3em',
-            marginBottom: '30px',
-            textTransform: 'uppercase',
-            fontWeight: '300',
-            fontFamily: "'Inter', sans-serif"
-          }}>
-            Digital Artist & Creative Technologist
-          </div>
-          
           <h1 style={{
-            fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+            fontSize: 'clamp(3rem, 6vw, 5rem)',
             fontWeight: '100',
             margin: '0 0 30px 0',
             letterSpacing: '-0.03em',
@@ -418,21 +335,8 @@ function App() {
             WebkitTextFillColor: 'transparent',
             fontFamily: "'Inter', sans-serif"
           }}>
-            Xinran<br/>Ouyang
+            Portfolio
           </h1>
-          
-          <p style={{
-            fontSize: 'clamp(1rem, 2vw, 1.2rem)',
-            lineHeight: '1.6',
-            color: 'rgba(255,255,255,0.7)',
-            fontWeight: '300',
-            maxWidth: '500px',
-            margin: '0 0 50px 0',
-            fontFamily: "'Inter', sans-serif"
-          }}>
-            Exploring the intersection of technology, creativity, and human
-            experience through immersive digital art and interactive installations.
-          </p>
           
           <div style={{
             display: 'flex',
@@ -979,1753 +883,7 @@ function App() {
         </div>
       </section>
 
-      {/* Contact Page */}
-      <section id="contact" style={{
-        height: '100vh',
-        width: '100vw',
-        padding: '40px',
-        background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        scrollSnapAlign: 'start',
-        scrollSnapStop: 'always',
-        overflow: 'hidden',
-        position: 'relative'
-      }}>
-        {/* 主要内容 */}
-        <div style={{
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          padding: '0 80px',
-          zIndex: 2,
-          maxWidth: '1200px'
-        }}>
-          {/* 页面标题 */}
-          <div style={{
-            textAlign: 'center',
-            marginBottom: '50px'
-          }}>
-            <h2 style={{
-              fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-              fontWeight: '100',
-              margin: '0 0 10px 0',
-              letterSpacing: '-0.03em',
-              lineHeight: '1.1',
-              background: 'linear-gradient(135deg, #ffffff 0%, #888888 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              fontFamily: "'Inter', sans-serif"
-            }}>
-              Experience & Education
-            </h2>
-            <div style={{
-              fontSize: '1.1rem',
-              color: 'rgba(255,255,255,0.7)',
-              fontFamily: "'Inter', sans-serif",
-              fontWeight: '300'
-            }}>
-              Detailed Background & Achievements
-            </div>
-          </div>
-
-          {/* 详细的可展开模块 */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '30px'
-          }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'flex-start',
-              gap: '20px',
-              marginBottom: '30px'
-            }}>
-              {/* 头像 */}
-              <div style={{
-                flexShrink: 0
-              }}>
-                <div style={{
-                  width: '120px',
-                  height: '120px',
-                  borderRadius: '50%',
-                  background: 'rgba(255,255,255,0.05)',
-                  border: '2px solid rgba(255,255,255,0.1)',
-                  overflow: 'hidden',
-                  position: 'relative',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  transition: 'all 0.3s ease'
-                }}>
-                  <span style={{
-                    fontSize: '2rem',
-                    color: 'rgba(255,255,255,0.4)'
-                  }}>
-                    👤
-                  </span>
-                  <img
-                    src="/Personal-Website/images/xinran-photo.jpg?v=2025100909"
-                    alt="Xinran Ouyang"
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      opacity: 0
-                    }}
-                    onLoad={(e) => {
-                      e.target.style.opacity = 1;
-                    }}
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* 标题和基本信息 */}
-              <div>
-                <div style={{
-                  fontSize: '1rem',
-                  color: 'rgba(255,255,255,0.6)',
-                  letterSpacing: '0.3em',
-                  marginBottom: '15px',
-                  textTransform: 'uppercase',
-                  fontWeight: '300',
-                  fontFamily: "'Inter', sans-serif"
-                }}>
-                  Digital Artist & Creative Technologist
-                </div>
-                
-                <h2 style={{
-                  fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-                  fontWeight: '100',
-                  margin: '0 0 10px 0',
-                  letterSpacing: '-0.03em',
-                  lineHeight: '1.1',
-                  background: 'linear-gradient(135deg, #ffffff 0%, #888888 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  fontFamily: "'Inter', sans-serif"
-                }}>
-                  About Me
-                </h2>
-                <div style={{
-                  fontSize: '1.1rem',
-                  color: 'rgba(255,255,255,0.7)',
-                  fontFamily: "'Inter', sans-serif",
-                  fontWeight: '300'
-                }}>
-                  Xinran Ouyang
-                </div>
-              </div>
-            </div>
-
-            {/* 简介文字 */}
-            <div style={{
-              marginBottom: '30px',
-              textAlign: 'left',
-              maxWidth: '800px'
-            }}>
-              <p style={{
-                fontSize: 'clamp(1rem, 2vw, 1.2rem)',
-                lineHeight: '1.6',
-                color: 'rgba(255,255,255,0.8)',
-                margin: '0 0 15px 0',
-                fontFamily: "'Inter', sans-serif",
-                fontWeight: '300'
-              }}>
-                I'm a digital artist and creative technologist passionate about exploring the intersection of art, technology, and human experience.
-              </p>
-              <p style={{
-                fontSize: '1rem',
-                lineHeight: '1.6',
-                color: 'rgba(255,255,255,0.7)',
-                margin: 0,
-                fontFamily: "'Inter', sans-serif",
-                fontWeight: '300'
-              }}>
-                My work focuses on creating immersive digital experiences that blur the boundaries between the virtual and physical worlds, always seeking to create meaningful connections through innovative technology.
-              </p>
-            </div>
-
-
-
-            {/* 简化的信息卡片 */}
-
-
-            {/* 技能标签 */}
-            <div style={{
-              marginBottom: '30px',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start'
-            }}>
-              <h3 style={{
-                fontSize: '1.2rem',
-                fontWeight: '500',
-                margin: '0 0 15px 0',
-                color: 'white',
-                fontFamily: "'Inter', sans-serif"
-              }}>
-                Skills & Tools
-              </h3>
-              <div style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '12px',
-                justifyContent: 'flex-start',
-                maxWidth: '600px'
-              }}>
-                {['Digital Art', 'Interactive Design', 'Creative Coding', 'Installation Art', 'Visual Design', 'Creative Direction'].map((skill, index) => (
-                  <span
-                    key={index}
-                    style={{
-                      padding: '8px 16px',
-                      background: 'rgba(255,255,255,0.1)',
-                      borderRadius: '20px',
-                      fontSize: '0.9rem',
-                      color: 'rgba(255,255,255,0.8)',
-                      fontFamily: "'Inter', sans-serif",
-                      border: '1px solid rgba(255,255,255,0.2)'
-                    }}
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* 3D模型展示 */}
-            <div style={{
-              marginBottom: '30px',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start'
-            }}>
-              <h3 style={{
-                fontSize: '1.2rem',
-                fontWeight: '500',
-                margin: '0 0 15px 0',
-                color: 'white',
-                fontFamily: "'Inter', sans-serif"
-              }}>
-                3D Showcase
-              </h3>
-              <div style={{
-                width: '100%',
-                maxWidth: '400px',
-                height: '250px',
-                background: 'rgba(255,255,255,0.02)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: '15px',
-                overflow: 'hidden',
-                position: 'relative'
-              }}>
-                <ThreeModel 
-                  scale={1.5}
-                  position={[0, 0, 0]}
-                  rotation={[0.2, 0, 0]}
-                  modelSize={1.8}
-                  rotationSpeed={0.015}
-                  showWireframe={false}
-                  color={0x00ff88}
-                  geometry='sphere'
-                />
-                <div style={{
-                  position: 'absolute',
-                  bottom: '10px',
-                  left: '15px',
-                  fontSize: '0.8rem',
-                  color: 'rgba(255,255,255,0.6)',
-                  fontFamily: "'Inter', sans-serif"
-                }}>
-                  Interactive 3D Model
-                </div>
-              </div>
-            </div>
-
-            {/* 简化联系信息 */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start'
-            }}>
-              <h3 style={{
-                fontSize: '1.2rem',
-                fontWeight: '500',
-                margin: '0 0 15px 0',
-                color: 'white',
-                fontFamily: "'Inter', sans-serif"
-              }}>
-                Get in Touch
-              </h3>
-              <div style={{
-                display: 'flex',
-                gap: '15px',
-                flexWrap: 'wrap',
-                justifyContent: 'flex-start'
-              }}>
-                <a
-                  href="mailto:McKenzie.ouyang@gmail.com"
-                  style={{
-                    color: 'rgba(255,255,255,0.8)',
-                    textDecoration: 'none',
-                    fontSize: '1rem',
-                    fontFamily: "'Inter', sans-serif",
-                    padding: '10px 20px',
-                    border: '1px solid rgba(255,255,255,0.3)',
-                    borderRadius: '6px',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.background = 'rgba(255,255,255,0.1)';
-                    e.target.style.borderColor = 'rgba(255,255,255,0.5)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.background = 'transparent';
-                    e.target.style.borderColor = 'rgba(255,255,255,0.3)';
-                  }}
-                >
-                  Email
-                </a>
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    color: 'rgba(255,255,255,0.8)',
-                    textDecoration: 'none',
-                    fontSize: '1rem',
-                    fontFamily: "'Inter', sans-serif",
-                    padding: '10px 20px',
-                    border: '1px solid rgba(255,255,255,0.3)',
-                    borderRadius: '6px',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.background = 'rgba(255,255,255,0.1)';
-                    e.target.style.borderColor = 'rgba(255,255,255,0.5)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.background = 'transparent';
-                    e.target.style.borderColor = 'rgba(255,255,255,0.3)';
-                  }}
-                >
-                  LinkedIn
-                </a>
-              </div>
-            </div>
-            
-            {/* 按钮组 */}
-            <div style={{
-              display: 'flex',
-              gap: '20px',
-              flexWrap: 'wrap',
-              marginTop: '40px'
-            }}>
-              <button
-                style={{
-                  background: 'white',
-                  color: 'black',
-                  border: 'none',
-                  padding: '16px 32px',
-                  fontSize: '0.95rem',
-                  fontWeight: '500',
-                  letterSpacing: '0.05em',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  fontFamily: "'Inter', sans-serif",
-                  textTransform: 'uppercase'
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.background = 'rgba(255,255,255,0.9)';
-                  e.target.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.background = 'white';
-                  e.target.style.transform = 'translateY(0)';
-                }}
-                onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
-              >
-                Get in Touch
-              </button>
-              
-              <button
-                style={{
-                  background: 'transparent',
-                  color: 'white',
-                  border: '1px solid rgba(255,255,255,0.3)',
-                  padding: '16px 32px',
-                  fontSize: '0.95rem',
-                  fontWeight: '400',
-                  letterSpacing: '0.05em',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  fontFamily: "'Inter', sans-serif",
-                  textTransform: 'uppercase'
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.borderColor = 'white';
-                  e.target.style.background = 'rgba(255,255,255,0.1)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.borderColor = 'rgba(255,255,255,0.3)';
-                  e.target.style.background = 'transparent';
-                }}
-                onClick={() => document.getElementById('work').scrollIntoView({ behavior: 'smooth' })}
-              >
-                View Work
-              </button>
-            </div>
-          </div>
-
-          {/* 右侧：技能和联系方式 */}
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '30px',
-            height: '100%',
-            paddingTop: '20px'
-          }}>
-            {/* 技能概览 - 简化版 */}
-            <div style={{
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '15px',
-              overflow: 'hidden',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
-            }}
-            onClick={() => {
-              setExpandedSection(expandedSection === 'skills-preview' ? null : 'skills-preview');
-            }}>
-              <div style={{
-                padding: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px'
-                }}>
-                  <span style={{ fontSize: '1.5rem' }}>⚡</span>
-                  <div>
-                    <h3 style={{
-                      fontSize: '1.2rem',
-                      fontWeight: '500',
-                      color: 'white',
-                      margin: '0',
-                      fontFamily: "'Inter', sans-serif"
-                    }}>
-                      Skills & Tools
-                    </h3>
-                    <div style={{
-                      fontSize: '0.85rem',
-                      color: 'rgba(255,255,255,0.6)',
-                      marginTop: '2px'
-                    }}>
-                      TouchDesigner • Blender • Adobe Suite
-                    </div>
-                  </div>
-                </div>
-                <div style={{
-                  fontSize: '1.2rem',
-                  color: 'rgba(255,255,255,0.6)',
-                  transform: expandedSection === 'skills-preview' ? 'rotate(180deg)' : 'rotate(0deg)',
-                  transition: 'transform 0.3s ease'
-                }}>
-                  ▼
-                </div>
-              </div>
-              {expandedSection === 'skills-preview' && (
-                <div style={{
-                  padding: '0 20px 20px 20px',
-                  borderTop: '1px solid rgba(255,255,255,0.1)',
-                  paddingTop: '20px'
-                }}>
-                  <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(2, 1fr)',
-                    gap: '10px'
-                  }}>
-                    {[
-                      { name: 'TouchDesigner', level: '95%', color: '#00ff88' },
-                      { name: 'Blender', level: '90%', color: '#ff6b35' },
-                      { name: 'After Effects', level: '85%', color: '#9999ff' },
-                      { name: 'Cinema 4D', level: '80%', color: '#ffcc00' }
-                    ].map((skill, index) => (
-                      <div key={index} style={{
-                        background: 'rgba(255,255,255,0.04)',
-                        borderRadius: '8px',
-                        padding: '10px',
-                        border: '1px solid rgba(255,255,255,0.08)'
-                      }}>
-                        <div style={{
-                          fontSize: '0.85rem',
-                          fontWeight: '500',
-                          color: 'rgba(255,255,255,0.9)',
-                          marginBottom: '6px'
-                        }}>
-                          {skill.name}
-                        </div>
-                        <div style={{
-                          background: 'rgba(255,255,255,0.1)',
-                          borderRadius: '3px',
-                          height: '3px',
-                          overflow: 'hidden'
-                        }}>
-                          <div style={{
-                            background: skill.color,
-                            height: '100%',
-                            width: skill.level,
-                            borderRadius: '3px'
-                          }} />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div style={{
-                    textAlign: 'center',
-                    fontSize: '0.8rem',
-                    color: 'rgba(255,255,255,0.5)',
-                    marginTop: '15px'
-                  }}>
-                    + Arduino • Premiere Pro • View all in detailed page
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* 联系方式 - 简化版 */}
-            <div style={{
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '15px',
-              overflow: 'hidden',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
-            }}
-            onClick={() => {
-              setExpandedSection(expandedSection === 'contact-preview' ? null : 'contact-preview');
-            }}>
-              <div style={{
-                padding: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px'
-                }}>
-                  <span style={{ fontSize: '1.5rem' }}>📞</span>
-                  <div>
-                    <h3 style={{
-                      fontSize: '1.2rem',
-                      fontWeight: '500',
-                      color: 'white',
-                      margin: '0',
-                      fontFamily: "'Inter', sans-serif"
-                    }}>
-                      Get In Touch
-                    </h3>
-                    <div style={{
-                      fontSize: '0.85rem',
-                      color: 'rgba(255,255,255,0.6)',
-                      marginTop: '2px'
-                    }}>
-                      Multiple contact options available
-                    </div>
-                  </div>
-                </div>
-                <div style={{
-                  fontSize: '1.2rem',
-                  color: 'rgba(255,255,255,0.6)',
-                  transform: expandedSection === 'contact-preview' ? 'rotate(180deg)' : 'rotate(0deg)',
-                  transition: 'transform 0.3s ease'
-                }}>
-                  ▼
-                </div>
-              </div>
-              {expandedSection === 'contact-preview' && (
-                <div style={{
-                  padding: '0 20px 20px 20px',
-                  borderTop: '1px solid rgba(255,255,255,0.1)',
-                  paddingTop: '20px'
-                }}>
-                  <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '12px'
-                  }}>
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '12px',
-                      padding: '10px 14px',
-                      background: 'rgba(255,255,255,0.04)',
-                      borderRadius: '8px',
-                      border: '1px solid rgba(255,255,255,0.08)',
-                      fontSize: '0.9rem',
-                      color: 'rgba(255,255,255,0.8)'
-                    }}>
-                      <span>📧</span>
-                      <span>McKenzie.ouyang@gmail.com</span>
-                    </div>
-                    
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '12px',
-                      padding: '10px 14px',
-                      background: 'rgba(255,255,255,0.04)',
-                      borderRadius: '8px',
-                      border: '1px solid rgba(255,255,255,0.08)',
-                      fontSize: '0.9rem',
-                      color: 'rgba(255,255,255,0.8)'
-                    }}>
-                      <span>🇨🇳</span>
-                      <span>+86 15723351973</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* 当前状态 - 简化版 */}
-            <div style={{
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '15px',
-              overflow: 'hidden',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
-            }}
-            onClick={() => {
-              setExpandedSection(expandedSection === 'status-preview' ? null : 'status-preview');
-            }}>
-              <div style={{
-                padding: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px'
-                }}>
-                  <span style={{ fontSize: '1.5rem' }}>🎯</span>
-                  <div>
-                    <h3 style={{
-                      fontSize: '1.2rem',
-                      fontWeight: '500',
-                      color: 'white',
-                      margin: '0',
-                      fontFamily: "'Inter', sans-serif"
-                    }}>
-                      Interest Focus
-                    </h3>
-                    <div style={{
-                      fontSize: '0.85rem',
-                      color: 'rgba(255,255,255,0.6)',
-                      marginTop: '2px'
-                    }}>
-                      Game design & technical art
-                    </div>
-                  </div>
-                </div>
-                <div style={{
-                  fontSize: '1.2rem',
-                  color: 'rgba(255,255,255,0.6)',
-                  transform: expandedSection === 'status-preview' ? 'rotate(180deg)' : 'rotate(0deg)',
-                  transition: 'transform 0.3s ease'
-                }}>
-                  ▼
-                </div>
-              </div>
-              {expandedSection === 'status-preview' && (
-                <div style={{
-                  padding: '0 20px 20px 20px',
-                  borderTop: '1px solid rgba(255,255,255,0.1)',
-                  paddingTop: '20px'
-                }}>
-                  <div style={{
-                    fontSize: '0.9rem',
-                    color: 'rgba(255,255,255,0.7)',
-                    lineHeight: '1.5',
-                    textAlign: 'left'
-                  }}>
-                    Passionate about game level design and technical art, exploring the intersection of gameplay mechanics and visual storytelling. Currently focused on innovative approaches to interactive experiences and digital art creation.
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Page */}
-      <section id="contact" style={{
-        minHeight: '100vh',
-        width: '100vw',
-        background: 'linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 50%, #1a1a1a 100%)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        scrollSnapAlign: 'start',
-        scrollSnapStop: 'always',
-        overflow: 'auto',
-        position: 'relative',
-        padding: '40px'
-      }}>
-        {/* 主要内容 */}
-        <div style={{
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          padding: '0 80px',
-          zIndex: 2,
-          maxWidth: '1200px'
-        }}>
-          {/* 页面标题 */}
-          <div style={{
-            textAlign: 'center',
-            marginBottom: '50px'
-          }}>
-            <h2 style={{
-              fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-              fontWeight: '100',
-              margin: '0 0 10px 0',
-              letterSpacing: '-0.03em',
-              lineHeight: '1.1',
-              background: 'linear-gradient(135deg, #ffffff 0%, #888888 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              fontFamily: "'Inter', sans-serif"
-            }}>
-              Experience & Education
-            </h2>
-            <div style={{
-              fontSize: '1.1rem',
-              color: 'rgba(255,255,255,0.7)',
-              fontFamily: "'Inter', sans-serif",
-              fontWeight: '300'
-            }}>
-              Detailed Background & Achievements
-            </div>
-          </div>
-
-          {/* 详细的可展开模块 */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '30px'
-          }}>
-            {/* 教育经历模块 */}
-            <div style={{
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '15px',
-              overflow: 'hidden',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
-            }}
-            onClick={() => {
-              setExpandedSection(expandedSection === 'education' ? null : 'education');
-            }}>
-              <div style={{
-                padding: '25px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '15px'
-                }}>
-                  <span style={{ fontSize: '2rem' }}>🎓</span>
-                  <div>
-                    <h3 style={{
-                      fontSize: '1.3rem',
-                      fontWeight: '500',
-                      color: 'white',
-                      margin: '0',
-                      fontFamily: "'Inter', sans-serif"
-                    }}>
-                      Education & Experience
-                    </h3>
-                    <div style={{
-                      fontSize: '0.9rem',
-                      color: 'rgba(255,255,255,0.6)',
-                      marginTop: '4px'
-                    }}>
-                      Academic background & work experience
-                    </div>
-                  </div>
-                </div>
-                <div style={{
-                  fontSize: '1.4rem',
-                  color: 'rgba(255,255,255,0.6)',
-                  transform: expandedSection === 'education' ? 'rotate(180deg)' : 'rotate(0deg)',
-                  transition: 'transform 0.3s ease'
-                }}>
-                  ▼
-                </div>
-              </div>
-              {expandedSection === 'education' && (
-                <div style={{
-                  padding: '0 25px 25px 25px',
-                  borderTop: '1px solid rgba(255,255,255,0.1)',
-                  paddingTop: '25px'
-                }}>
-                  <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '20px'
-                  }}>
-                    <div style={{
-                      background: 'rgba(255,255,255,0.04)',
-                      borderRadius: '12px',
-                      padding: '20px',
-                      border: '1px solid rgba(255,255,255,0.08)'
-                    }}>
-                      <div style={{
-                        fontSize: '1rem',
-                        fontWeight: '600',
-                        color: 'rgba(255,255,255,0.95)',
-                        marginBottom: '8px'
-                      }}>
-                        The Hong Kong Polytechnic University
-                      </div>
-                      <div style={{
-                        fontSize: '0.9rem',
-                        color: 'rgba(255,255,255,0.8)',
-                        marginBottom: '4px'
-                      }}>
-                        Master's in Innovative Multimedia Entertainment
-                      </div>
-                      <div style={{
-                        fontSize: '0.8rem',
-                        color: 'rgba(255,255,255,0.6)'
-                      }}>
-                        2024 - Present
-                      </div>
-                    </div>
-                    <div style={{
-                      background: 'rgba(255,255,255,0.04)',
-                      borderRadius: '12px',
-                      padding: '20px',
-                      border: '1px solid rgba(255,255,255,0.08)'
-                    }}>
-                      <div style={{
-                        fontSize: '1rem',
-                        fontWeight: '600',
-                        color: 'rgba(255,255,255,0.95)',
-                        marginBottom: '8px'
-                      }}>
-                        Sichuan Fine Arts Institute
-                      </div>
-                      <div style={{
-                        fontSize: '0.9rem',
-                        color: 'rgba(255,255,255,0.8)',
-                        marginBottom: '4px'
-                      }}>
-                        Bachelor's in Digital Media Arts
-                      </div>
-                      <div style={{
-                        fontSize: '0.8rem',
-                        color: 'rgba(255,255,255,0.6)'
-                      }}>
-                        2020 - 2024
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* 完整奖项列表 */}
-            <div style={{
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '15px',
-              overflow: 'hidden',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
-            }}
-            onClick={() => {
-              setExpandedSection(expandedSection === 'full-awards' ? null : 'full-awards');
-            }}>
-              <div style={{
-                padding: '25px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '15px'
-                }}>
-                  <span style={{ fontSize: '2rem' }}>🏆</span>
-                  <div>
-                    <h3 style={{
-                      fontSize: '1.3rem',
-                      fontWeight: '500',
-                      color: 'white',
-                      margin: '0',
-                      fontFamily: "'Inter', sans-serif"
-                    }}>
-                      Complete Awards List
-                    </h3>
-                    <div style={{
-                      fontSize: '0.9rem',
-                      color: 'rgba(255,255,255,0.6)',
-                      marginTop: '4px'
-                    }}>
-                      All achievements and recognitions
-                    </div>
-                  </div>
-                </div>
-                <div style={{
-                  fontSize: '1.4rem',
-                  color: 'rgba(255,255,255,0.6)',
-                  transform: expandedSection === 'full-awards' ? 'rotate(180deg)' : 'rotate(0deg)',
-                  transition: 'transform 0.3s ease'
-                }}>
-                  ▼
-                </div>
-              </div>
-              {expandedSection === 'full-awards' && (
-                <div style={{
-                  padding: '0 25px 25px 25px',
-                  borderTop: '1px solid rgba(255,255,255,0.1)',
-                  paddingTop: '25px',
-                  maxHeight: '400px',
-                  overflow: 'auto'
-                }}>
-                  <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '15px'
-                  }}>
-                    {[
-                      {
-                        title: "The 14th National Exhibition of Fine Arts",
-                        subtitle: "Nominated for Final",
-                        year: "07/2024",
-                        color: '#FFD700'
-                      },
-                      {
-                        title: "EDA Oriental Lake District - Leading South",
-                        subtitle: "Nominated for District Level",
-                        year: "05/2023",
-                        color: '#00ff88'
-                      },
-                      {
-                        title: "Sichuan Fine Arts Institute - Second-class Scholarship",
-                        subtitle: "Academic Excellence",
-                        year: "12/2022",
-                        color: '#9999ff'
-                      },
-                      {
-                        title: "Busan International Art Festival 2022",
-                        subtitle: "Selected Award",
-                        year: "12/2022",
-                        color: '#ff6b35'
-                      },
-                      {
-                        title: 'Internet + Innovation Competition',
-                        subtitle: "Third Prize",
-                        year: "09/2022",
-                        color: '#00ccff'
-                      },
-                      {
-                        title: "National Printmakers Exhibition",
-                        subtitle: "Excellence Award",
-                        year: "05/2021",
-                        color: '#ff3366'
-                      }
-                    ].map((achievement, index) => (
-                      <div key={index} style={{
-                        background: 'rgba(255,255,255,0.04)',
-                        borderRadius: '10px',
-                        padding: '15px',
-                        border: '1px solid rgba(255,255,255,0.08)',
-                        borderLeft: `4px solid ${achievement.color}`
-                      }}>
-                        <div style={{
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'flex-start',
-                          marginBottom: '4px'
-                        }}>
-                          <div style={{
-                            fontSize: '0.95rem',
-                            fontWeight: '600',
-                            color: 'rgba(255,255,255,0.95)'
-                          }}>
-                            {achievement.title}
-                          </div>
-                          <div style={{
-                            fontSize: '0.8rem',
-                            color: achievement.color,
-                            fontWeight: '500',
-                            background: 'rgba(255,255,255,0.1)',
-                            padding: '2px 8px',
-                            borderRadius: '12px'
-                          }}>
-                            {achievement.year}
-                          </div>
-                        </div>
-                        <div style={{
-                          fontSize: '0.85rem',
-                          color: 'rgba(255,255,255,0.7)'
-                        }}>
-                          {achievement.subtitle}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* 完整游戏经历 */}
-            <div style={{
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '15px',
-              overflow: 'hidden',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
-            }}
-            onClick={() => {
-              setExpandedSection(expandedSection === 'full-gaming' ? null : 'full-gaming');
-            }}>
-              <div style={{
-                padding: '25px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '15px'
-                }}>
-                  <span style={{ fontSize: '2rem' }}>🎮</span>
-                  <div>
-                    <h3 style={{
-                      fontSize: '1.3rem',
-                      fontWeight: '500',
-                      color: 'white',
-                      margin: '0',
-                      fontFamily: "'Inter', sans-serif"
-                    }}>
-                      Game Experience Details
-                    </h3>
-                    <div style={{
-                      fontSize: '0.9rem',
-                      color: 'rgba(255,255,255,0.6)',
-                      marginTop: '4px'
-                    }}>
-                      Complete gaming background
-                    </div>
-                  </div>
-                </div>
-                <div style={{
-                  fontSize: '1.4rem',
-                  color: 'rgba(255,255,255,0.6)',
-                  transform: expandedSection === 'full-gaming' ? 'rotate(180deg)' : 'rotate(0deg)',
-                  transition: 'transform 0.3s ease'
-                }}>
-                  ▼
-                </div>
-              </div>
-              {expandedSection === 'full-gaming' && (
-                <div style={{
-                  padding: '0 25px 25px 25px',
-                  borderTop: '1px solid rgba(255,255,255,0.1)',
-                  paddingTop: '25px'
-                }}>
-                  <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '20px'
-                  }}>
-                    <div style={{
-                      background: 'rgba(255,255,255,0.04)',
-                      borderRadius: '12px',
-                      padding: '20px',
-                      border: '1px solid rgba(255,255,255,0.08)',
-                      borderLeft: '4px solid #00ff88'
-                    }}>
-                      <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        marginBottom: '8px'
-                      }}>
-                        <span style={{ fontSize: '1.2rem' }}>💻</span>
-                        <div style={{
-                          fontSize: '1rem',
-                          fontWeight: '600',
-                          color: 'rgba(255,255,255,0.95)'
-                        }}>
-                          Steam Gaming Collection
-                        </div>
-                      </div>
-                      <div style={{
-                        fontSize: '0.9rem',
-                        color: 'rgba(255,255,255,0.7)',
-                        lineHeight: '1.5'
-                      }}>
-                        Own over 200 games on Steam, with particular passion for CRPGs such as Divinity: Original Sin 2 and Disco Elysium, demonstrating strong interest in narrative-driven and strategy-heavy titles.
-                      </div>
-                    </div>
-
-                    <div style={{
-                      background: 'rgba(255,255,255,0.04)',
-                      borderRadius: '12px',
-                      padding: '20px',
-                      border: '1px solid rgba(255,255,255,0.08)',
-                      borderLeft: '4px solid #9999ff'
-                    }}>
-                      <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        marginBottom: '8px'
-                      }}>
-                        <span style={{ fontSize: '1.2rem' }}>🎲</span>
-                        <div style={{
-                          fontSize: '1rem',
-                          fontWeight: '600',
-                          color: 'rgba(255,255,255,0.95)'
-                        }}>
-                          Board Game Expertise
-                        </div>
-                      </div>
-                      <div style={{
-                        fontSize: '0.9rem',
-                        color: 'rgba(255,255,255,0.7)',
-                        lineHeight: '1.5'
-                      }}>
-                        Experienced board game player, having played over 100 different board games including heavy strategy titles like Brass: Birmingham and Ark Nova, reflecting analytical thinking and familiarity with complex rule systems.
-                      </div>
-                    </div>
-
-                    <div style={{
-                      background: 'rgba(255,255,255,0.04)',
-                      borderRadius: '12px',
-                      padding: '20px',
-                      border: '1px solid rgba(255,255,255,0.08)',
-                      borderLeft: '4px solid #ff6b35'
-                    }}>
-                      <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        marginBottom: '8px'
-                      }}>
-                        <span style={{ fontSize: '1.2rem' }}>📱</span>
-                        <div style={{
-                          fontSize: '1rem',
-                          fontWeight: '600',
-                          color: 'rgba(255,255,255,0.95)'
-                        }}>
-                          Competitive Mobile Gaming
-                        </div>
-                      </div>
-                      <div style={{
-                        fontSize: '0.9rem',
-                        color: 'rgba(255,255,255,0.7)',
-                        lineHeight: '1.5'
-                      }}>
-                        Active mobile gamer with strong competitive performance; ranked top 3 in regional weapon leaderboard in CrossFire Mobile, demonstrating strategic thinking and precision skills.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* 基本信息详细版 */}
-            <div style={{
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '15px',
-              overflow: 'hidden',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
-            }}
-            onClick={() => {
-              setExpandedSection(expandedSection === 'basic-info' ? null : 'basic-info');
-            }}>
-              <div style={{
-                padding: '25px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '15px'
-                }}>
-                  <span style={{ fontSize: '2rem' }}>👤</span>
-                  <div>
-                    <h3 style={{
-                      fontSize: '1.3rem',
-                      fontWeight: '500',
-                      color: 'white',
-                      margin: '0',
-                      fontFamily: "'Inter', sans-serif"
-                    }}>
-                      Personal Details
-                    </h3>
-                    <div style={{
-                      fontSize: '0.9rem',
-                      color: 'rgba(255,255,255,0.6)',
-                      marginTop: '4px'
-                    }}>
-                      Detailed personal information
-                    </div>
-                  </div>
-                </div>
-                <div style={{
-                  fontSize: '1.4rem',
-                  color: 'rgba(255,255,255,0.6)',
-                  transform: expandedSection === 'basic-info' ? 'rotate(180deg)' : 'rotate(0deg)',
-                  transition: 'transform 0.3s ease'
-                }}>
-                  ▼
-                </div>
-              </div>
-              {expandedSection === 'basic-info' && (
-                <div style={{
-                  padding: '0 25px 25px 25px',
-                  borderTop: '1px solid rgba(255,255,255,0.1)',
-                  paddingTop: '25px'
-                }}>
-                  <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(2, 1fr)',
-                    gap: '15px'
-                  }}>
-                    <div style={{
-                      background: 'rgba(255,255,255,0.05)',
-                      padding: '15px 20px',
-                      borderRadius: '12px',
-                      border: '1px solid rgba(255,255,255,0.1)'
-                    }}>
-                      <div style={{
-                        fontSize: '0.8rem',
-                        color: 'rgba(255,255,255,0.6)',
-                        marginBottom: '5px',
-                        fontFamily: "'Inter', sans-serif"
-                      }}>
-                        Location
-                      </div>
-                      <div style={{
-                        fontSize: '0.95rem',
-                        color: 'rgba(255,255,255,0.9)',
-                        fontFamily: "'Inter', sans-serif",
-                        fontWeight: '400'
-                      }}>
-                        Hong Kong
-                      </div>
-                    </div>
-                    <div style={{
-                      background: 'rgba(255,255,255,0.05)',
-                      padding: '15px 20px',
-                      borderRadius: '12px',
-                      border: '1px solid rgba(255,255,255,0.1)'
-                    }}>
-                      <div style={{
-                        fontSize: '0.8rem',
-                        color: 'rgba(255,255,255,0.6)',
-                        marginBottom: '5px',
-                        fontFamily: "'Inter', sans-serif"
-                      }}>
-                        Focus
-                      </div>
-                      <div style={{
-                        fontSize: '0.95rem',
-                        color: 'rgba(255,255,255,0.9)',
-                        fontFamily: "'Inter', sans-serif",
-                        fontWeight: '400'
-                      }}>
-                        Digital Media & Entertainment
-                      </div>
-                    </div>
-                    <div style={{
-                      background: 'rgba(255,255,255,0.05)',
-                      padding: '15px 20px',
-                      borderRadius: '12px',
-                      border: '1px solid rgba(255,255,255,0.1)'
-                    }}>
-                      <div style={{
-                        fontSize: '0.8rem',
-                        color: 'rgba(255,255,255,0.6)',
-                        marginBottom: '5px',
-                        fontFamily: "'Inter', sans-serif"
-                      }}>
-                        Languages
-                      </div>
-                      <div style={{
-                        fontSize: '0.95rem',
-                        color: 'rgba(255,255,255,0.9)',
-                        fontFamily: "'Inter', sans-serif",
-                        fontWeight: '400'
-                      }}>
-                        Chinese, English
-                      </div>
-                    </div>
-                    <div style={{
-                      background: 'rgba(255,255,255,0.05)',
-                      padding: '15px 20px',
-                      borderRadius: '12px',
-                      border: '1px solid rgba(255,255,255,0.1)'
-                    }}>
-                      <div style={{
-                        fontSize: '0.8rem',
-                        color: 'rgba(255,255,255,0.6)',
-                        marginBottom: '5px',
-                        fontFamily: "'Inter', sans-serif"
-                      }}>
-                        Specialization
-                      </div>
-                      <div style={{
-                        fontSize: '0.95rem',
-                        color: 'rgba(255,255,255,0.9)',
-                        fontFamily: "'Inter', sans-serif",
-                        fontWeight: '400'
-                      }}>
-                        Interactive Installations
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Page */}
-      <section id="contact" style={{
-        height: '100vh',
-        width: '100vw',
-        padding: '40px',
-        background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        scrollSnapAlign: 'start',
-        scrollSnapStop: 'always',
-        overflow: 'hidden',
-        position: 'relative'
-      }}>
-        {/* 左侧：联系信息 - 与首页对齐 */}
-        <div style={{
-          flex: '1',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          padding: '0 80px',
-          zIndex: 2,
-          maxWidth: '600px'
-        }}>
-          {/* 主标题 */}
-          <div style={{
-            marginBottom: '40px',
-            textAlign: 'left'
-          }}>
-            <h2 style={{
-              fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
-              fontWeight: '200',
-              margin: '0 0 15px 0',
-              letterSpacing: '-0.02em',
-              color: 'white',
-              fontFamily: "'Inter', sans-serif"
-            }}>
-              Let's Connect
-            </h2>
-            <p style={{
-              fontSize: '1.1rem',
-              color: 'rgba(255,255,255,0.7)',
-              maxWidth: '500px',
-              margin: '0',
-              lineHeight: '1.5',
-              fontFamily: "'Inter', sans-serif",
-              fontWeight: '300'
-            }}>
-              Ready to collaborate on digital art projects, creative installations, or explore new technologies together.
-            </p>
-          </div>
-
-          {/* 联系方式列表 */}
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '20px',
-            marginBottom: '40px'
-          }}>
-            {/* 邮箱 */}
-            <div style={{
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '20px',
-              padding: '25px 20px',
-              transition: 'all 0.3s ease',
-              cursor: 'pointer'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.background = 'rgba(255,255,255,0.06)';
-              e.target.style.borderColor = 'rgba(255,255,255,0.2)';
-              e.target.style.transform = 'translateY(-5px)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.background = 'rgba(255,255,255,0.03)';
-              e.target.style.borderColor = 'rgba(255,255,255,0.1)';
-              e.target.style.transform = 'translateY(0)';
-            }}
-            onClick={() => window.open('mailto:McKenzie.ouyang@gmail.com')}
-            >
-              <div style={{
-                fontSize: '3rem',
-                marginBottom: '20px'
-              }}>
-                📧
-              </div>
-              <h3 style={{
-                fontSize: '1.3rem',
-                fontWeight: '500',
-                color: 'white',
-                margin: '0 0 15px 0',
-                fontFamily: "'Inter', sans-serif"
-              }}>
-                Email
-              </h3>
-              <p style={{
-                fontSize: '1rem',
-                color: 'rgba(255,255,255,0.8)',
-                margin: '0',
-                fontFamily: "'Inter', sans-serif",
-                wordBreak: 'break-all'
-              }}>
-                McKenzie.ouyang@gmail.com
-              </p>
-            </div>
-
-            {/* 电话 - 中国 */}
-            <div style={{
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '20px',
-              padding: '25px 20px',
-              transition: 'all 0.3s ease',
-              cursor: 'pointer'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.background = 'rgba(255,255,255,0.06)';
-              e.target.style.borderColor = 'rgba(255,255,255,0.2)';
-              e.target.style.transform = 'translateY(-5px)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.background = 'rgba(255,255,255,0.03)';
-              e.target.style.borderColor = 'rgba(255,255,255,0.1)';
-              e.target.style.transform = 'translateY(0)';
-            }}
-            onClick={() => window.open('tel:+8615723351973')}
-            >
-              <div style={{
-                fontSize: '3rem',
-                marginBottom: '20px'
-              }}>
-                🇨🇳
-              </div>
-              <h3 style={{
-                fontSize: '1.3rem',
-                fontWeight: '500',
-                color: 'white',
-                margin: '0 0 15px 0',
-                fontFamily: "'Inter', sans-serif"
-              }}>
-                China
-              </h3>
-              <p style={{
-                fontSize: '1rem',
-                color: 'rgba(255,255,255,0.8)',
-                margin: '0',
-                fontFamily: "'Inter', sans-serif"
-              }}>
-                +86 15723351973
-              </p>
-            </div>
-
-            {/* 电话 - 香港 */}
-            <div style={{
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '20px',
-              padding: '25px 20px',
-              transition: 'all 0.3s ease',
-              cursor: 'pointer'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.background = 'rgba(255,255,255,0.06)';
-              e.target.style.borderColor = 'rgba(255,255,255,0.2)';
-              e.target.style.transform = 'translateY(-5px)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.background = 'rgba(255,255,255,0.03)';
-              e.target.style.borderColor = 'rgba(255,255,255,0.1)';
-              e.target.style.transform = 'translateY(0)';
-            }}
-            onClick={() => window.open('tel:+85284963034')}
-            >
-              <div style={{
-                fontSize: '3rem',
-                marginBottom: '20px'
-              }}>
-                🇭🇰
-              </div>
-              <h3 style={{
-                fontSize: '1.3rem',
-                fontWeight: '500',
-                color: 'white',
-                margin: '0 0 15px 0',
-                fontFamily: "'Inter', sans-serif"
-              }}>
-                Hong Kong
-              </h3>
-              <p style={{
-                fontSize: '1rem',
-                color: 'rgba(255,255,255,0.8)',
-                margin: '0',
-                fontFamily: "'Inter', sans-serif"
-              }}>
-                +852 84963034
-              </p>
-            </div>
-          </div>
-
-          {/* 社交媒体链接 */}
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '20px',
-            flexWrap: 'wrap'
-          }}>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                color: 'rgba(255,255,255,0.8)',
-                textDecoration: 'none',
-                fontSize: '1.1rem',
-                fontFamily: "'Inter', sans-serif",
-                padding: '15px 25px',
-                border: '1px solid rgba(255,255,255,0.2)',
-                borderRadius: '12px',
-                transition: 'all 0.3s ease',
-                background: 'rgba(255,255,255,0.02)'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.background = 'rgba(255,255,255,0.1)';
-                e.target.style.borderColor = 'rgba(255,255,255,0.4)';
-                e.target.style.transform = 'translateY(-3px)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.background = 'rgba(255,255,255,0.02)';
-                e.target.style.borderColor = 'rgba(255,255,255,0.2)';
-                e.target.style.transform = 'translateY(0)';
-              }}
-            >
-              <span style={{ fontSize: '1.5rem' }}>💼</span>
-              LinkedIn
-            </a>
-            
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                color: 'rgba(255,255,255,0.8)',
-                textDecoration: 'none',
-                fontSize: '1.1rem',
-                fontFamily: "'Inter', sans-serif",
-                padding: '15px 25px',
-                border: '1px solid rgba(255,255,255,0.2)',
-                borderRadius: '12px',
-                transition: 'all 0.3s ease',
-                background: 'rgba(255,255,255,0.02)'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.background = 'rgba(255,255,255,0.1)';
-                e.target.style.borderColor = 'rgba(255,255,255,0.4)';
-                e.target.style.transform = 'translateY(-3px)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.background = 'rgba(255,255,255,0.02)';
-                e.target.style.borderColor = 'rgba(255,255,255,0.2)';
-                e.target.style.transform = 'translateY(0)';
-              }}
-            >
-              <span style={{ fontSize: '1.5rem' }}>📸</span>
-              Instagram
-            </a>
-
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                color: 'rgba(255,255,255,0.8)',
-                textDecoration: 'none',
-                fontSize: '1.1rem',
-                fontFamily: "'Inter', sans-serif",
-                padding: '15px 25px',
-                border: '1px solid rgba(255,255,255,0.2)',
-                borderRadius: '12px',
-                transition: 'all 0.3s ease',
-                background: 'rgba(255,255,255,0.02)'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.background = 'rgba(255,255,255,0.1)';
-                e.target.style.borderColor = 'rgba(255,255,255,0.4)';
-                e.target.style.transform = 'translateY(-3px)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.background = 'rgba(255,255,255,0.02)';
-                e.target.style.borderColor = 'rgba(255,255,255,0.2)';
-                e.target.style.transform = 'translateY(0)';
-              }}
-            >
-              <span style={{ fontSize: '1.5rem' }}>💻</span>
-              GitHub
-            </a>
-          </div>
-
-          {/* 底部状态 */}
-          <div style={{
-            marginTop: '15px',
-            padding: '12px',
-            background: 'rgba(255,255,255,0.02)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            borderRadius: '15px',
-            maxWidth: '350px',
-            margin: '15px auto 0'
-          }}>
-            <div style={{
-              fontSize: '2rem',
-              marginBottom: '15px'
-            }}>
-              🎮
-            </div>
-            <div style={{
-              fontSize: '1.2rem',
-              fontWeight: '500',
-              color: 'white',
-              marginBottom: '10px',
-              fontFamily: "'Inter', sans-serif"
-            }}>
-              Interest Focus
-            </div>
-            <div style={{
-              fontSize: '1rem',
-              color: 'rgba(255,255,255,0.7)',
-              lineHeight: '1.6',
-              fontFamily: "'Inter', sans-serif"
-            }}>
-              Passionate about game level design and technical art, exploring immersive virtual worlds and gameplay mechanics.
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 作品详情模态框 */}
+      {/* Project Modal */}
       {selectedProject && (
         <div style={{
           position: 'fixed',
@@ -2734,448 +892,233 @@ function App() {
           width: '100vw',
           height: '100vh',
           background: 'rgba(0,0,0,0.9)',
-          zIndex: 2000,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          zIndex: 1000,
           padding: '20px'
         }}
-        onClick={() => setSelectedProject(null)}
-        >
+        onClick={() => setSelectedProject(null)}>
           <div style={{
-            background: '#1a1a1a',
-            borderRadius: '12px',
-            maxWidth: '800px',
+            position: 'relative',
+            maxWidth: '90vw',
             maxHeight: '90vh',
-            overflow: 'auto',
-            position: 'relative'
+            background: '#1a1a1a',
+            borderRadius: '20px',
+            overflow: 'hidden',
+            boxShadow: '0 25px 50px rgba(0,0,0,0.5)'
           }}
-          onClick={(e) => e.stopPropagation()}
-          >
-            {/* 关闭按钮 */}
+          onClick={(e) => e.stopPropagation()}>
+            {/* Close button */}
             <button
               onClick={() => setSelectedProject(null)}
               style={{
                 position: 'absolute',
-                top: '20px',
-                right: '20px',
+                top: '15px',
+                right: '15px',
                 background: 'rgba(255,255,255,0.1)',
                 border: 'none',
+                color: 'white',
+                fontSize: '1.5rem',
+                padding: '10px',
                 borderRadius: '50%',
-                width: '40px',
-                height: '40px',
-                color: 'white',
-                fontSize: '20px',
                 cursor: 'pointer',
-                zIndex: 10
+                zIndex: 10,
+                transition: 'all 0.3s ease'
               }}
-            >
-              ×
-            </button>
-
-            {/* 主图片 */}
-            <img
-              src={selectedProject.image}
-              alt={selectedProject.title}
-              style={{
-                width: '100%',
-                height: '400px',
-                objectFit: 'cover',
-                borderRadius: '12px 12px 0 0'
-              }}
-            />
-
-            {/* 项目信息 */}
-            <div style={{
-              padding: '30px'
-            }}>
-              <div style={{
-                fontSize: '0.9rem',
-                color: 'rgba(255,255,255,0.6)',
-                letterSpacing: '0.1em',
-                marginBottom: '15px',
-                textTransform: 'uppercase',
-                fontFamily: "'Inter', sans-serif"
-              }}>
-                {selectedProject.category} • {selectedProject.year}
-              </div>
-
-              <h2 style={{
-                fontSize: '2rem',
-                fontWeight: '500',
-                margin: '0 0 20px 0',
-                color: 'white',
-                fontFamily: "'Inter', sans-serif"
-              }}>
-                {selectedProject.title}
-              </h2>
-
-              <p style={{
-                fontSize: '1.1rem',
-                lineHeight: '1.7',
-                color: 'rgba(255,255,255,0.8)',
-                margin: '0 0 30px 0',
-                fontFamily: "'Inter', sans-serif"
-              }}>
-                {selectedProject.description}
-              </p>
-
-              {/* 作品集图片网格 */}
-              {selectedProject.gallery && (
-                <div>
-                  <h3 style={{
-                    fontSize: '1.2rem',
-                    color: 'white',
-                    marginBottom: '20px',
-                    fontFamily: "'Inter', sans-serif"
-                  }}>
-                    Gallery
-                  </h3>
-                  <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                    gap: '25px'
-                  }}>
-                    {selectedProject.gallery.map((img, index) => (
-                      <img
-                        key={index}
-                        src={img}
-                        alt={`${selectedProject.title} ${index + 1}`}
-                        style={{
-                          width: '100%',
-                          height: 'auto',
-                          minHeight: '250px',
-                          objectFit: 'contain',
-                          borderRadius: '12px',
-                          cursor: 'pointer',
-                          transition: 'transform 0.3s ease',
-                          border: '1px solid rgba(255, 255, 255, 0.1)',
-                          backgroundColor: 'rgba(0,0,0,0.3)'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.target.style.transform = 'scale(1.03)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.target.style.transform = 'scale(1)';
-                        }}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Sharyap风格可拖拽模态弹窗 */}
-      {modalContent && (
-        <div 
-          style={{
-            position: 'fixed',
-            left: modalPosition.x,
-            top: modalPosition.y,
-            width: '400px',
-            maxHeight: '500px',
-            background: 'rgba(0,0,0,0.95)',
-            backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255,255,255,0.2)',
-            borderRadius: '12px',
-            zIndex: 2000,
-            overflow: 'hidden',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.5)',
-            userSelect: 'none'
-          }}
-        >
-          {/* 拖拽标题栏 */}
-          <div 
-            style={{
-              background: 'rgba(255,255,255,0.1)',
-              padding: '12px 16px',
-              borderBottom: '1px solid rgba(255,255,255,0.1)',
-              cursor: isDragging ? 'grabbing' : 'grab',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between'
-            }}
-            onMouseDown={handleMouseDown}
-          >
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px'
-            }}>
-              <div style={{
-                width: '12px',
-                height: '12px',
-                background: '#ff5f57',
-                borderRadius: '50%'
-              }}></div>
-              <div style={{
-                width: '12px',
-                height: '12px',
-                background: '#ffbd2e',
-                borderRadius: '50%'
-              }}></div>
-              <div style={{
-                width: '12px',
-                height: '12px',
-                background: '#28ca42',
-                borderRadius: '50%'
-              }}></div>
-            </div>
-            
-            <h3 style={{
-              color: 'white',
-              fontSize: '0.9rem',
-              fontWeight: '500',
-              margin: 0,
-              fontFamily: "'Inter', sans-serif"
-            }}>
-              {modalContent === 'education' && 'Education'}
-              {modalContent === 'contact' && 'Contact'}
-              {modalContent === 'awards' && 'Awards'}
-              {modalContent === 'interests' && 'Interests'}
-              {modalContent === 'skills' && 'Skills'}
-            </h3>
-            
-            <button
-              style={{
-                background: 'transparent',
-                border: 'none',
-                color: 'rgba(255,255,255,0.7)',
-                fontSize: '16px',
-                cursor: 'pointer',
-                padding: '4px',
-                borderRadius: '4px',
-                transition: 'all 0.2s ease'
-              }}
-              onClick={() => setModalContent(null)}
               onMouseEnter={(e) => {
-                e.target.style.background = 'rgba(255,255,255,0.1)';
-                e.target.style.color = 'white';
+                e.target.style.background = 'rgba(255,255,255,0.2)';
               }}
               onMouseLeave={(e) => {
-                e.target.style.background = 'transparent';
-                e.target.style.color = 'rgba(255,255,255,0.7)';
+                e.target.style.background = 'rgba(255,255,255,0.1)';
               }}
             >
               ×
             </button>
-          </div>
 
-          {/* 内容区域 */}
-          <div style={{
-            padding: '20px',
-            maxHeight: '420px',
-            overflow: 'auto',
-            color: 'white',
-            fontFamily: "'Inter', sans-serif"
-          }}>
-            {modalContent === 'education' && (
-              <div>
-                <div style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '16px' }}>🎓</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <div>
-                    <h4 style={{ 
-                      fontSize: '1rem', 
-                      fontWeight: '600', 
-                      margin: '0 0 4px 0',
-                      color: 'white'
-                    }}>
-                      Master's in Digital Arts
-                    </h4>
-                    <p style={{ 
-                      fontSize: '0.85rem', 
-                      color: 'rgba(255,255,255,0.8)', 
-                      margin: '0 0 2px 0' 
-                    }}>
-                      University of Arts
-                    </p>
-                    <p style={{ 
-                      fontSize: '0.8rem', 
-                      color: 'rgba(255,255,255,0.6)', 
-                      margin: 0 
-                    }}>
-                      2022-2024
-                    </p>
-                  </div>
-                  <div>
-                    <h4 style={{ 
-                      fontSize: '1rem', 
-                      fontWeight: '600', 
-                      margin: '0 0 4px 0',
-                      color: 'white'
-                    }}>
-                      Bachelor's in Interactive Media
-                    </h4>
-                    <p style={{ 
-                      fontSize: '0.85rem', 
-                      color: 'rgba(255,255,255,0.8)', 
-                      margin: '0 0 2px 0' 
-                    }}>
-                      Design Institute
-                    </p>
-                    <p style={{ 
-                      fontSize: '0.8rem', 
-                      color: 'rgba(255,255,255,0.6)', 
-                      margin: 0 
-                    }}>
-                      2018-2022
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {modalContent === 'contact' && (
-              <div>
-                <div style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '16px' }}>📫</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  <div style={{
-                    background: 'rgba(255,255,255,0.05)',
-                    padding: '12px',
-                    borderRadius: '8px',
-                    textAlign: 'center'
-                  }}>
-                    <div style={{ fontSize: '1.2rem', marginBottom: '4px' }}>✉️</div>
-                    <p style={{ fontSize: '0.9rem', margin: 0, color: 'rgba(255,255,255,0.9)' }}>
-                      McKenzie.ouyang@gmail.com
-                    </p>
-                  </div>
-                  <div style={{ display: 'flex', gap: '8px' }}>
-                    <div style={{
-                      background: 'rgba(255,255,255,0.05)',
-                      padding: '10px',
-                      borderRadius: '8px',
-                      textAlign: 'center',
-                      flex: 1
-                    }}>
-                      <div style={{ fontSize: '1rem', marginBottom: '2px' }}>🇨🇳</div>
-                      <p style={{ fontSize: '0.8rem', margin: 0, color: 'rgba(255,255,255,0.8)' }}>
-                        +86 15723351973
-                      </p>
-                    </div>
-                    <div style={{
-                      background: 'rgba(255,255,255,0.05)',
-                      padding: '10px',
-                      borderRadius: '8px',
-                      textAlign: 'center',
-                      flex: 1
-                    }}>
-                      <div style={{ fontSize: '1rem', marginBottom: '2px' }}>🇭🇰</div>
-                      <p style={{ fontSize: '0.8rem', margin: 0, color: 'rgba(255,255,255,0.8)' }}>
-                        +852 84963034
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {modalContent === 'awards' && (
-              <div>
-                <div style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '16px' }}>🏆</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                    <div style={{ fontSize: '1.2rem' }}>🥇</div>
-                    <div>
-                      <h4 style={{ fontSize: '0.9rem', fontWeight: '600', margin: '0 0 2px 0' }}>
-                        Digital Art Excellence Award
-                      </h4>
-                      <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', margin: 0 }}>
-                        National Arts Competition 2024
-                      </p>
-                    </div>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                    <div style={{ fontSize: '1.2rem' }}>🥈</div>
-                    <div>
-                      <h4 style={{ fontSize: '0.9rem', fontWeight: '600', margin: '0 0 2px 0' }}>
-                        Innovation in Interactive Media
-                      </h4>
-                      <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', margin: 0 }}>
-                        Tech Arts Festival 2023
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {modalContent === 'interests' && (
-              <div>
-                <div style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '16px' }}>🎨</div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '12px' }}>
-                  {['3D Modeling', 'VR/AR', 'AI Art', 'Photography', 'Game Design', 'Motion Graphics'].map(interest => (
-                    <span key={interest} style={{
-                      background: 'rgba(255,255,255,0.1)',
-                      border: '1px solid rgba(255,255,255,0.2)',
-                      borderRadius: '12px',
-                      padding: '4px 8px',
-                      fontSize: '0.75rem',
-                      color: 'rgba(255,255,255,0.9)'
-                    }}>
-                      {interest}
-                    </span>
-                  ))}
-                </div>
-                <p style={{ 
-                  fontSize: '0.85rem', 
-                  lineHeight: '1.5', 
-                  color: 'rgba(255,255,255,0.8)',
-                  margin: 0
+            {/* Modal content */}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'row',
+              maxHeight: '90vh',
+              overflow: 'hidden'
+            }}>
+              {/* Image gallery */}
+              <div style={{
+                flex: '1.5',
+                position: 'relative',
+                minHeight: '500px',
+                background: '#0a0a0a'
+              }}>
+                <img
+                  src={selectedProject.gallery[currentIndex]}
+                  alt={selectedProject.title}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover'
+                  }}
+                />
+                
+                {/* Navigation arrows */}
+                {selectedProject.gallery.length > 1 && (
+                  <>
+                    <button
+                      onClick={() => setCurrentIndex(currentIndex > 0 ? currentIndex - 1 : selectedProject.gallery.length - 1)}
+                      style={{
+                        position: 'absolute',
+                        left: '15px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        background: 'rgba(0,0,0,0.5)',
+                        border: 'none',
+                        color: 'white',
+                        fontSize: '1.5rem',
+                        padding: '15px 20px',
+                        borderRadius: '50%',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.background = 'rgba(0,0,0,0.7)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.background = 'rgba(0,0,0,0.5)';
+                      }}
+                    >
+                      ‹
+                    </button>
+                    <button
+                      onClick={() => setCurrentIndex(currentIndex < selectedProject.gallery.length - 1 ? currentIndex + 1 : 0)}
+                      style={{
+                        position: 'absolute',
+                        right: '15px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        background: 'rgba(0,0,0,0.5)',
+                        border: 'none',
+                        color: 'white',
+                        fontSize: '1.5rem',
+                        padding: '15px 20px',
+                        borderRadius: '50%',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.background = 'rgba(0,0,0,0.7)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.background = 'rgba(0,0,0,0.5)';
+                      }}
+                    >
+                      ›
+                    </button>
+                  </>
+                )}
+                
+                {/* Image counter */}
+                <div style={{
+                  position: 'absolute',
+                  bottom: '15px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  background: 'rgba(0,0,0,0.7)',
+                  color: 'white',
+                  padding: '8px 16px',
+                  borderRadius: '20px',
+                  fontSize: '0.85rem',
+                  fontFamily: "'Inter', sans-serif"
                 }}>
-                  My creative journey spans multiple disciplines, always seeking new ways to merge traditional artforms with emerging technologies.
-                </p>
+                  {currentIndex + 1} / {selectedProject.gallery.length}
+                </div>
               </div>
-            )}
 
-            {modalContent === 'skills' && (
-              <div>
-                <div style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '16px' }}>⚡</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <div>
-                    <h4 style={{ fontSize: '0.9rem', fontWeight: '600', marginBottom: '8px', color: 'rgba(255,255,255,0.9)' }}>
-                      Design & Creative
-                    </h4>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                      {['Digital Art', 'Visual Design', 'Installation Art', 'Motion Graphics'].map(skill => (
-                        <span key={skill} style={{
-                          background: 'rgba(255,255,255,0.08)',
-                          border: '1px solid rgba(255,255,255,0.15)',
-                          borderRadius: '10px',
-                          padding: '3px 8px',
-                          fontSize: '0.7rem',
-                          color: 'rgba(255,255,255,0.8)'
-                        }}>
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
+              {/* Project details */}
+              <div style={{
+                flex: '1',
+                padding: '40px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-start'
+              }}>
+                <div style={{
+                  marginBottom: '20px'
+                }}>
+                  <div style={{
+                    fontSize: '0.85rem',
+                    color: 'rgba(255,255,255,0.6)',
+                    letterSpacing: '0.1em',
+                    marginBottom: '8px',
+                    textTransform: 'uppercase',
+                    fontFamily: "'Inter', sans-serif"
+                  }}>
+                    {selectedProject.category} • {selectedProject.year}
                   </div>
-                  <div>
-                    <h4 style={{ fontSize: '0.9rem', fontWeight: '600', marginBottom: '8px', color: 'rgba(255,255,255,0.9)' }}>
-                      Technical
-                    </h4>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                      {['Creative Coding', 'Interactive Design', '3D Modeling', 'VR/AR Development'].map(skill => (
-                        <span key={skill} style={{
-                          background: 'rgba(255,255,255,0.08)',
-                          border: '1px solid rgba(255,255,255,0.15)',
-                          borderRadius: '10px',
-                          padding: '3px 8px',
-                          fontSize: '0.7rem',
-                          color: 'rgba(255,255,255,0.8)'
-                        }}>
-                          {skill}
+                  <h1 style={{
+                    fontSize: '2.5rem',
+                    fontWeight: '200',
+                    margin: '0 0 15px 0',
+                    color: 'white',
+                    fontFamily: "'Inter', sans-serif"
+                  }}>
+                    {selectedProject.title}
+                  </h1>
+                  <p style={{
+                    fontSize: '1rem',
+                    lineHeight: '1.6',
+                    color: 'rgba(255,255,255,0.8)',
+                    margin: '0 0 30px 0',
+                    fontFamily: "'Inter', sans-serif"
+                  }}>
+                    {selectedProject.description}
+                  </p>
+                </div>
+
+                {/* Software tags */}
+                <div style={{
+                  marginBottom: '30px'
+                }}>
+                  <h3 style={{
+                    fontSize: '1rem',
+                    fontWeight: '500',
+                    margin: '0 0 12px 0',
+                    color: 'rgba(255,255,255,0.8)',
+                    letterSpacing: '0.05em',
+                    textTransform: 'uppercase',
+                    fontFamily: "'Inter', sans-serif"
+                  }}>
+                    Tools Used
+                  </h3>
+                  <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '8px'
+                  }}>
+                    {selectedProject.software.map((software, index) => {
+                      const softwareTag = softwareTags.find(tag => tag.id === software);
+                      return (
+                        <span
+                          key={index}
+                          style={{
+                            padding: '6px 12px',
+                            background: 'rgba(255,255,255,0.1)',
+                            borderRadius: '15px',
+                            fontSize: '0.8rem',
+                            color: 'rgba(255,255,255,0.8)',
+                            fontFamily: "'Inter', sans-serif",
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '6px'
+                          }}
+                        >
+                          {softwareTag?.icon} {softwareTag?.name || software}
                         </span>
-                      ))}
-                    </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
-            )}
+            </div>
           </div>
         </div>
       )}
