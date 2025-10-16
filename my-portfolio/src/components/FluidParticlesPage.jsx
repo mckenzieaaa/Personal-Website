@@ -232,8 +232,8 @@ const FluidParticlesPage = () => {
     <div className="fluid-particles-page">
       <canvas
         ref={canvasRef}
-        width={window.innerWidth}
-        height={window.innerHeight}
+        width={Math.floor(window.innerWidth * 0.85)}
+        height={Math.floor(window.innerHeight * 0.85)}
         className="fluid-canvas"
         onMouseDown={handlePointerDown}
         onMouseMove={handlePointerMove}

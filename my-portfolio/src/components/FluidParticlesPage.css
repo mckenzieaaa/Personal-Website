@@ -5,15 +5,21 @@
   padding: 0;
   overflow: hidden;
   background: #0a0a14;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .fluid-canvas {
   display: block;
-  width: 100%;
-  height: 100%;
   cursor: crosshair;
   background: #0a0a14;
   touch-action: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 
+    0 0 40px rgba(100, 120, 255, 0.2),
+    0 0 80px rgba(100, 120, 255, 0.1);
 }
 
 .fluid-canvas:active {
